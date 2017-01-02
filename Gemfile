@@ -12,9 +12,6 @@ gem 'simple_form'
 gem 'aws-sdk'
 gem 'awesome_print'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'execjs'
-gem 'therubyracer'
-gem 'listen'
 
 group :development do
   gem 'spring-commands-rspec'
