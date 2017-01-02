@@ -1,0 +1,8 @@
+development:
+	bucket: "reflyer.com-development"
+
+test:
+	bucket: "reflyer.com-test"
+
+production:
+	bucket: "reflyer.com"

@@ -1,0 +1,101 @@
+<%highlight_reflyer_by||=nil%>
+<%return unless flyer%>	
+<%users = FlyersUser.users_for(flyer,false)%>
+<%status_class = "unprocessed_flyer" if flyer.status=='new'%>
+<%
+=begin
+style="width:400px"
+style="width:300px" if flyer.image.width
+	width = flyer.image.width
+	if width 
+		if width<@controller.portrait_flyer_width
+			style="width:#{width}px"
+		else
+			#width is greater than 400 - if width is greater than height, widen flyer a little
+			if flyer.image.orflyerntation and flyer.image.orflyerntation=='landscape'
+				if width<@controller.landscape_flyer_width
+					style="width:#{width}px"
+				else
+					style="width:#{@controller.landscape_flyer_width}px"
+				end
+			else
+				style="width:#{@controller.portrait_flyer_width}px"
+			end
+		end
+	else
+		style="width:#{@controller.portrait_flyer_width}px"
+	end
+=end
+%>
+<div id="flyer_<%=flyer.id%>" flyer_id="<%=flyer.id%>" class='flyer <%=status_class%>' 
+	>
+	<div class='rounded_image_container_container'>
+		<div class='rounded_image_container'>
+			<div class='flyer_header'>
+		    	<span class='flyer_category'>
+					<%highlight_class= @query.sub("#","")==flyer.category ? "search_highlight" : "" if @query%>
+					<span class='<%=highlight_class%>'>
+					<a href='<#%=url("/flyers?tags=#{flyer.category}")%>'><%=flyer.category%></a> 
+					</span>
+					<%flyer.tags.each_with_index{|tag,i|%>
+						<%next if i>2%>
+						<%highlight_class= "#{@query}"=="##{tag.text}" ? "search_highlight" : ""%>
+						<span class='<%=highlight_class%>'>
+						<a href='<%=url("/flyers?tags=#{tag.text}")%>'>#<%=tag.text%></a> 
+						</span>
+					<%}%>
+				</span>
+	      		<span class='flyer_when'><%=flyer.short_time_description%></span>
+			</div>
+	 		<a href='<%=flyer.oneup_url(@metro_code)%>'><img style='display:none' onload='jQuery(this).show()' border=0  width='100%'  src='<%=flyer.image.url%>' ></a>
+		</div>
+	</div>
+		<div class='flyer_footer' >
+		<div class='flyer_text'>
+			<%#if flyer.body and not flyer.body.empty? %>  
+				<%#=flyer.formatted_body(@metro_code,@query)%>
+			<%#end%>
+		</div>
+		<div class='flyer_posted_by'>
+			posted by
+			<%highlight_class= (@query==flyer.user.name) ? "search_highlight" : ""%>
+			<span class='<%=highlight_class%>'>
+				<a href='/users/<%=flyer.user.name%>'> <%=flyer.user.name%></a> 
+			</span>
+			<%=time_ago_in_words flyer.created_at%> ago
+			<%if flyer.is_owner(@youser)%>
+				<a href='/flyers/post_flyer?id=<%=flyer.id%>'>edit</a>
+				<a onclick="return confirm('permanently delete this flyer?')" href='flyers/delete?id=<%=flyer.id%>'>delete</a>
+			<%end%>
+			<%if is_admin?%>
+				<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:flyer=>flyer})%>
+			<%end%>
+
+			<%if users.size>0%>
+				<%if highlight_reflyer_by%>
+					<%users.sort! {|x,y| 
+						(x.id==highlight_reflyer_by.id ? 0 : 1)<=>(y.id==highlight_reflyer_by.id ? 0 : 1)
+						}%>
+				<%end%>
+				<br>reflyered by 
+				<a href='/users/<%=users[0].name%>'> <%=users[0].name%></a> 
+				<%if users.size==2-%>
+					+ 1 other
+				<%elsif users.size>2-%>
+				   + <%=users.size-1%> others
+				<%end%>
+			<%end%>
+		</div>
+	</div>
+	
+	<%unless @youser and @youser.id==flyer.user_id%>
+	<div id="flyer_hud_<%=flyer.id%>" class='flyer_hud'>
+		<div id='flyer_hud_feedback_<%=flyer.id%>'></div>
+			<%if already_reflyered%>
+				<button id="<%=flyer.id%>" style="font-size:24px;" class="btn btn-primary unflyer_button" data-name="simple get">- unflyer</button>
+			<%else%>
+				<button id="<%=flyer.id%>" style="font-size:24px;" class="btn btn-primary reflyer_button" data-name="simple get">+ reflyer</button>
+			<%end%>
+	</div>
+	<%end%>
+</div>

@@ -1,0 +1,142 @@
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=335294264092";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<%ie=@flyer%>
+<%
+@reflyered_ids_hash= Hash.new
+if @youser
+	@flyers_users = FlyersUser.find_future_by_user(@youser) 
+	@flyers_users.each{|ieu|
+		@reflyered_ids_hash[ieu.flyer_id]=true
+	}
+end
+already_reflyered = @reflyered_ids_hash[ie.id] ? true : false
+%>
+
+<%return unless ie and ie.image%>	
+<%status_class = "unprocessed_flyer" if ie.status=='new'%>
+<div id="ie_<%=ie.id%>" flyer_id="<%=ie.id%>" class='fullpage_flyer <%=status_class%>'
+	onmouseover='mouseover("<%=ie.id.to_s%>");' 
+	onmouseout='mouseout("<%=ie.id.to_s%>");'
+	>
+	<div class='_rounded_image_container_container'>
+		<div class='_rounded_image_container'>
+	 		<a href='<%=ie.image.url%>'><img border=0  width=100% src='<%=ie.image.url%>' ></a>
+		</div>
+	</div>
+		<div class='fullpage_flyer_footer_header'>
+			<div style='float:left;whitespace:no-wrap'>
+				<span id='reflyer_button_container' style='vertical-align:5px'>
+				<%unless @youser and @youser.id==ie.user_id%>
+					<%if already_reflyered%>
+						<button id="<%=ie.id%>" style="font-size:14px;" class="btn btn-primary unflyer_button" data-name="simple get">- unflyer</button>
+					<%else%>
+						<button id="<%=ie.id%>" style="font-size:14px;" class="btn btn-primary reflyer_button" data-name="simple get">+ reflyer</button>
+					<%end%>
+				<%end%>
+				</span>
+				<a href="http://pinterest.com/pin/create/button/" class="pin-it-button" count-layout="none"><img src="//assets.pinterest.com/images/PinExt.png" alt="Pin it" / ></a> <script type="text/javascript" src="http://assets.pinterest.com/js/pinit.js"></script>
+				<div class="fb-like" data-send="false" data-layout="button_count" data-width="125" data-show-faces="true"></div>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-via="tourfilter">Tweet</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			</div>
+			<div style='float:right'>
+				<span class='flyer_category'>
+					<%highlight_class= @query.sub("#","")==ie.category ? "search_highlight" : "" if @query%>
+					<span class='<%=highlight_class%>'>
+					<a href='<%="/flyers?tags=#{ie.category}"%>'><%=ie.category%></a> 
+					</span>
+					<%ie.tags.each_with_index{|tag,i|%>
+						<%next if i>2%>
+						<%highlight_class= "#{@query}"=="##{tag.text}" ? "search_highlight" : ""%>
+						<span class='<%=highlight_class%>'>
+						<a href='<%=url("/flyers?tags=#{tag.text}")%>'>#<%=tag.text%></a> 
+						</span>
+					<%}%>
+				</span>
+	      		<span class='flyer_when'><%=ie.short_time_description%></span>
+	</div>
+	<div style='clear:both'></div>
+		</div>
+			<div class='fullpage_flyer_footer' >
+			
+		<div style='float:left'>
+			<div class='fullpage_flyer_text' >
+				<%if ie.body and not ie.body.empty? %>  
+					<%=ie.formatted_body%>
+				<%end%>
+			</div>
+			<div class='flyer_posted_by'>
+				posted by
+				<a href='/users/<%=ie.user.name%>'> <%=ie.user.name%></a> 
+				<%=time_ago_in_words ie.created_at%> ago
+				to <%=ie.category%>
+				<%if ie.is_owner(@youser)|| is_admin?%>
+					<a href='/flyer/post_flyer?id=<%=ie.id%>'>edit</a>
+					<a onclick="return confirm('permanently delete this flyer?')" href='/flyer/delete?id=<%=ie.id%>'>delete</a>
+				
+				<%end%>
+				<%users = FlyersUser.users_for(ie,false)%>
+
+				<%if users.size>0%>
+					<br>reflyered by 
+					<%users.each_with_index{|user,i|%>
+						<%return if i>20%>
+					<a href='/users/<%=user.name%>'> <%=user.name%></a> 
+					<%}%>
+					<%if users.size>20-%>
+					   + <%=users.size-20%> others
+					<%end%>
+				<%end%>
+
+				<%if is_admin?%>
+					<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:width=>'784',:flyer=>ie})%>
+				<%end%>
+			</div>
+		</div>
+		<div style='clear:both'></div>
+	</div>
+	<div id="flyer_hud_<%=ie.id%>" class='flyer_hud'>
+	</div>
+</div>
+
+<script>
+/*jQuery(".flyer,.fullpage_flyer").hover(
+  function (eventObject) {
+	jQuery(this).children(".flyer_hud").css("visibility","visible")
+  },
+  function () {
+	jQuery(this).children(".flyer_hud").css("visibility","hidden")
+  }
+)*/
+
+jQuery(".reflyer_button").click(
+	function (eventObject)
+	{
+		flyer_id = jQuery(this).attr("id");
+		jQuery(this).html("processing ...");
+		new Ajax.Updater(
+		         'reflyer_button_container',
+		 		 '/reflyer/'+flyer_id+"/<%#=@controller.quick_auth_token(@youser)%>"
+		         );
+	})
+jQuery(".unflyer_button").click(
+	function (eventObject)
+	{
+		flyer_id = jQuery(this).attr("id");
+		jQuery(this).html("processing ...")
+		new Ajax.Updater(
+		         'reflyer_button_container',
+		 		 '/unflyer/'+flyer_id+"/<%#=@controller.quick_auth_token(@youser)%>"
+		         );
+	})
+
+
+</script>
+
+

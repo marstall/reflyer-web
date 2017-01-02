@@ -1,0 +1,40 @@
+<%
+#	@tags=params[:tags] 
+	@tags=nil if @tags=='all'
+
+	@order=params[:order] || @controller.get_cookie(:order)
+	@start = (params[:start]||0).to_i
+	@page_size=@controller.page_size
+	@num = (params[:num]||@page_size).to_i
+    
+	@order = "created" if not @order
+	@controller.set_cookie(:order,@order)
+	order_hash=
+	{
+	  "created"=>"created_at desc",
+	  "popular"=>"created_at desc",
+	  "date"=>"date desc"
+	}
+	_order = order_hash[@order]
+
+
+	options = {
+	          :show_flagged=>params[:show_flagged]
+	          }
+	params = {
+	          :order=>_order,
+	          :tags=>@tags,
+			  :num=>@num
+	         }
+
+	@flyers = Flyer.all_flyers(params,options)
+%>
+<%total_flyers = Flyer.count_future_flyers(@metro_code)%>
+<%if total_flyers==0%>
+	<%=render(:partial=>'shared/flyers_scarcity')%>
+	<%@hide_footer=true%>
+<%else%>
+	<%=render(:partial=>'shared/flyer_control')%>
+	<%=render(:partial=>"shared/flyers",:locals=>{:total_flyers=>total_flyers})%>
+
+<%end%>

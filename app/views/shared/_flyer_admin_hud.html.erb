@@ -1,0 +1,60 @@
+<%f=flyer%>
+<%return unless f%>
+<%user = f.user%>
+<%return unless user%>
+<%width||=400%>
+
+<div class='flyer_admin' id="flyer_admin_<%=f.id%>" style='width:<%=width%>px '>
+	<b><%=f.id%> posted <%=user.name%>, <!--member since <%#=user.short_registered_on%>-->.</b>
+	<%=form_tag ({:remote=>true,:html=>{:id => "form_#{f.id}"},
+						:update =>"result_#{f.id}",
+						:loading => "jQuery('#status_#{f.id}').html('Processing ...')",
+						:complete => "jQuery('#status_#{f.id}').html('')",
+						:url =>{:controller=>'flyer',:action => 'admin_handler'}}) 
+						-%>
+						<input id='intent' type='hidden' name='intent' value="">
+						
+<input type='hidden' id='button_value_<%=f.id%>' name='button_value_<%=f.id%>' value=''/>
+<input type='hidden' name='imported_event_id' value='<%=f.id%>'/>
+<%if false%>
+<%f.artist_terms.each{|at|%>
+	<div class="artist_term" onMouseDown="jQuery('#radio_<%=at.id%>').trigger('click');console.log('click');jQuery(this).css('background-color','#dfd');return true;">
+		<%checked_string=""# at.status=='valid' ? "checked" : ""%>
+		<input type='checkbox' id='radio_<%=at.id%>' name='artist_term_<%=at.id%>' value='1' <%=checked_string%>><%=at.term_text%><br>
+	</div>
+<%}%>
+<%end%>
+<div style='padding:3px'>
+description<br><textarea name='body' id='body_<%=f.id%>' cols=50 rows=3><%#=f.body%></textarea>
+<br>
+note to user<br><textarea name= 'flagged' id='note_<%=f.id%>' cols=35 rows=2><%=f.flagged%></textarea>
+<br>
+<input type='submit' id='commit' name='commit' value='flag' onclick="jQuery('#button_value_<%=f.id%>').attr('value','flag');return true;">
+<input type='submit' id='commit' name='commit' value='approve + send mail' onclick="jQuery('#button_value_<%=f.id%>').attr('value','approve');return true;">
+<a href='/flyers/post_flyer?id=<%=f.id%>'>edit</a>
+<a onclick="return confirm('permanently delete this flyer?')" href='/flyers/delete?id=<%=f.id%>'>delete</a>
+<span id='status_<%=f.id%>' style='color:#777'><span>
+</div>
+<span id='result_<%=f.id%>' style='padding:4px;'><span>
+</form>
+</div>
+<script>
+
+	jQuery("#flyer_<%=f.id%>").hover(
+	  function () {
+		if (console) console.log("toggle #flyer_admin_<%=f.id%> window.hud:"+window.hud)
+		if (window.hud==true)
+		{
+			jQuery("#flyer_admin_<%=f.id%>").css("visibility","visible")
+		}
+	  },
+	  function () {
+		if (console) console.log("toggle")
+		if (window.hud==true)
+		{
+			jQuery("#flyer_admin_<%=f.id%>").css("visibility","hidden")
+		}
+	  }
+	
+	)
+</script>

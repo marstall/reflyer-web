@@ -1,0 +1,178 @@
+<script>window.hud=false</script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Web</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+	<body >
+		<%if !@fragment%>
+	    <%unless @hide_login or @not_in_a_city%>
+		<form method='get' action='/<%=@metro_code%>/flyers'>
+	  	  <div class='above_header'  style=''>
+	          <div id="left-header" >
+			  culture & community. in flyer form.
+			 </div>
+	          <div id="right-header" >
+					<%= text_field :tag, :text%>
+						</form>
+	  			<span style='display:none' class='header_menu_item '>
+	  				<a href="/calendar">calendar</a> &bull;
+	  			</span>
+	  			<%if true #is_admin?%>
+		  			<span class='header_menu_item ' >
+		  				<input onclick='window.hud=!window.hud'  type='checkbox' />hud&nbsp;
+		  			</span>
+	  			<%end%>
+	  			<span >
+		    		<%unless @hide_login%>
+		              <%if !@youser_logged_in-%>
+		       			<span class='dheader_menu_item'>
+		       				<a href="<%#=url('/edit/homepage_signup_link')%>">signup</a>
+		       			</span>
+		                <span class='dheader_menu_item '>
+		                	<a href="<%#=url('/login')%>">login</a>
+		                </span>
+		              <%else-%>
+		                <span class='dheader_menu_item '>
+		                	<a href="<%=url('/post')%>">post</a>
+		                </span>
+		       			<!--span class='header_menu_item'>
+		       				<a href="<%#=url('/submit_show')%>">submit a show</a>
+		       			</span-->
+		                <span class='header_menu_item '>
+		                <%= link_to 'logout', :action => :logout%>
+	       				(<a href='<%#=url("/users/#{@youser.name}")%>'><%=@youser.name%></a>)
+		                <%="<span style='color:#e77'>a</span>" if is_admin?%>
+		                </span>
+		            <%end%>
+	            	<%end%>
+            </span>
+    		</div>
+			<br>
+	  	  </div>
+		<%end%>
+    <div id='inner_body'>
+			<%unless @hide_header%>
+      <div id='new_logo' >
+        <div style='float:right;padding:12px'>
+          <%#=render(:partial=>'shared/instant_search')%>
+        </div>
+        <div style='float:center'>
+			<div class='rounded_image_container_container'>
+		<div class='rounded_image_container' >
+          <a href='/'><img style='width:400px' src='/images/reflyer.jpg'></span></a><!--img style='height:46px' src='/images/tourfilter_logo_4.png'/-->
+		  </div>
+		</div>
+		<%if @show_logo_subhead%>
+		<div id='logo_subhead'>
+		  a free community flyer-board for <%=@metro%> events
+		</div>
+		<%end%>
+		
+          <!--div class='logo_metro'><a href='<%#=url("/")%>'><%=@metro%></a></div-->
+          <div class='logo_title'><%=@header_title.sub("#","<span style='font-family:monospace;font-size:30px;'>#</span>") if @header_title%></div>
+        </div>
+				<div style='float:right;margin-top:12px'>
+				<%unless @hide_post_flyer_button%>
+					<%#=render(:partial=>'shared/post_button')%>
+				<%end%>
+				</div>
+
+        <div style='clear:both'></div>
+      </div>
+      <div class='signup ' style='display:none'>
+        <div class='gray_links underline' style='float:right'><a href='/login'>login</a></div>
+        <div style='float:left' class='underline'>
+          spam-free concert alerts: <a href="<%#=url('/edit')%>">sign up</a>
+        </div>
+        <div style='clear:both'></div>
+        </div>
+<%end%>
+<div id="tf_header">
+	<div id="left-header">
+		<span id='logo'><a href='/<%=@metro_code%>'>reflyer</a></span>
+<br>
+	</div>
+    <br>
+</div>
+	<div style="clear:both;"></div>
+	<div style="padding:2px"></div>
+<%if flash[:notice]%>
+	<div class="notice"><%= flash[:notice] %><%= flash[:error] %></div>
+<%end%>
+<%if flash[:error]%>
+	<div class="error"><%= flash[:notice] %><%= flash[:error] %></div>
+<%end%>
+<%end%> <!-- if ! fragment -->
+    <%= yield %>
+
+  <%if !@fragment and not @hide_footer%>
+  	<%
+  #		footer_style="footer"
+  		footer_style="footer-full-width" #if @full_width_footer
+  #		footer_style="footer-doublenarrow" if @double_wide_right_column
+  	%>
+  	<br><br>
+  	<div class='footer' id="<%=footer_style%>">
+  		<span class='footer_menu_item'>
+  	</div>
+  </div>
+
+  <%if ENV['RAILS_ENV']!='development'%>
+  <script type="text/javascript">
+  	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+  	var pageTracker = _gat._getTracker("UA-529349-1");
+  	pageTracker._initData();
+  	pageTracker._trackPageview();
+  </script>
+
+
+  <%end%>
+  </div>
+
+  </body>
+  <script type="text/javascript">
+  var _sf_async_config={uid:21126,domain:"reflyer.com"};
+  (function(){
+    function loadChartbeat() {
+      window._sf_endpt=(new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src',
+         (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+         "js/chartbeat.js");
+      document.body.appendChild(e);
+    }
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+       loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+
+  </script>
+  	</html>
+  <%end%> <!-- if ! fragment -->
+  <script>
+  // test
+
+  //pageTracker._trackEvent('1test3', '21test', '1tes2t', 3);
+  </script>
+
+  <%if false #ENV['RAILS_ENV']!='development'%>
+  <script>
+  track_page_view()
+  </script>
+  <%end%>
+  </script>
+  <script>
+  jQuery(document).ready(function() {
+  	if (console) console.log("loaded "+document.location.href)
+  })
+  </script>

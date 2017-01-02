@@ -1,0 +1,132 @@
+<%@total_flyers=total_flyers.to_i rescue 0%>
+<%@page_size||=params[:page_size]%>
+<%@start||=params[:start]%>
+<%@page_size||=@controller.page_size%>
+<%@start||=0%>
+<%@start=@start.to_i%>
+<%@page_size=@page_size.to_i%>
+<%@last = @start+@page_size>@total_flyers ? @total_flyers : @start+@page_size%>
+<%if @query%>
+	<div style='margin:1em;margin-left:2px'>
+	<%if @flyers.size>0%>
+	<div class='message'><%=@flyers.size%> result<%="s" if @flyers.size>1%> for search query  '<%=@query%>': </div>
+	<%else%>
+		<div class='error'>no results for '<%=@query%>'</div>
+	<%end%>
+	</div>
+<%end%>
+<%highlight_reflyer_by||=nil%>
+
+<%
+@reflyered_ids_hash= Hash.new
+if @youser
+	@flyers_users = FlyersUser.find_future_by_user(@youser) 
+	@flyers_users.each{|ieu|
+		@reflyered_ids_hash[ieu.flyer_id]=true
+	}
+end
+%>
+
+<div id='result' class='error'></div>
+<div id='flyer_board'>
+<%if @flyers and not @flyers.empty?%>
+	<%@flyers.each{|flyer|%>
+		  <%already_reflyered = @reflyered_ids_hash[flyer.id] ? true : false%>
+		  <%=render(:partial=>'shared/flyer',:locals=>{:highlight_reflyer_by=>highlight_reflyer_by,:query=>@query,:flyer=>flyer,:already_reflyered=>already_reflyered})%>
+	<%}%>
+<%else%>
+	<!--no flyers found in this category.-->
+<%end%>
+</div>
+<div id='navigation' class='show_on_load'>
+	<div id='navigation_inner'>
+	<%if @start>0
+		prev = @start-@page_size
+		prev = 0 if prev<0
+	%>
+		<a href='/<%=@metro_code%>/flyers?start=<%="#{prev}"%>'>prev <%=@page_size%></a>
+	<%end%>
+	showing <%=@start+1%>-<%=@last%> of <%=@total_flyers%> flyers
+
+<%if @total_flyers>@last%>
+<%page_size=@page_size%>
+<%page_size=@total_flyers-@last if @total_flyers-@last<@page_size%>
+<a href='/<%=@metro_code%>/flyers?start=<%="#{(@start+@page_size)}"%>'>next <%=page_size%></a>
+<%end%>
+</div>
+</div>
+<script>
+
+jQuery(document).ready(function() {
+	var $container = jQuery('#flyer_board');
+	$container.imagesLoaded(function(){
+	  $container.masonry({
+	    itemSelector : '.flyer',
+	  });
+	});
+	setTimeout(function() {jQuery(".show_on_load").css("visibility","visible")},2000)
+	prep_huds();
+/*	jQuery("#flyer_board").infinitescroll({
+		nextSelector: "#navigation a:first",
+		navSelector: "#navigation",
+		itemSelector: ".flyer"},
+	      // trigger Masonry as a callback
+			function(newElements) 
+			{
+				// hide new items while they are loading
+				var $newElems = jQuery( newElements ).css({ opacity: 0 });
+				// ensure that images load before adding to masonry layout
+				$newElems.imagesLoaded(
+					function()
+					{
+						// show elems now they're ready
+						$newElems.animate({ opacity: 1 });
+						$container.masonry( 'appended', $newElems, true ); 
+					})
+			}						   
+	)*/
+});
+
+function prep_huds()
+{
+	if (console) console.log("prep_huds")
+	jQuery(".flyer").hover(
+	  function (eventObject) {
+		jQuery(this).children(".flyer_hud").css("visibility","visible")
+	  },
+	  function () {
+		jQuery(this).children(".flyer_hud").css("visibility","hidden")
+	  }
+	)
+	jQuery(".reflyer_button").on("click",
+		function (eventObject)
+		{
+			jQuery(".reflyer_button").off("click");
+			flyer_id = jQuery(this).attr("id");
+			jQuery.ajax({
+			  url: '/reflyer/'+flyer_id+"/<%#=@controller.quick_auth_token(@youser)%>",
+			  success: function(){
+				jQuery('#'+flyer_id).removeClass('reflyer_button').addClass('unflyer_button').html('+ unflyer');prep_huds()
+			}
+			});
+/*			new Ajax.Updater(
+			         'flyer_hud_feedback'+flyer_id,
+		 		 
+			         );*/
+		})
+	jQuery(".unflyer_button").on("click",
+		function (eventObject)
+		{
+			jQuery(".unflyer_button").off("click");
+			flyer_id = jQuery(this).attr("id");
+			jQuery.ajax({
+			  url: '/<%=@metro_code%>/unflyer/'+flyer_id+"/<%#=@controller.quick_auth_token(@youser)%>",
+			  success: function(){
+				jQuery('#'+flyer_id).removeClass('unflyer_button').addClass('reflyer_button').html('+ reflyer');prep_huds()
+			}
+			});
+
+		})
+}
+
+</script>
