@@ -24,6 +24,8 @@ class FlyersController < ApplicationController
     @flyer = Flyer.create( flyer_params )
     @flyer.user = User.find_by(email_address:"chris@reflyer.com")
     @flyer.save!
+    redirect_to ("/")
+#    render(:inline=>"success!")
   end
   
   def flyer_params
