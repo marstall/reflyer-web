@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem "paperclip", "~> 5.0.0"
 gem 'annotate'
-gem 'rake'
 gem 'mysql2'
 gem 'simple_form'
 gem 'aws-sdk'
