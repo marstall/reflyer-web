@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem "paperclip", "~> 5.0.0"
-gem 'annotate'
 gem 'mysql2'
 gem 'simple_form'
 gem 'aws-sdk'
@@ -40,7 +39,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'rake', '12.0.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
