@@ -78,7 +78,7 @@ defaults:
   # custom scripting and will cause problems when rollbacks are used.
   # "shifting" is the default behavior.
   #
-  #asset_strategy: private
+  asset_strategy: private
 
   # This list of repository relative paths is checked for changes during
   # each deployment (when change detection is not disabled). If `git diff`
