@@ -24,11 +24,11 @@ defaults:
   # This setting can be overridden for individual deployments using
   # the command line options --migrate or --no-migrate.
   #
-  migrate: false
+  migrate: true
 
   # Default migration command to run when migrations are enabled.
   #
-  #migration_command: rake db:migrate --trace
+  migration_command: rake db:migrate --trace
 
   # Enables rails assets precompilation always and halts when the task fails.
   #
@@ -47,7 +47,7 @@ defaults:
   # Override the assets:precompile rake task. This option will be used instead
   # of assets:precompile in the `rake assets:precompile` command.
   #
-  #precompile_assets_task: assets:precompile
+  precompile_assets_task: assets:precompile
 
   # Asset strategies affect the way assets are stored on the server.
   #
