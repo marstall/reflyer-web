@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "flyers_users", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id",    default: 0,                          null: false
     t.integer  "flyer_id",   default: 0,                          null: false
-    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "created_at"
     t.datetime "deleted_at"
     t.index ["flyer_id", "user_id"], name: "flyer_id", using: :btree
   end
