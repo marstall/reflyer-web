@@ -87,8 +87,8 @@ defaults:
   # This option overrides the default list, so include the following
   # defaults if you need them.
   #
-  #asset_dependencies:
-  #- app/assets            # default
+  asset_dependencies:
+  - app/assets            # default
   #- lib/assets            # default
   #- vendor/assets         # default
   #- Gemfile.lock          # default
