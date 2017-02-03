@@ -12,23 +12,6 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
-  create_table "actions", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1" do |t|
-    t.datetime "created_at"
-    t.datetime "user_registered_on"
-    t.string   "username",           limit: 32
-    t.string   "action",             limit: 32
-    t.string   "object_type",        limit: 32
-    t.string   "object_description"
-    t.string   "metro_code",         limit: 16
-    t.integer  "user_id"
-    t.integer  "object_id"
-    t.string   "note_entity"
-    t.string   "note",               limit: 64
-    t.string   "referer_domain",     limit: 64
-    t.string   "referer_path"
-    t.string   "user_agent",         limit: 64
-  end
-
   create_table "flyers", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -46,7 +29,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["user_id"], name: "user_id", using: :btree
   end
 
-  create_table "flyers_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "flyers_users", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id",    default: 0,                          null: false
     t.integer  "flyer_id",   default: 0,                          null: false
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
@@ -54,16 +37,16 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["flyer_id", "user_id"], name: "flyer_id", using: :btree
   end
 
-  create_table "taggings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "taggings", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.integer  "tag_id",     default: 0,                          null: false
-    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "created_at"
     t.integer  "flyer_id",   default: 0,                          null: false
     t.index ["flyer_id"], name: "flyer_id", using: :btree
     t.index ["tag_id"], name: "tag_id", using: :btree
   end
 
-  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+  create_table "tags", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at"
     t.string   "text",       default: "",                         null: false
     t.index ["text"], name: "text", using: :btree
   end
