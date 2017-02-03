@@ -101,7 +101,7 @@ defaults:
   #
   # Default is false (always check git diff before asset compilation)
   #
-  #precompile_unchanged_assets: false
+  precompile_unchanged_assets: true
 
   # Choose which servers should compile assets.
   #
