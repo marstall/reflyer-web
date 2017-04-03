@@ -29,7 +29,7 @@ class FlyersController < ApplicationController
   end
   
   def flyer_params
-    params.require(:flyer).permit(:image)
+    params.require(:flyer).permit([:image,:venue_name,:category])
   end
   
   def post_flyer
