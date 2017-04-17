@@ -2,28 +2,17 @@
 #
 # Table name: users
 #
-#  id                      :integer          not null, primary key
-#  name                    :string(255)
-#  email_address           :string(255)
-#  password                :string(255)
-#  registered_on           :datetime
-#  last_logged_in_on       :datetime
-#  privs                   :string(58)
-#  last_visited_on         :datetime
-#  last_user_agent         :string(255)
-#  about                   :text(65535)
-#  referer_domain          :string(128)
-#  referer_path            :string(255)
-#  wants_newsletter        :string(5)
-#  wants_private_messages  :string(5)        default("true")
-#  wants_weekly_newsletter :string(5)        default("false")
-#  registration_type       :string(6)        default("normal")
-#  registration_code       :string(32)
-#  newsletter_last_sent_on :datetime
-#  lastfm_username         :string(64)
-#  num_itunes_imports      :integer
-#  itunes_imported_at      :datetime
-#  autologin_code          :string(8)
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  email_address     :string(255)
+#  password          :string(255)
+#  registered_on     :datetime
+#  last_logged_in_on :datetime
+#  privs             :string(58)
+#  last_visited_on   :datetime
+#  last_user_agent   :string(255)
+#  referer_domain    :string(128)
+#  referer_path      :string(255)
 #
 
 class User < ActiveRecord::Base

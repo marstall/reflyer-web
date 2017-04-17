@@ -2,11 +2,11 @@
 #
 # Table name: flyers_users
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer          default("0"), not null
-#  flyer_id     :integer
-#  created_at   :datetime         not null
-#  deleted_flag :boolean          default("0")
+#  id         :integer          not null, primary key
+#  user_id    :integer          default(0), not null
+#  flyer_id   :integer          default(0), not null
+#  created_at :datetime
+#  deleted_at :datetime
 #
 
 class FlyersUser < ApplicationRecord

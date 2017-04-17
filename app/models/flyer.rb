@@ -13,12 +13,18 @@
 #  image_content_type :string(255)
 #  image_file_size    :integer
 #  image_updated_at   :datetime
-#  category           :string(32)
+#  image_fingerprint  :string(64)
+#  body               :text(65535)
+#  category           :string(255)
+#  ltlng              :integer
+#  latlng             :integer
+#  place_id           :integer
 #
 
 class Flyer < ApplicationRecord
   
   belongs_to :user
+  belongs_to :place
   has_many :tags, :through => :taggings
   has_many :taggings
 

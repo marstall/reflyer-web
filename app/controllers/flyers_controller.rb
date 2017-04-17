@@ -21,15 +21,41 @@ class FlyersController < ApplicationController
   end
 
   def create
-    @flyer = Flyer.create( flyer_params )
+    @place = Place.new(place_params)
+    @place.save
+    Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+
+    @flyer = Flyer.new( flyer_params )
+    @flyer.place = @place
     @flyer.user = User.find_by(email_address:"chris@reflyer.com")
     @flyer.save!
-    redirect_to ("/")
-#    render(:inline=>"success!")
+    Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+    #redirect_to ("/")
+    render(:inline=>"success!")
   end
   
   def flyer_params
-    params.require(:flyer).permit([:image,:venue_name,:category])
+    params.require(:flyer).permit([:image,:category])
+  end
+
+  def place_params
+    place_params = JSON.parse(params[:flyer][:place])
+    location = place_params["location"]
+    puts "place_params: #{place_params}"
+    puts "location: #{location}"
+    place_params = place_params.merge(location)
+    puts "place_params: #{place_params}"
+    @lng = location["lng"]
+    @lat = location["lat"]
+    #place_params[:latlng] = "st_geomfromtext('place(#{lng} #{lat})')"
+    place_params["source"] = "foursquare"
+    place_params["source_id"] = place_params["id"]
+    place_params["formatted_address"]=place_params["formattedAddress"]
+    place_params = place_params.reject{|key,value| 
+      !["name","formatted_address","city","state","country","source_id","source"].include?(key)
+    }
+    puts "place_params: #{place_params}"
+    place_params
   end
   
   def post_flyer
@@ -155,6 +181,7 @@ class FlyersController < ApplicationController
     @flyers = Flyer.all_flyers(params,options)
 #    format.html { render(:action=>'flyers') }
 #    format.json { render json:@flyers}
+    puts @flyers.to_json
     render json: @flyers
     #render JSON.pretty_generate(FlyerSerializer.new(@flyers).serializable_hash)
   end

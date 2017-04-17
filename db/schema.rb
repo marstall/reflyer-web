@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403024907) do
+ActiveRecord::Schema.define(version: 20170417214942) do
+
+  create_table "cities", id: false, force: :cascade do |t|
+    t.string "country_code", limit: 10
+    t.string "region",       limit: 256
+    t.string "population",   limit: 10
+    t.string "latitude",     limit: 256
+    t.string "longitude",    limit: 256
+    t.string "combined",     limit: 256
+  end
+
+  add_index "cities", ["combined"], name: "combined", using: :btree
 
   create_table "flyers", force: :cascade do |t|
     t.datetime "created_at"
@@ -26,8 +37,10 @@ ActiveRecord::Schema.define(version: 20170403024907) do
     t.datetime "image_updated_at"
     t.string   "image_fingerprint",  limit: 64
     t.text     "body",               limit: 65535
-    t.string   "venue_name",         limit: 255
     t.string   "category",           limit: 255
+    t.integer  "ltlng",              limit: 4
+    t.integer  "latlng",             limit: 4
+    t.integer  "place_id",           limit: 4
   end
 
   add_index "flyers", ["user_id"], name: "user_id", using: :btree
@@ -40,6 +53,19 @@ ActiveRecord::Schema.define(version: 20170403024907) do
   end
 
   add_index "flyers_users", ["flyer_id", "user_id"], name: "flyer_id", using: :btree
+
+  create_table "places", force: :cascade do |t|
+    t.string   "name",              limit: 255
+    t.string   "source",            limit: 255
+    t.string   "source_id",         limit: 255
+    t.integer  "latlng",            limit: 4
+    t.string   "city",              limit: 255
+    t.string   "state",             limit: 255
+    t.string   "country",           limit: 255
+    t.string   "formatted_address", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id",     limit: 4, default: 0, null: false

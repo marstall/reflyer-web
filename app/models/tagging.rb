@@ -2,10 +2,10 @@
 #
 # Table name: taggings
 #
-#  tag_id     :integer          default("0"), not null
-#  created_at :datetime         not null
-#  flyer_id   :integer          default("0"), not null
 #  id         :integer          not null, primary key
+#  tag_id     :integer          default(0), not null
+#  created_at :datetime
+#  flyer_id   :integer          default(0), not null
 #
 
 class Tagging < ApplicationRecord
