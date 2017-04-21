@@ -23,6 +23,7 @@
 
 class Flyer < ApplicationRecord
   
+  DEFAULT_RADIUS=10 #miles
   belongs_to :user
   belongs_to :place
   has_many :tags, :through => :taggings
@@ -103,14 +104,32 @@ class Flyer < ApplicationRecord
     return Flyer.find_by_sql(args)
   end
   
+  def Flyer.params_valid(params)
+    lat=params[:lat]
+    lng=params[:lng]
+    radius=params[:radius]
+    puts "radius.to_f: #{radius.to_f}"
+    if (!lat && !lng) || (lat.to_f!=0 && lng.to_f!=0 && radius.to_f!=0)
+      return true
+    else
+      return false
+    end
+  end
+
   def Flyer.all_flyers(params={},options={})
-    logger.debug "+++ #{params.inspect}"
+     if !Flyer.params_valid(params)
+       Rails.logger.info("invalid params to all_flyers: #{params}")
+       raise "invalid params to all_flyers: #{params}"
+     end
      options||={}
      tags=params[:tags]
      query=params[:query]
+     lat=params[:lat]
+     lng=params[:lng]
+     radius=params[:radius]
      user_id=params[:user_id]
      user = params[:user]
-     puts "!!! possible sql injection" and return nil if tags!=/^[a-z]$/ #sql injection
+     #puts "!!! possible sql injection" and return nil if tags!=/^[a-z]$/ #sql injection
      order=params[:order]||'flyers.created_at desc'
      num=params[:num]||50
      start=params[:start]||0
@@ -118,7 +137,7 @@ class Flyer < ApplicationRecord
      select_sql = "select flyers.* from flyers"
      order_sql= params[:order] || 'flyers.created_at desc'
      group_by_sql = "group by flyers.id"
-
+     
      if tags
        if Tag.is_supertag(tags)
          tags_sql = " and category=?"
@@ -135,7 +154,13 @@ class Flyer < ApplicationRecord
        query_sql = " and (body like ? or username=? or category=?)"
      end
 
-
+     if lat && lng
+       radius||=DEFAULT_RADIUS
+       radius_in_meters = radius.to_i*1600
+       select_sql +=",places"
+       location_sql=" and place_id=places.id "
+       location_sql+=" and st_distance_sphere(st_geomfromtext('point(#{lng} #{lat})'),places.latlng) < #{radius_in_meters} "
+     end
      if user_id
        order= 'ieu.created_at desc'
        select_sql+=",flyers_users ieu"
@@ -166,6 +191,7 @@ class Flyer < ApplicationRecord
         #{flagged_sql}
         #{tags_sql}
         #{query_sql}
+        #{location_sql}
         #{user_id_sql}
         #{group_by_sql}
         order by #{order_sql}

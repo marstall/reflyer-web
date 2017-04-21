@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417214942) do
+ActiveRecord::Schema.define(version: 20170418190821) do
 
   create_table "cities", id: false, force: :cascade do |t|
     t.string "country_code", limit: 10
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 20170417214942) do
     t.integer  "ltlng",              limit: 4
     t.integer  "latlng",             limit: 4
     t.integer  "place_id",           limit: 4
+    t.float    "lat",                limit: 53
+    t.float    "lng",                limit: 53
   end
 
   add_index "flyers", ["user_id"], name: "user_id", using: :btree
@@ -65,6 +67,8 @@ ActiveRecord::Schema.define(version: 20170417214942) do
     t.string   "formatted_address", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "lat",               limit: 53
+    t.float    "lng",               limit: 53
   end
 
   create_table "taggings", force: :cascade do |t|

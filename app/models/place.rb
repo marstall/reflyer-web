@@ -16,11 +16,4 @@
 #
 
 class Place < ActiveRecord::Base
-
-  def set_latlng(location_hash)
-    puts "location_hash: #{location_hash}"
-    lng = location_hash["lng"]
-    lat = location_hash["lat"]
-    latlng = "st_geomfromtext('place(#{lng} #{lat})')"
-  end
 end

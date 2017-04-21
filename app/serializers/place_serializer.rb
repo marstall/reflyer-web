@@ -15,6 +15,6 @@
 #  updated_at        :datetime
 #
 
-class FlyerSerializer < ActiveModel::Serializer
-  attributes :id, :name, :source_id
+class PlaceSerializer < ActiveModel::Serializer
+  attributes :id, :name, :source_id, :latlng, :lat, :lng
 end
