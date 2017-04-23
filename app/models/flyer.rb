@@ -42,8 +42,9 @@ class Flyer < ApplicationRecord
 
 
   has_attached_file :image, styles: {
-                                      original: {convert_options: CONVERT_OPTIONS},
-                                      medium: "750x750>", thumb:"250x250>"
+                                      original: {convert_options: "-strip"},
+                                      medium: ["750x750> #{CONVERT_OPTIONS}", 
+                                      thumb:"250x250>  #{CONVERT_OPTIONS}"
                                     }
 
 
