@@ -4,7 +4,7 @@ Rails.application.configure do
     :storage => :s3,
     :s3_region => "us-east-1",
     :s3_credentials => {
-      :bucket => 'reflyer.com-development',
+      :bucket => 'reflyer.com',
     }
   }  
   # In the development environment your application's code is reloaded on

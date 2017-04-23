@@ -22,16 +22,28 @@
 #
 
 class Flyer < ApplicationRecord
+
+  IMAGE_QUALITY=50  # max 100
+  DEFAULT_RADIUS=10 # miles
+
+  CONVERT_OPTIONS = <<-_
+    -strip 
+    -interlace Plane 
+    -sampling-factor 4:2:0 
+    -define jpeg:dct-method=float 
+    -quality #{IMAGE_QUALITY}% 
+    -auto-orient
+  _
   
-  DEFAULT_RADIUS=10 #miles
   belongs_to :user
   belongs_to :place
   has_many :tags, :through => :taggings
   has_many :taggings
 
+
   has_attached_file :image, styles: {
-                                      original: {convert_options: '-auto-orient'},
-                                      medium: "500x500>", thumb:"250x250>"
+                                      original: {convert_options: CONVERT_OPTIONS},
+                                      medium: "750x750>", thumb:"250x250>"
                                     }
 
 
@@ -158,8 +170,9 @@ class Flyer < ApplicationRecord
        radius||=DEFAULT_RADIUS
        radius_in_meters = radius.to_i*1600
        select_sql +=",places"
-       location_sql=" and place_id=places.id "
-       location_sql+=" and st_distance_sphere(st_geomfromtext('point(#{lng} #{lat})'),places.latlng) < #{radius_in_meters} "
+       location_sql=""
+       #location_sql=" and place_id=places.id "
+       #location_sql+=" and st_distance_sphere(st_geomfromtext('point(#{lng} #{lat})'),places.latlng) < #{radius_in_meters} "
      end
      if user_id
        order= 'ieu.created_at desc'
@@ -168,7 +181,7 @@ class Flyer < ApplicationRecord
      end
      recommenders_sql = ""
      if options[:show_recommenders]
-       if user and user.recommenders.size>0
+       if user and user.recommenders``.size>0
          order_sql= 'ieu.created_at desc'         
          select_sql+=",flyers_users ieu"
          ids  = user.recommenders.collect{|u|u.id}.join(",")
