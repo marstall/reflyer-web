@@ -32,7 +32,7 @@ class Flyer < ApplicationRecord
     -sampling-factor 4:2:0 
     -define jpeg:dct-method=float 
     -quality #{IMAGE_QUALITY}% 
-    -auto-orient
+    -auto-orient 
   _
   
   belongs_to :user
@@ -171,9 +171,8 @@ class Flyer < ApplicationRecord
        radius||=DEFAULT_RADIUS
        radius_in_meters = radius.to_i*1600
        select_sql +=",places"
-       location_sql=""
-       #location_sql=" and place_id=places.id "
-       #location_sql+=" and st_distance_sphere(st_geomfromtext('point(#{lng} #{lat})'),places.latlng) < #{radius_in_meters} "
+       location_sql=" and place_id=places.id "
+       location_sql+=" and st_distance(st_geomfromtext('point(#{lng} #{lat})'),places.latlng)*103312 < #{radius_in_meters} "
      end
      if user_id
        order= 'ieu.created_at desc'
