@@ -21,9 +21,12 @@ class FlyersController < ApplicationController
   end
 
   def create
-    @place = Place.new(place_params)
-    @place.save
-    Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+    @place = Place.find_by(source_id:place_params["source_id"]) 
+    if not @place 
+      Place.new(place_params)
+      @place.save
+      Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+    end
 
     @flyer = Flyer.new( flyer_params )
     @flyer.place = @place
