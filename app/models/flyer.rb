@@ -75,7 +75,7 @@ class Flyer < ApplicationRecord
   end
 
   def age
-    ((Time.now - created_at)/1.day).floor
+    (Time.now.to_date - created_at.to_date).to_int
   end
 
   def Flyer.count_future_flyers(metro_code)
