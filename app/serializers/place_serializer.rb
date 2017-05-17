@@ -16,5 +16,5 @@
 #
 
 class PlaceSerializer < ActiveModel::Serializer
-  attributes :id, :name, :source_id, :latlng, :lat, :lng
+  attributes :id, :name, :city, :state, :formatted_address, :source_id, :latlng, :lat, :lng
 end

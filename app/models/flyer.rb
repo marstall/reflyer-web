@@ -74,6 +74,10 @@ class Flyer < ApplicationRecord
     image.url
   end
 
+  def age
+    ((Time.now - created_at)/1.day).floor
+  end
+
   def Flyer.count_future_flyers(metro_code)
     sql = <<-SQL
     select count(distinct id) from flyers
@@ -84,7 +88,7 @@ class Flyer < ApplicationRecord
   end
   
   def Flyer.popular_flyers(params={},options={})
-    limit = options[:limit]||50
+    limit = 6#options[:limit]||50
     tags=params[:tags]
     select_sql=""
     if tags

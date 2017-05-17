@@ -31,7 +31,7 @@ class FlyersController < ApplicationController
     @flyer.save!
     Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
     #redirect_to ("/")
-    render(:inline=>"success!")
+    render json: @flyer, include: ['place']
   end
 
   def flyer_params
