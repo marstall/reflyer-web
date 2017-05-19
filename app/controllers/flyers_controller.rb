@@ -23,7 +23,7 @@ class FlyersController < ApplicationController
   def create
     @place = Place.find_by(source_id:place_params["source_id"]) 
     if not @place 
-      Place.new(place_params)
+      @place = Place.new(place_params)
       @place.save
       Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
     end
