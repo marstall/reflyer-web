@@ -20,6 +20,13 @@ class FlyersController < ApplicationController
     render(:layout=>'minimal_layout',:action=>'flyer')
   end
 
+  def process_tags(flyer,_tags)
+    tags = JSON.parse(_tags)
+    tags.each{|tag|
+      flyer.tags<<Tag.find_or_create(tag)
+    }
+  end
+  
   def create
     @place = Place.find_by(source_id:place_params["source_id"]) 
     if not @place 
@@ -32,6 +39,7 @@ class FlyersController < ApplicationController
     @flyer.place = @place
     @flyer.user = User.find_by(email_address:"chris@reflyer.com")
     @flyer.save!
+    process_tags(@flyer,params[:flyer][:tags])
     Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
     #redirect_to ("/")
     render json: @flyer, include: ['place']

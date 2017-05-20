@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/flyer/:id', to: 'flyers#flyer'
   post '/flyers', to: 'flyers#create'
   get '/flyers', to: 'flyers#flyers'
+  get '/tags', to: 'tags#search'
   
   match ':controller/:action/:id', via: [:get, :post]
   match ':controller/:action', via: [:get, :post]
