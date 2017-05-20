@@ -41,7 +41,7 @@ style="width:300px" if flyer.image.width
 						<%next if i>2%>
 						<%highlight_class= "#{@query}"=="##{tag.text}" ? "search_highlight" : ""%>
 						<span class='<%=highlight_class%>'>
-						<a href='<%=url("/flyers?tags=#{tag.text}")%>'>#<%=tag.text%></a> 
+						<a href='/flyers?tags=#{tag.text}'>#<%=tag.text%></a> 
 						</span>
 					<%}%>
 				</span>
