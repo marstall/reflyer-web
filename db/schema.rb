@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418190821) do
+ActiveRecord::Schema.define(version: 20170529004344) do
 
   create_table "cities", id: false, force: :cascade do |t|
     t.string "country_code", limit: 10
@@ -37,12 +37,13 @@ ActiveRecord::Schema.define(version: 20170418190821) do
     t.datetime "image_updated_at"
     t.string   "image_fingerprint",  limit: 64
     t.text     "body",               limit: 65535
+    t.string   "venue_name",         limit: 255
     t.string   "category",           limit: 255
-    t.integer  "ltlng",              limit: 4
     t.integer  "latlng",             limit: 4
     t.integer  "place_id",           limit: 4
     t.float    "lat",                limit: 53
     t.float    "lng",                limit: 53
+    t.datetime "start_date"
   end
 
   add_index "flyers", ["user_id"], name: "user_id", using: :btree
@@ -73,7 +74,7 @@ ActiveRecord::Schema.define(version: 20170418190821) do
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id",     limit: 4, default: 0, null: false
-    t.datetime "created_at"
+    t.datetime "created_at",                       null: false
     t.integer  "flyer_id",   limit: 4, default: 0, null: false
   end
 
@@ -81,7 +82,7 @@ ActiveRecord::Schema.define(version: 20170418190821) do
   add_index "taggings", ["tag_id"], name: "tag_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.datetime "created_at"
+    t.datetime "created_at",                          null: false
     t.string   "text",       limit: 255, default: "", null: false
   end
 
@@ -93,7 +94,7 @@ ActiveRecord::Schema.define(version: 20170418190821) do
     t.string   "password",          limit: 255
     t.datetime "registered_on"
     t.datetime "last_logged_in_on"
-    t.string   "privs",             limit: 58
+    t.string   "privs",             limit: 0
     t.datetime "last_visited_on"
     t.string   "last_user_agent",   limit: 255
     t.string   "referer_domain",    limit: 128

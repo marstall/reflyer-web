@@ -77,6 +77,10 @@ class Flyer < ApplicationRecord
   def age
     (Time.now.to_date - created_at.to_date).to_int
   end
+  
+  def formatted_start_date
+    start_date ? start_date.iso8601 : nil
+  end
 
   def Flyer.count_future_flyers(metro_code)
     sql = <<-SQL

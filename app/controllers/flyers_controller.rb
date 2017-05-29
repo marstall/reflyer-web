@@ -36,6 +36,7 @@ class FlyersController < ApplicationController
     end
 
     @flyer = Flyer.new( flyer_params )
+    Rails.logger.info("+++++++++++++++ flyer_params.inspect: #{flyer_params.inspect}")
     @flyer.place = @place
     @flyer.user = User.find_by(email_address:"chris@reflyer.com")
     @flyer.save!
@@ -46,7 +47,7 @@ class FlyersController < ApplicationController
   end
 
   def flyer_params
-    params.require(:flyer).permit([:image,:category,:lat,:lng])
+    params.require(:flyer).permit([:image,:category,:lat,:lng, :start_date])
   end
 
   def place_params

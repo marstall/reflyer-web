@@ -22,6 +22,6 @@
 #
 
 class FlyerSerializer < ActiveModel::Serializer
-  attributes :id, :original_url, :medium_url, :thumb_url,:place,:category, :age
+  attributes :id, :original_url, :medium_url, :thumb_url,:place,:category, :age, :formatted_start_date
   has_one :place
 end

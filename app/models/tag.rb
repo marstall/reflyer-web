@@ -23,7 +23,18 @@ class Tag < ApplicationRecord
       ["community","community"]
     ]
   end
-  
+    
+=begin
+    def Tag.SUPERTAGS = [
+  	['music','music'],
+  	['performance','performance'],
+  	['film','film'],
+  	['spoken word','spoken word'],
+  	['visual art','visual art'],
+  	['activism','activism'],
+  	['neighborhood','neighborhood']
+  ]
+=end  
   def Tag.super_and_popular
   	tags = Tag.SUPERTAGS
     	Tag.popular(20).each{|tag|
@@ -73,6 +84,21 @@ class Tag < ApplicationRecord
       return true if (st[0]==tag)
       }
     return false
+  end
+
+  def Tag.popular_within_category(category)
+    limit = 5#[:limit]||50
+
+    sql = <<-SQL
+      select tags.*,count(*) cnt
+      from flyers,taggings,tags
+      where taggings.flyer_id=flyers.id and taggings.tag_id=tags.id
+      and (flyers.created_at>adddate(now(),interval -1 year))
+      and category=?
+      group by tags.id
+      order by cnt desc limit ?
+    SQL
+    return Tag.find_by_sql([sql,category,limit])
   end
 
   def Tag.popular(num=20)
