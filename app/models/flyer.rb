@@ -78,9 +78,18 @@ class Flyer < ApplicationRecord
     (Time.now.to_date - created_at.to_date).to_int
   end
   
-  def formatted_start_date
+  def hooji
+    "loop"
+  end
+  
+  def iso8601_start_date
     start_date ? start_date.iso8601 : nil
   end
+
+  def iso8601_end_date
+    end_date ? end_date.iso8601 : nil
+  end
+
 
   def Flyer.count_future_flyers(metro_code)
     sql = <<-SQL

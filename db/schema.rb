@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529004344) do
+ActiveRecord::Schema.define(version: 20170611131859) do
 
   create_table "cities", id: false, force: :cascade do |t|
     t.string "country_code", limit: 10
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20170529004344) do
     t.float    "lat",                limit: 53
     t.float    "lng",                limit: 53
     t.datetime "start_date"
+    t.datetime "end_date"
   end
 
   add_index "flyers", ["user_id"], name: "user_id", using: :btree
@@ -56,6 +57,24 @@ ActiveRecord::Schema.define(version: 20170529004344) do
   end
 
   add_index "flyers_users", ["flyer_id", "user_id"], name: "flyer_id", using: :btree
+
+  create_table "metros", force: :cascade do |t|
+    t.string  "name",         limit: 128, default: "",    null: false
+    t.string  "code",         limit: 128
+    t.integer "num_places",   limit: 4
+    t.string  "status",       limit: 0
+    t.string  "state",        limit: 4
+    t.string  "zipcode",      limit: 5
+    t.float   "lng",          limit: 53
+    t.float   "lat",          limit: 53
+    t.string  "country_code", limit: 2
+    t.integer "num_matches",  limit: 4
+    t.boolean "curated",                  default: false
+    t.integer "latlng",       limit: 4,                   null: false
+  end
+
+  add_index "metros", ["code"], name: "code", unique: true, using: :btree
+  add_index "metros", ["latlng"], name: "latlng", length: {"latlng"=>32}, type: :spatial
 
   create_table "places", force: :cascade do |t|
     t.string   "name",              limit: 255
