@@ -47,7 +47,7 @@ class FlyersController < ApplicationController
   end
 
   def flyer_params
-    params.require(:flyer).permit([:image,:category,:lat,:lng, :start_date,:end_date])
+    params.require(:flyer).permit([:image,:title,:buzz,:body,:category,:lat,:lng, :start_date,:end_date])
   end
 
   def place_params
