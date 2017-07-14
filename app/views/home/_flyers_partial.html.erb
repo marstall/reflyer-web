@@ -34,6 +34,7 @@
 	<%=render(:partial=>'shared/flyers_scarcity')%>
 	<%@hide_footer=true%>
 <%else%>
+	<%=render(:partial=>'shared/flyer_control')%>
 	<%=render(:partial=>"shared/flyers",:locals=>{:total_flyers=>total_flyers})%>
 
 <%end%>
