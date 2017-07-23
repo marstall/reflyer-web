@@ -29,6 +29,10 @@ style="width:300px" if flyer.image.width
 %>
 <div id="flyer_<%=flyer.id%>" flyer_id="<%=flyer.id%>" class='flyer <%=status_class%>' 
 	>
+	<%if is_admin?%>
+		<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:flyer=>flyer})%>
+	<%end%>
+    
 	<div class='rounded_image_container_container'>
 		<div class='rounded_image_container'>
 			<div class='flyer_header'>
@@ -47,7 +51,7 @@ style="width:300px" if flyer.image.width
 				</span>
 	      		<span class='flyer_when'><%=flyer.short_time_description%></span>
 			</div>
-	 		<a href='<%=flyer.oneup_url(@metro_code)%>'><img style='display:none' onload='jQuery(this).show()' border=0  width='100%'  src='<%=flyer.image.url%>' ></a>
+	 		<a href='<%=flyer.oneup_url(@metro_code)%>'><img style='display:none' onload='jQuery(this).show()' border=0  width='100%'  src='<%=flyer.image.url(:medium)%>' ></a>
 		</div>
 	</div>
 		<div class='flyer_footer' >
@@ -66,9 +70,6 @@ style="width:300px" if flyer.image.width
 			<%if flyer.is_owner(@youser)%>
 				<a href='/flyers/post_flyer?id=<%=flyer.id%>'>edit</a>
 				<a onclick="return confirm('permanently delete this flyer?')" href='flyers/delete?id=<%=flyer.id%>'>delete</a>
-			<%end%>
-			<%if is_admin?%>
-				<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:flyer=>flyer})%>
 			<%end%>
 
 			<%if users.size>0%>

@@ -887,23 +887,19 @@ font-size:20px;
 	z-index: 1000;	
 }
 
-
 .flyer_admin
 {
 	-webkit-border-radius: 3px 0px 0px 0px;
 	-moz-border-radius: 3px;
 	margin-top:44px;
+    margin-left:10px;
+    position:absolute;
 	padding:6px;
 	border-bottom:2px solid #ddd;
-	visibility:hidden;
 	background-color:white;
 	opacity:0.95;
 	font-size:14px;
-	width: 390px;
-	position: absolute;
-	top: 38px;
-	left: 0;
-	z-index: 1000;		
+	z-index: 1;		
 }
 
 
@@ -938,6 +934,20 @@ font-size:20px;
 			display:none;
 		}
 }
+@media screen and (min-width:401px) and (max-width:799px) {
+	.flyer
+	{
+		width:44%;
+	}
+}
+
+@media screen and (min-width:800px) and (max-width:1400px) {
+	.flyer
+	{
+		width:28%;
+	}
+}
+
 /*
 responsive design for flyer view
 

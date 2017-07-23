@@ -2,10 +2,9 @@
 <%return unless f%>
 <%user = f.user%>
 <%return unless user%>
-<%width||=400%>
+<%width||=300%>
 
 <div class='flyer_admin' id="flyer_admin_<%=f.id%>" style='width:<%=width%>px '>
-	<b><%=f.id%> posted <%=user.name%>, <!--member since <%#=user.short_registered_on%>-->.</b>
 	<%=form_tag ({:remote=>true,:html=>{:id => "form_#{f.id}"},
 						:update =>"result_#{f.id}",
 						:loading => "jQuery('#status_#{f.id}').html('Processing ...')",
@@ -15,7 +14,7 @@
 						<input id='intent' type='hidden' name='intent' value="">
 						
 <input type='hidden' id='button_value_<%=f.id%>' name='button_value_<%=f.id%>' value=''/>
-<input type='hidden' name='imported_event_id' value='<%=f.id%>'/>
+<input type='hidden' name='flyer_id' value='<%=f.id%>'/>
 <%if false%>
 <%f.artist_terms.each{|at|%>
 	<div class="artist_term" onMouseDown="jQuery('#radio_<%=at.id%>').trigger('click');console.log('click');jQuery(this).css('background-color','#dfd');return true;">
@@ -25,9 +24,11 @@
 <%}%>
 <%end%>
 <div style='padding:3px'>
-description<br><textarea name='body' id='body_<%=f.id%>' cols=50 rows=3><%#=f.body%></textarea>
+	<%=f.id%><br> <!--posted <%=user.name%>,--> <!--member since <%#=user.short_registered_on%>-->
+title<br><textarea name='title' id='title_<%=f.id%>' cols=38 rows=1><%=f.title%></textarea>
+description<br><textarea name='buzz' id='buzz_<%=f.id%>' cols=38 rows=15><%=f.buzz%></textarea>
 <br>
-note to user<br><textarea name= 'flagged' id='note_<%=f.id%>' cols=35 rows=2><%=f.flagged%></textarea>
+note to user<br><textarea name= 'flagged' id='note_<%=f.id%>' cols=38 rows=2><%=f.flagged%></textarea>
 <br>
 <input type='submit' id='commit' name='commit' value='flag' onclick="jQuery('#button_value_<%=f.id%>').attr('value','flag');return true;">
 <input type='submit' id='commit' name='commit' value='approve + send mail' onclick="jQuery('#button_value_<%=f.id%>').attr('value','approve');return true;">

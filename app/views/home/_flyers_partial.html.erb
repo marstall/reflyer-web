@@ -17,7 +17,6 @@
 	}
 	_order = order_hash[@order]
 
-
 	options = {
 	          :show_flagged=>params[:show_flagged]
 	          }
@@ -31,10 +30,9 @@
 %>
 <%total_flyers = Flyer.count_future_flyers(@metro_code)%>
 <%if total_flyers==0%>
-	<%=render(:partial=>'shared/flyers_scarcity')%>
+	<%#=render(:partial=>'shared/flyers_scarcity')%>
 	<%@hide_footer=true%>
-<%else%>
-	<%=render(:partial=>'shared/flyer_control')%>
+<%end%>
+	<%#=render(:partial=>'shared/flyer_control')%>
 	<%=render(:partial=>"shared/flyers",:locals=>{:total_flyers=>total_flyers})%>
 
-<%end%>

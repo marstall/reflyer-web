@@ -290,32 +290,32 @@ class FlyersController < ApplicationController
   #  end
   end
 
-
   def admin_handler
     id = params[:flyer_id]
-    at_ids = params[:artist_term]
+    flyer = Flyer.find(id)
+  end
+
+  def _admin_handler
+    id = params[:flyer_id]
+    #at_ids = params[:artist_term]
 #    puts "+++ at_ids: #{at_ids.size}" if at_ids
-    ie = Flyer.find(id)
+    flyer = Flyer.find(id)
     ie.flagged=params[:flagged]
     params.each_key{|param|
 #      puts "#{param} : #{params[param]}"
       }
 
     button_pressed = params[:"button_value_#{id}"]
-    if button_pressed=='flag' && (params[:flagged].strip.empty?)
-      render(:inline=> "<span style='color:red'>you must enter a reason for the flag.</span>")
-      return
-    end
     if button_pressed=='flag'
-      puts "+++ saving ie #{ie.id} with flagged value of #{ie.flagged}"
-      ie.save
-      FlyerMailer::deliver_flyer_edited(ie, metro_code, @youser, "flagged flyer" )
-      FlyerMailer::deliver_flyer_flagged(ie, metro_code, @youser, params[:flagged] )
-      render(:inline=> "<script>jQuery('#ie_#{ie.id}').hide();alert('flyer #{ie.id} successfully flagged.')</script>")
+      puts "+++ saving flyer #{flyer.id} with flagged value of #{flyer.flagged}"
+      flyer.save
+      FlyerMailer::deliver_flyer_edited(flyer, metro_code, @youser, "flagged flyer" )
+      FlyerMailer::deliver_flyer_flagged(flyer, metro_code, @youser, params[:flagged] )
+      render(:inline=> "<script>jQuery('#flyer_#{flyer.id}').hide();alert('flyer #{flyer.id} successfully flagged.')</script>")
       return
     else
       # user clicked "confirm & send" instead
-      if ie.flagged
+      if flyer.flagged
 #        FlyerUnflaggedMailer::deliver_flyer_unflagged(ie, metro_code, @youser)
       end
 

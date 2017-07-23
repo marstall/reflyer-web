@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701224606) do
+ActiveRecord::Schema.define(version: 20170723180736) do
 
   create_table "cities", id: false, force: :cascade do |t|
     t.string "country_code", limit: 10
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170701224606) do
     t.datetime "end_date"
     t.string   "title",              limit: 255
     t.text     "buzz",               limit: 65535
+    t.integer  "score",              limit: 4
   end
 
   add_index "flyers", ["user_id"], name: "user_id", using: :btree

@@ -38,6 +38,7 @@ end
 	<!--no flyers found in this category.-->
 <%end%>
 </div>
+<!--
 <div id='navigation' class='show_on_load'>
 	<div id='navigation_inner'>
 	<%if @start>0
@@ -46,7 +47,8 @@ end
 	%>
 		<a href='/<%=@metro_code%>/flyers?start=<%="#{prev}"%>'>prev <%=@page_size%></a>
 	<%end%>
-	showing <%=@start+1%>-<%=@last%> of <%=@total_flyers%> flyers
+-->
+	<!--showing <%=@start+1%>-<%=@last%> of <%=@total_flyers%> flyers-->
 
 <%if @total_flyers>@last%>
 <%page_size=@page_size%>
@@ -60,9 +62,9 @@ end
 jQuery(document).ready(function() {
 	var $container = jQuery('#flyer_board');
 	$container.imagesLoaded(function(){
-	  $container.masonry({
-	    itemSelector : '.flyer',
-	  });
+      // $container.masonry({
+      //   itemSelector : '.flyer',
+      // });
 	});
 	setTimeout(function() {jQuery(".show_on_load").css("visibility","visible")},2000)
 	prep_huds();
