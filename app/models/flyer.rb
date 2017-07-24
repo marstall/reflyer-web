@@ -165,7 +165,7 @@ class Flyer < ApplicationRecord
      start=params[:start]||0
 
      select_sql = "select flyers.* from flyers"
-     order_sql= params[:order] || 'flyers.created_at desc'
+     order_sql= params[:order] || 'flyers.score desc,flyers.created_at desc'
      group_by_sql = "group by flyers.id"
      
      if tags
@@ -217,7 +217,7 @@ class Flyer < ApplicationRecord
      sql = <<-SQL
         #{select_sql}
         where image_file_name is not null
-        and flyers.created_at>adddate(now(),interval -100 day)
+        and flyers.end_date>=now()
         #{flagged_sql}
         #{tags_sql}
         #{query_sql}
@@ -267,7 +267,9 @@ class Flyer < ApplicationRecord
   
 
   def very_short_time_description
-	 	 "#{created_at.month}/#{created_at.day}"
+    today = DateTime.now.midnight
+    date = start_date
+	 	 "in #{distance_of_time_in_words(today,date)}"
   end
   
   def oneup_url(metro_code)

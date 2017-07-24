@@ -729,17 +729,6 @@ h3
 	text-align: center;  
 }
 
-.flyer_title
-{
-	text-transform:lowercase;
-	padding-left:0px;
-	margin-top:0px;
-	font-size:30px;
-	margin-bottom:0px;
-	background-color:white;
-	border-bottom:0px;
-  color:#335;
-}
 
 .flyer_where_when
 {
@@ -761,6 +750,7 @@ h3
 	line-height:20px;
 }
 
+
 .flyer_footer
 {
 	padding:8px;
@@ -770,12 +760,46 @@ h3
 	overflow:hidden;
 }
 
-.flyer_posted_by
+.flyer_header
+{
+	font-family:helvetica;
+	text-transform:lowercase;
+	font-size:16px;
+	text-align:left;
+	padding:8px;
+    margin-bottom:4px;
+}
+
+.flyer_editors_pick
 {
 	text-transform:lowercase;
-	font-size:14px;
+    font-weight: bold;
+  	color:#d31e09;
+}
+
+.flyer_title
+{
+	text-transform:lowercase;
+	font-size:16px;
+    font-weight: bold;
+  	color:#333;
+}
+
+.flyer_place
+{
+	text-transform:lowercase;
+	font-size:16px;
+  	color:#333;
+}
+
+.flyer_posted_on
+{
+    visibility:hidden;
+	text-transform:lowercase;
+	font-size:10px;
   	color:#777;
 }
+
 
 .flyer_text
 {
@@ -810,21 +834,13 @@ font-size:20px;
 .flyer_when
 {
 	text-transform:lowercase;
+    font-size:16px;
 }
 
-.flyer_header
-{
-	font-family:helvetica;
-	text-transform:lowercase;
-	font-size:16px;
-	text-align:right;
-	padding:8px;
-}
 
 .flyer_category
 {
 	color:#369;
-	padding:2px;
 }
 
 .flyer_category a:link { text-decoration: none; color: #369; }
@@ -893,6 +909,7 @@ font-size:20px;
 	-moz-border-radius: 3px;
 	margin-top:44px;
     margin-left:10px;
+    visibility: hidden;
     position:absolute;
 	padding:6px;
 	border-bottom:2px solid #ddd;
@@ -922,7 +939,7 @@ font-size:20px;
 }
 
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 699px) {
     /* phones */
 		.flyer 
 		{
@@ -934,7 +951,7 @@ font-size:20px;
 			display:none;
 		}
 }
-@media screen and (min-width:401px) and (max-width:799px) {
+@media screen and (min-width:700px) and (max-width:799px) {
 	.flyer
 	{
 		width:44%;
@@ -2886,7 +2903,7 @@ th
 #new_logo
 {
 	margin-left:0px;
-	margin-top:10px;
+	margin-top:20px;
 	margin-right:4px;
 	margin-bottom:10px;
 	padding-bottom:7px;
@@ -3802,6 +3819,7 @@ h1x {
  	color:black;
 	padding-top:8px;
 	width:100%;
+    display:none;
     opacity: .1;
     filter: alpha(opacity=10);
 }

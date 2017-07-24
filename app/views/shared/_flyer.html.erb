@@ -26,6 +26,17 @@ style="width:300px" if flyer.image.width
 		style="width:#{@controller.portrait_flyer_width}px"
 	end
 =end
+words_to_end = distance_of_time_in_words(DateTime.now.midnight,flyer.end_date)
+words_to_start = distance_of_time_in_words(DateTime.now.midnight,flyer.start_date)
+flyer_time=""
+if (flyer.start_date==flyer.end_date)
+    flyer_time = "in #{words_to_start}"
+elsif (flyer.start_date>DateTime.now.midnight+1 )
+    flyer_time = "starts in #{words_to_start}"
+else
+    flyer_time = "ends in #{words_to_start}"
+end
+    
 %>
 <div id="flyer_<%=flyer.id%>" flyer_id="<%=flyer.id%>" class='flyer <%=status_class%>' 
 	>
@@ -49,7 +60,6 @@ style="width:300px" if flyer.image.width
 						</span>
 					<%}%>
 				</span>
-	      		<span class='flyer_when'><%=flyer.short_time_description%></span>
 			</div>
 	 		<a href='<%=flyer.oneup_url(@metro_code)%>'><img style='display:none' onload='jQuery(this).show()' border=0  width='100%'  src='<%=flyer.image.url(:medium)%>' ></a>
 		</div>
@@ -60,14 +70,25 @@ style="width:300px" if flyer.image.width
 				<%#=flyer.formatted_body(@metro_code,@query)%>
 			<%#end%>
 		</div>
-		<div class='flyer_posted_by'>
-			posted by
-			<%highlight_class= (@query==flyer.user.name) ? "search_highlight" : ""%>
-			<span class='<%=highlight_class%>'>
-				<a href='/users/<%=flyer.user.name%>'> <%=flyer.user.name%></a> 
-			</span>
-			<%=time_ago_in_words flyer.created_at%> ago
-			<%if flyer.is_owner(@youser)%>
+		<div class='flyer_title'>
+            <%=flyer.title%> 
+        <%if flyer.score>0%>
+		<span class='flyer_editors_pick'>
+            !!!
+        </span>
+        <%end%>
+            
+        </div>
+		<div class='flyer_place'>
+            <%=flyer.place.name%>
+        </div>
+  		<div class='flyer_when'>
+            <%=flyer_time%></div>
+        
+<!--		<div class='flyer_posted_on'>
+			posted <%=time_ago_in_words flyer.created_at%> ago
+        </div>-->
+			<%if false # flyer.is_owner(@youser)%>
 				<a href='/flyers/post_flyer?id=<%=flyer.id%>'>edit</a>
 				<a onclick="return confirm('permanently delete this flyer?')" href='flyers/delete?id=<%=flyer.id%>'>delete</a>
 			<%end%>
