@@ -297,10 +297,6 @@ class FlyersController < ApplicationController
     flyer.save
   end
 
-  def flyer_params
-    params.permit(:score, :title,:buzz)
-  end
-  
   def _admin_handler
     id = params[:flyer_id]
     #at_ids = params[:artist_term]
