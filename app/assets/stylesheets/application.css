@@ -779,6 +779,8 @@ h3
 
 .flyer_title
 {
+    min-height: 20px;
+	font-family:helvetica;
 	text-transform:lowercase;
 	font-size:16px;
     font-weight: bold;
@@ -787,6 +789,7 @@ h3
 
 .flyer_place
 {
+	font-family:helvetica;
 	text-transform:lowercase;
 	font-size:16px;
   	color:#333;
@@ -794,6 +797,7 @@ h3
 
 .flyer_posted_on
 {
+	font-family:helvetica;
     visibility:hidden;
 	text-transform:lowercase;
 	font-size:10px;
@@ -833,6 +837,7 @@ font-size:20px;
 
 .flyer_when
 {
+	font-family:helvetica;
 	text-transform:lowercase;
     font-size:16px;
 }

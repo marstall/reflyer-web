@@ -295,6 +295,7 @@ class FlyersController < ApplicationController
     flyer = Flyer.find(params[:id])
     flyer.update_attributes(flyer_params)
     flyer.save
+    head :ok
   end
 
   def _admin_handler

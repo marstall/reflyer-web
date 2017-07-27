@@ -8,7 +8,7 @@
 <%=form_tag('flyers/admin_handler',remote:true)%>
 						
 <input type='hidden' id='button_value_<%=f.id%>' name='button_value_<%=f.id%>' value=''/>
-<input type='hidden' id='score_<%=f.id%>' name='score' value='<%=f.score%>'/>
+<input type='hidden' id='score_<%=f.id%>' name='flyer[score]' value='<%=f.score%>'/>
 <input type='hidden' name='id' value='<%=f.id%>'/>
 <%if false%>
 <%f.artist_terms.each{|at|%>
@@ -20,10 +20,10 @@
 <%end%>
 <div style='padding:3px'>
 	<%=f.id%><br> <!--posted <%=user.name%>,--> <!--member since <%#=user.short_registered_on%>-->
-title<br><textarea name='title' id='title_<%=f.id%>' cols=38 rows=1><%=f.title%></textarea>
-description<br><textarea name='buzz' id='buzz_<%=f.id%>' cols=38 rows=15><%=f.buzz%></textarea>
+title<br><textarea name='flyer[title]' id='title_<%=f.id%>' cols=38 rows=1><%=f.title%></textarea>
+description<br><textarea name='flyer[buzz]' id='buzz_<%=f.id%>' cols=38 rows=15><%=f.buzz%></textarea>
 <br>
-note to user<br><textarea name= 'flagged' id='note_<%=f.id%>' cols=38 rows=2><%=f.flagged%></textarea>
+note to user<br><textarea name= 'flyer[flagged]' id='note_<%=f.id%>' cols=38 rows=2><%=f.flagged%></textarea>
 <br>
 <div style='padding:0px;margin-bottom:4px'>
 score (currently <%=f.score%>): <br>
