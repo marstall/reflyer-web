@@ -944,7 +944,7 @@ font-size:20px;
 }
 
 
-@media only screen and (max-width: 667px) {
+@media only screen and (max-width: 414px) {
     /* phones */
 		.flyer 
 		{
@@ -956,7 +956,7 @@ font-size:20px;
 			display:none;
 		}
 }
-@media screen and (min-width:700px) and (max-width:799px) {
+@media screen and (min-width:415px) and (max-width:799px) {
 	.flyer
 	{
 		width:44%;
@@ -968,6 +968,47 @@ font-size:20px;
 	{
 		width:28%;
 	}
+}
+
+@media screen only 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+      .flyer {
+          width:97%;
+      }
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+      .flyer {
+          width:29%;
+      }
+}
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+      .flyer {
+          width:97%;
+      }
+}
+
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+      .flyer {
+          width:97%;
+      }
 }
 
 /*
