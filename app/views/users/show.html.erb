@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Metro code:</strong>
+  <%= @user.metro_code %>
+</p>
+
+<p>
+  <strong>Expo push token:</strong>
+  <%= @user.expo_push_token %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

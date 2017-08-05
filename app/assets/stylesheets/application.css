@@ -8,7 +8,7 @@ line-height:1.5em	;
 	}
 
 body {
-	background-color: #fff;
+	background-color: #ecede8;
 	margin:2px;
 	margin-right:4px;
  	color: #333;
@@ -939,7 +939,7 @@ font-size:20px;
 	float: left;
 	-webkit-border-radius: 10px 10px 10px 10px;
 	-moz-border-radius: 10px 10px 10px 10px;
-	-webkit-box-shadow: 10px 10px 10px #bbb;
+	-webkit-box-shadow: 0px 0px 0px #bbb;
 	-moz-box-shadow: 5px 5px 5px #bbb;
 }
 

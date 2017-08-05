@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723180736) do
+ActiveRecord::Schema.define(version: 20170805201523) do
 
   create_table "cities", id: false, force: :cascade do |t|
     t.string "country_code", limit: 10
@@ -111,18 +111,10 @@ ActiveRecord::Schema.define(version: 20170723180736) do
   add_index "tags", ["text"], name: "text", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.string   "email_address",     limit: 255
-    t.string   "password",          limit: 255
-    t.datetime "registered_on"
-    t.datetime "last_logged_in_on"
-    t.string   "privs",             limit: 0
-    t.datetime "last_visited_on"
-    t.string   "last_user_agent",   limit: 255
-    t.string   "referer_domain",    limit: 128
-    t.string   "referer_path",      limit: 255
+    t.string   "metro_code",      limit: 255
+    t.string   "expo_push_token", limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
-
-  add_index "users", ["last_visited_on"], name: "last_visited_on", using: :btree
 
 end

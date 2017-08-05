@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 #  before_filter :perform_hostname_corrections
 #  before_filter :signup_intercept, :only=>[:homepage]
 #  before_filter :convert_to_new_url_structure_2
-  before_filter :initialize_user, :except => :login
+  #before_filter :initialize_user, :except => :login
   before_filter :mark_time
   before_filter :ensure_www
   before_filter :setup_options

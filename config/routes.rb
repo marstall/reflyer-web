@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
   get '/', to: 'home#home'
   get '/flyer/:id', to: 'flyers#flyer'
   post '/flyers', to: 'flyers#create'
