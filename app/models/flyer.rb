@@ -15,10 +15,17 @@
 #  image_updated_at   :datetime
 #  image_fingerprint  :string(64)
 #  body               :text(65535)
+#  venue_name         :string(255)
 #  category           :string(255)
-#  ltlng              :integer
 #  latlng             :integer
 #  place_id           :integer
+#  lat                :float(53)
+#  lng                :float(53)
+#  start_date         :datetime
+#  end_date           :datetime
+#  title              :string(255)
+#  buzz               :text(65535)
+#  score              :integer          default(0), not null
 #
 
 class Flyer < ApplicationRecord

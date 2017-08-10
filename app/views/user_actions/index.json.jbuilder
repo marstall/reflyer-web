@@ -1,0 +1,1 @@
+json.array! @user_actions, partial: 'user_actions/user_action', as: :user_action

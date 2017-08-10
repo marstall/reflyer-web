@@ -1,158 +1,19 @@
 class FlyersController < ApplicationController
 
-  #include QuickAuthModule
-  before_filter :must_be_admin, :only=>:admin_handler
-
-  def calculate_tags_array(show_hashtags=true)
-    tags_array = [""]
-    tags_array += Tag.SUPERTAGS
-    Tag.popular(20).each{|tag|
-      tags_array<<"##{tag.text} (#{tag.cnt})"
-    } if show_hashtags
-    return tags_array
-  end
-
-  def flyer
-    @flyer = Flyer.find(params[:id])
-    render(:inline=>"unrecognized id") and return unless @flyer
-    @page_title = @flyer.body
-    @hide_login=true
-    render(:layout=>'minimal_layout',:action=>'flyer')
-  end
-
-  def process_tags(flyer,_tags)
-    tags = JSON.parse(_tags)
-    tags.each{|tag|
-      flyer.tags<<Tag.find_or_create(tag)
-    }
+  def load_or_create_user
+    user_id = params[:user_id]
+    expo_push_token = params[:expo_push_token]
+    if user_id
+      @user = User.find(user_id)
+    elsif expo_push_token
+      @user = User.find_or_create_by(expo_push_token:expo_push_token)
+      @user.metro_code='boston'
+      @user.save
+    end
   end
   
-  def create
-    @place = Place.find_by(source_id:place_params["source_id"]) 
-    if not @place 
-      @place = Place.new(place_params)
-      @place.save
-      Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
-    end
-
-    @flyer = Flyer.new( flyer_params )
-    Rails.logger.info("+++++++++++++++ flyer_params.inspect: #{flyer_params.inspect}")
-    @flyer.place = @place
-    @flyer.user = User.find_by(email_address:"chris@reflyer.com")
-    @flyer.save!
-    process_tags(@flyer,params[:flyer][:tags])
-    Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
-    #redirect_to ("/")
-    render json: @flyer, include: ['place']
-  end
-
-  def flyer_params
-    params.require(:flyer).permit([:image,:title,:buzz,:body,:category,:lat,:lng, :start_date,:end_date,:score])
-  end
-
-  def place_params
-    place_params = JSON.parse(params[:flyer][:place])
-    location = place_params["location"]
-    puts "place_params: #{place_params}"
-    puts "location: #{location}"
-    place_params = place_params.merge(location)
-    puts "place_params: #{place_params}"
-    @lng = location["lng"]
-    @lat = location["lat"]
-    place_params["lat"]=@lat
-    place_params["lng"]=@lng
-    #place_params[:latlng] = "st_geomfromtext('place(#{lng} #{lat})')"
-    place_params["source"] = "foursquare"
-    place_params["source_id"] = place_params["id"]
-    place_params["formatted_address"]=place_params["formattedAddress"]
-    place_params = place_params.reject{|key,value|
-      !["name","formatted_address","city","state","country","source_id","lat","lng","source"].include?(key)
-    }
-    puts "place_params: #{place_params}"
-    place_params
-  end
-
-  def post_flyer
-    @tags_array = calculate_tags_array(false)
-
-    if not must_be_known_user("You've successfully uploaded your flyer, but you must create an account to post it!")
-      render :inline=>'error'
-    end
-    @image_url = params[:url]
-    id = params[:id]
-    if id
-      @flyer = Flyer.find(id)
-      if (@flyer.user_id!=@youser.id) && (!@youser.is_admin)
-        render(:inline=>"You do not have permission to edit this flyer.")
-        return
-      else
-        @image_url = @flyer.image_url
-      end
-    else
-      if not @image_url
-        render :inline=>'no image uploaded'
-      end
-    end
-  end
-
-  def promote
-    @flyer = Flyer.find(params[:id])
-  end
-
-  def reflyer
-    if (not @youser) || (not quick_authenticate_with_user(@youser,params))
-      flash[:error]="To reflyer this, first create an account!"
-      render(:js=>"document.location.href='/#{@metro_code}/basic_signup?redirect_url=#{request.referer}'")
-      return
-    end
-#    FlyerMailer::deliver_flyer_edited(event, metro_code, @youser, action)
-    flyer_id = params[:id]
-    flyer = Flyer.find(flyer_id)
-    ieu = FlyersUser.find_by_user_id_and_flyer_id(@youser.id,flyer_id)
-    ieu ||= FlyersUser.new
-    ieu.flyer_id=flyer_id
-    ieu.user_id = @youser.id
-    ieu.metro_code=@metro_code
-    ieu.deleted_flag = false
-    ieu.save
-    Action.user_reflyered(metro_code,@youser,flyer)
-
-    FlyerMailer::deliver_flyer_reflyered(flyer, metro_code, @youser) #if ENV['RAILS_ENV']!='development'
-
-#    render(:inline=>'reflyered!')
-#    render(:js=>"document.writeln(\"<button id='#{flyer_id}' style='font-size:24px;' class='btn btn-primary unflyer_button' data-name='simple get'>+ unflyer</button>\");prep_huds()")
-  render(:inline=>"reflyered")
-
-  end
-
-  def unflyer
-    if not quick_authenticate_with_user(@youser,params)
-      render(:inline=>"you must have an account to reflyer. <a href='/#{@metro_code}/basic_signup?redirect_url=#{request.referer}'>sign up for one!</a>")
-      return
-    end
-#    FlyerMailer::deliver_flyer_edited(event, metro_code, @youser, action)
-    flyer_id = params[:id]
-    flyer = Flyer.find(flyer_id)
-    ieu = FlyersUser.find_by_user_id_and_flyer_id(@youser.id,flyer_id)
-    ieu.deleted_flag=true
-    ieu.save
-    Action.user_unflyered(metro_code,@youser,flyer)
-#    render(:js=>"jQuery('##{flyer_id}').removeClass('reflyer_button').addClass('unflyer_button').html('+ reflyer');prep_huds()")
-    render(:inline=>"unflyered")
-#    render(:js=>"document.writeln(\"<button id='#{flyer_id}' style='font-size:24px;' class='btn btn-primary reflyer_button' data-name='simple get'>+ reflyer</button>\");prep_huds()")
-  end
-
-  def auto_complete_for_flyer_venue_name
-    @places = Place.find_in_metro_like_name(@metro_code,params[:flyer][:venue_name])
-    render :inline => '<%= content_tag(:ul, @places.map { |place| content_tag(:li, h("#{place.name}")) }) %>'
-  end
-
-  def tag
-    flyers
-  end
-
-  def flyers
-    @page_size=self.page_size
+  def load_flyers
+    @page_size=50
     @tags=params[:tags]
     @start = params[:start]||0
     @lat = params[:lat]
@@ -190,190 +51,50 @@ class FlyersController < ApplicationController
               :tags=>@tags,
               :query=>@query,
               :start=>@start,
-              :num=>50
+              :num=>@num
              }
-
-
     @flyers = Flyer.all_flyers(params,options)
-#    format.html { render(:action=>'flyers') }
-#    format.json { render json:@flyers}
+  end
+
+  def blob 
+    load_or_create_user
+    load_flyers
+  end
+
+  def index
+    load_flyers
     render json: @flyers, include: ['place']
   end
-
-  def flyer_validate(event)
-    @errors=Array.new
-    date=nil
-    @errors<<"please choose an event type" if event.category==''
-    @errors<<"please enter a date in the future" if event.date<DateTime.now && event.end_date<DateTime.now
-    @errors<<"please enter an end date on or later than the start date" if event.multiple_days and event.end_date<event.date
-#    @errors<<"post as user not found." if (@youser.is_admin and (not event.post_as or not event.post_as.empty?)) and not User.find_by_name(event.post_as)
-#    @errors<<"invalid character" if event.venue_name+event.body+event.description+event.url=~HTML_REGEXP
-#    @errors<<"must select a metro" unless params[:object][:metro_code] and params[:object][:metro_code].strip.size>3
-    return @errors.empty?
+  
+  def show
+    @flyer = Flyer.find(params[:id])
+    render(:inline=>"unrecognized id") and return unless @flyer
+    @page_title = @flyer.body
+    @hide_login=true
+    render(:layout=>'minimal_layout')
   end
 
-  def flyer_handler
-    if params[:submit]=='cancel'
-      render(:inline=>"<script>location.href='/#{@metro_code}';</script>",:layout=>false)
-      return
-    end
-    event=nil
-    action=" posted a flyer "
-    if params[:id]
-      action=" edited a flyer "
-      event = Flyer.find(params[:id])
-    else
-      event = Flyer.new
-    end
-    original_image_url=event.image_url
-    event.update_attributes(params[:flyer])
-    event.flagged=nil if event.flagged and event.flagged.strip.size==0
-
-    event.source='user'
-    event.level='primary'
-    event.status='new'
-    event.venue_id = -1 # yes, it's a hack ..
-    if @youser
-      u = @youser
-      u = User.find_by_name(event.post_as) if event.post_as and not event.post_as.empty? and @youser.is_admin
-      event.user_id=u.id
-      event.username=u.name
-    end
-    event.user_metro=event.metro_code=@metro_code
-
-    unless flyer_validate(event)
-      render(:layout=>false)
-      return
+  def create
+    @place = Place.find_by(source_id:place_params["source_id"]) 
+    if not @place 
+      @place = Place.new(place_params)
+      @place.save
+      Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
     end
 
-    if original_image_url!=event.image_url
-      duplicate_image = event.process_image
-      if duplicate_image
-        @errors=Array.new
-        @errors<<"This flyer is too similar to an <a href='#{duplicate_image.flyer.oneup_url(@metro_code)}'>existing flyer</a>."
-        render(:layout=>false)
-        return
-      end
-    end
-    unless event.image_url and event.image_url=~/^http/
-      @errors<<"must upload an image"
-      render(:layout=>false)
-      return
-    end
-
-    event.do_term_search_process
-    event.do_hashtag_process
-    event.save
-
-    if @youser
-      unless FlyersUser.find_by_flyer_id_and_metro_code_and_user_id(event.id,@metro_code,event.user_id)
-        ieu = FlyersUser.new
-        ieu.user_id = @youser.id
-        ieu.flyer_id = event.id
-        ieu.metro_code = @metro_code
-        ieu.save
-        Action.user_added_flyer(metro_code,@youser,event)
-      else
-        Action.user_edited_flyer(metro_code,@youser,event)
-      end
-    end
-
-    FlyerMailer::deliver_flyer_edited(event, metro_code, @youser, action) if ENV['RAILS_ENV']!='development'
-
-  # if direct_admin_submit
-  #    handle_direct_submit(event)
-  #    term_url=url("/#{event.body}")
-  #    render(:inline=>"Show submitted. It will appear on the site within 24 hrs, once caches have cleared. You should be able to see it here: <a href='#{term_url}'>#{event.body}</a>",:layout=>false)
-  #  else
-  flash[:notice]="flyer successfully posted to reflyer.com!"# " Here are some other ways to promote your show."
-  render(:inline=>"<script>location.href='/#{@metro_code}';</script>")#"/promote/#{event.id}';</script>",:layout=>false)
-  #  end
+    @flyer = Flyer.new( flyer_params )
+    @flyer.place = @place
+    @flyer.save!
+    Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+    render json: @flyer, include: ['place']
   end
 
-  def admin_handler
+  def update
     id = params[:flyer_id]
     flyer = Flyer.find(params[:id])
     flyer.update_attributes(flyer_params)
     flyer.save
     head :ok
-  end
-
-  def _admin_handler
-    id = params[:flyer_id]
-    #at_ids = params[:artist_term]
-#    puts "+++ at_ids: #{at_ids.size}" if at_ids
-    flyer = Flyer.find(id)
-    ie.flagged=params[:flagged]
-    params.each_key{|param|
-#      puts "#{param} : #{params[param]}"
-      }
-
-    button_pressed = params[:"button_value_#{id}"]
-    if button_pressed=='flag'
-      puts "+++ saving flyer #{flyer.id} with flagged value of #{flyer.flagged}"
-      flyer.save
-      FlyerMailer::deliver_flyer_edited(flyer, metro_code, @youser, "flagged flyer" )
-      FlyerMailer::deliver_flyer_flagged(flyer, metro_code, @youser, params[:flagged] )
-      render(:inline=> "<script>jQuery('#flyer_#{flyer.id}').hide();alert('flyer #{flyer.id} successfully flagged.')</script>")
-      return
-    else
-      # user clicked "confirm & send" instead
-      if flyer.flagged
-#        FlyerUnflaggedMailer::deliver_flyer_unflagged(ie, metro_code, @youser)
-      end
-
-      ie.flagged=nil
-      ie.status='made_match'
-      ie.body = params[:body]
-      artist_terms = ie.artist_terms
-      good = ""
-      bad = ""
-      valid_artist_terms = []
-      invalid_artist_terms = []
-      artist_terms.each{|at|
-        if params[:"artist_term_#{at.id}"]=="1"
-          at.status='valid'
-          valid_artist_terms<<at
-          good+=at.term_text+","
-        else
-          at.status='invalid'
-          invalid_artist_terms<<at
-          bad+=at.term_text+","
-        end
-        at.save
-      }
-      ie.tags.each{|tag| tag.delete}
-      tags = ie.do_hashtag_process
-      ie.save
-      if tags.empty?
-        tag_string=""
-      else
-        tag_string="found tags " + tags.collect {|tag|tag.text}.join(",")
-      end
-      Action.admin_approved_flyer(metro_code,@youser,ie,"posted by #{ie.user.name}: '#{ie.body}' ","[BAD: #{bad}] [GOOD: #{good}]")
-      script="<script>jQuery(\"#ie_#{id}\").removeClass('unprocessed_flyer')</script>"
-      render(:inline=> "<span style='color:green'>success! #{tag_string}. approved shows #{good}</span>#{script}")
-
-    end
-  end
-
-  def find_or_create_venue(name,address=nil)
-    venue = Venue.find_by_name_and_state(name,Metro.find_by_code(@metro_code).state)
-    if not venue
-      venue = Venue.new
-      venue.name=name
-      venue.address=address
-      venue.source='user'
-      venue.user_id=@youser.id
-      venue.username=@youser.name
-      venue.user_metro=@metro_code
-      venue.save
-      mv = MetrosVenue.new
-      mv.metro_code=@metro_code#params[:object][:metro_code]
-      mv.venue_id=venue.id
-      mv.save
-    end
-    return venue
   end
 
   def delete
@@ -393,4 +114,31 @@ class FlyersController < ApplicationController
       redirect_to("/")
     end
   end
+  
+  
+  private 
+
+  def flyer_params
+    params.require(:flyer).permit([:image,:title,:buzz,:body,:category,:lat,:lng, :start_date,:end_date,:score])
+  end
+
+  def place_params
+    place_params = JSON.parse(params[:flyer][:place])
+    location = place_params["location"]
+    place_params = place_params.merge(location)
+    @lng = location["lng"]
+    @lat = location["lat"]
+    place_params["lat"]=@lat
+    place_params["lng"]=@lng
+    #place_params[:latlng] = "st_geomfromtext('place(#{lng} #{lat})')"
+    place_params["source"] = "foursquare"
+    place_params["source_id"] = place_params["id"]
+    place_params["formatted_address"]=place_params["formattedAddress"]
+    place_params = place_params.reject{|key,value|
+      !["name","formatted_address","city","state","country","source_id","lat","lng","source"].include?(key)
+    }
+    place_params
+  end
+  
+  
 end

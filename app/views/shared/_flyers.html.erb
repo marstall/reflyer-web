@@ -60,33 +60,7 @@ end
 <script>
 
 jQuery(document).ready(function() {
-	var $container = jQuery('#flyer_board');
-	$container.imagesLoaded(function(){
-      // $container.masonry({
-      //   itemSelector : '.flyer',
-      // });
-	});
-	setTimeout(function() {jQuery(".show_on_load").css("visibility","visible")},2000)
 	prep_huds();
-/*	jQuery("#flyer_board").infinitescroll({
-		nextSelector: "#navigation a:first",
-		navSelector: "#navigation",
-		itemSelector: ".flyer"},
-	      // trigger Masonry as a callback
-			function(newElements) 
-			{
-				// hide new items while they are loading
-				var $newElems = jQuery( newElements ).css({ opacity: 0 });
-				// ensure that images load before adding to masonry layout
-				$newElems.imagesLoaded(
-					function()
-					{
-						// show elems now they're ready
-						$newElems.animate({ opacity: 1 });
-						$container.masonry( 'appended', $newElems, true ); 
-					})
-			}						   
-	)*/
 });
 
 function prep_huds()

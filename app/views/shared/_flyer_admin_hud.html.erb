@@ -1,11 +1,8 @@
 <%f=flyer%>
 <%return unless f%>
-<%user = f.user%>
-<%return unless user%>
 <%width||=300%>
-
 <div class='flyer_admin' id="flyer_admin_<%=f.id%>" style='width:<%=width%>px '>
-<%=form_tag('flyers/admin_handler',remote:true)%>
+<%=form_tag(flyer_path(f.id),remote:true, method: :put)%>
 						
 <input type='hidden' id='button_value_<%=f.id%>' name='button_value_<%=f.id%>' value=''/>
 <input type='hidden' id='score_<%=f.id%>' name='flyer[score]' value='<%=f.score%>'/>
@@ -19,7 +16,7 @@
 <%}%>
 <%end%>
 <div style='padding:3px'>
-	<%=f.id%><br> <!--posted <%=user.name%>,--> <!--member since <%#=user.short_registered_on%>-->
+	<%=f.id%><br>
 title<br><textarea name='flyer[title]' id='title_<%=f.id%>' cols=38 rows=1><%=f.title%></textarea>
 description<br><textarea name='flyer[buzz]' id='buzz_<%=f.id%>' cols=38 rows=15><%=f.buzz%></textarea>
 <br>

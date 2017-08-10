@@ -71,49 +71,24 @@ already_reflyered = @reflyered_ids_hash[ie.id] ? true : false
 					<%=ie.formatted_body%>
 				<%end%>
 			</div>
-			<div class='flyer_posted_by'>
-				posted by
-				<a href='/users/<%=ie.user.name%>'> <%=ie.user.name%></a> 
-				<%=time_ago_in_words ie.created_at%> ago
-				to <%=ie.category%>
-				<%if ie.is_owner(@youser)|| is_admin?%>
-					<a href='/flyer/post_flyer?id=<%=ie.id%>'>edit</a>
-					<a onclick="return confirm('permanently delete this flyer?')" href='/flyer/delete?id=<%=ie.id%>'>delete</a>
-				
-				<%end%>
-				<%users = FlyersUser.users_for(ie,false)%>
 
-				<%if users.size>0%>
-					<br>reflyered by 
-					<%users.each_with_index{|user,i|%>
-						<%return if i>20%>
-					<a href='/users/<%=user.name%>'> <%=user.name%></a> 
-					<%}%>
-					<%if users.size>20-%>
-					   + <%=users.size-20%> others
-					<%end%>
-				<%end%>
-
-				<%if is_admin?%>
-					<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:width=>'784',:flyer=>ie})%>
-				<%end%>
-			</div>
 		</div>
 		<div style='clear:both'></div>
 	</div>
 	<div id="flyer_hud_<%=ie.id%>" class='flyer_hud'>
+    FLYER HUD
 	</div>
 </div>
 
 <script>
-/*jQuery(".flyer,.fullpage_flyer").hover(
+jQuery(".flyer,.fullpage_flyer").hover(
   function (eventObject) {
 	jQuery(this).children(".flyer_hud").css("visibility","visible")
   },
   function () {
 	jQuery(this).children(".flyer_hud").css("visibility","hidden")
   }
-)*/
+)
 
 jQuery(".reflyer_button").click(
 	function (eventObject)

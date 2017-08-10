@@ -13,6 +13,8 @@
 #  formatted_address :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
+#  lat               :float(53)
+#  lng               :float(53)
 #
 
 class Place < ActiveRecord::Base

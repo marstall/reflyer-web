@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805201523) do
+ActiveRecord::Schema.define(version: 20170808211520) do
 
   create_table "cities", id: false, force: :cascade do |t|
     t.string "country_code", limit: 10
@@ -109,6 +109,15 @@ ActiveRecord::Schema.define(version: 20170805201523) do
   end
 
   add_index "tags", ["text"], name: "text", using: :btree
+
+  create_table "user_actions", force: :cascade do |t|
+    t.string   "action_type",    limit: 255
+    t.string   "action_subtype", limit: 255
+    t.integer  "flyer_id",       limit: 4
+    t.string   "description",    limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "metro_code",      limit: 255
