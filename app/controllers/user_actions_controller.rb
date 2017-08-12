@@ -71,6 +71,6 @@ class UserActionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_action_params
       Rails.logger.info("params: #{params}")
-      params.require(:user_action).permit([:description,:action_type,:action_subtype,:flyer_id,:user_id])
+      params.require(:user_action).permit([:description,:action_type,:action_subtype,:flyer_id,:user_id,:data])
     end
 end

@@ -10,7 +10,15 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  user_id        :integer
+#  data           :string(255)
 #
 
 class UserAction < ActiveRecord::Base
+  belongs_to :user
+  
+  def data_as_dates
+    JSON.parse(data).map{|timestamp|
+      Time.at(timestamp/1000).to_datetime
+    }.join(", ")
+  end
 end
