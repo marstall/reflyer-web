@@ -45,6 +45,7 @@ class Flyer < ApplicationRecord
   belongs_to :user
   belongs_to :place
   has_many :tags, :through => :taggings
+  has_many :user_actions
   has_many :taggings
 
 
@@ -95,6 +96,10 @@ class Flyer < ApplicationRecord
 
   def iso8601_end_date
     end_date ? end_date.iso8601 : nil
+  end
+  
+  def num_user_actions
+    return user_actions.count
   end
 
 

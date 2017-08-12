@@ -2,7 +2,7 @@ class FlyersController < ApplicationController
 
   def load_or_create_user
     user_id = params[:user_id]
-    expo_push_token = params[:expo_push_token]
+    expo_push_token = params[:user_expo_push_token]
     if user_id
       @user = User.find(user_id)
     elsif expo_push_token
