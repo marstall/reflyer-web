@@ -2,14 +2,14 @@ class FlyersController < ApplicationController
 
   def load_or_create_user
     user_id = params[:user_id]
-    expo_push_token = params[:user_expo_push_token]
+    device_id = params[:user_device_id]
     if user_id
       @user = User.find(user_id)
-    elsif expo_push_token
-      @user = User.find_or_create_by(expo_push_token:expo_push_token)
-      @user.metro_code='boston'
-      @user.save
+    elsif device_id
+      @user = User.find_or_create_by(device_id:device_id)
     end
+    @user.update_attributes(user_params) if params[:user]
+    @user.save
   end
   
   def load_flyers
@@ -117,6 +117,10 @@ class FlyersController < ApplicationController
   
   
   private 
+
+  def user_params
+    params.require(:user).permit([:id,:metro_code,:expo_push_token,:device_id])
+  end
 
   def flyer_params
     params.require(:flyer).permit([:image,:title,:buzz,:body,:category,:lat,:lng, :start_date,:end_date,:score])

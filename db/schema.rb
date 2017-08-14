@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170812182350) do
+ActiveRecord::Schema.define(version: 20170814191426) do
 
   create_table "cities", id: false, force: :cascade do |t|
     t.string "country_code", limit: 10
@@ -122,10 +122,12 @@ ActiveRecord::Schema.define(version: 20170812182350) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "metro_code",      limit: 255
-    t.string   "expo_push_token", limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "metro_code",                     limit: 255
+    t.string   "expo_push_token",                limit: 255
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "device_id",                      limit: 255
+    t.string   "notifications_permission_state", limit: 255
   end
 
 end

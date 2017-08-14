@@ -86,10 +86,6 @@ class Flyer < ApplicationRecord
     (Time.now.to_date - created_at.to_date).to_int
   end
   
-  def hooji
-    "loop"
-  end
-  
   def iso8601_start_date
     start_date ? start_date.iso8601 : nil
   end

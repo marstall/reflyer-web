@@ -5562,7 +5562,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*--------------------------------------------------------------------------*/
 
 /**
- * jQuery Masonry v2.1.04
+ * jQuery    v2.1.04
  * A dynamic layout plugin for jQuery
  * The flip-side of CSS Floats
  * http://masonry.desandro.com
