@@ -53,12 +53,20 @@ class FlyersController < ApplicationController
               :start=>@start,
               :num=>@num
              }
-    @flyers = Flyer.all_flyers(params,options)
+             @flyers = Flyer.all_flyers(params,options)
   end
 
   def blob 
     load_or_create_user
+    save_request
     load_flyers
+  end
+
+  def save_request
+    request = Request.new
+    request.user_id = @user.id
+    request.resource = 'blob'
+    request.save
   end
 
   def index

@@ -3,7 +3,7 @@ json.user do
   json.expo_push_token @user.expo_push_token
   json.metro_code @user.metro_code
   json.device_id @user.device_id
-  json.notifications_permission_state @user.notifications_permission_state  
+  json.notifications_permission_state @user.notifications_permission_state    
   json.user_actions @user.user_actions do |user_action|
     json.flyer_id user_action.flyer_id
     json.action_type user_action.action_type

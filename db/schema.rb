@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814191426) do
+ActiveRecord::Schema.define(version: 20170815003841) do
 
   create_table "cities", id: false, force: :cascade do |t|
     t.string "country_code", limit: 10
@@ -92,6 +92,20 @@ ActiveRecord::Schema.define(version: 20170814191426) do
     t.datetime "updated_at"
     t.float    "lat",               limit: 53
     t.float    "lng",               limit: 53
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.integer  "user_id",         limit: 4
+    t.string   "resource",        limit: 255
+    t.string   "url",             limit: 255
+    t.string   "method",          limit: 255
+    t.string   "response_string", limit: 255
+    t.integer  "response_code",   limit: 4
+    t.string   "headers",         limit: 255
+    t.integer  "bytes",           limit: 4
+    t.integer  "tts",             limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "taggings", force: :cascade do |t|
