@@ -6,9 +6,8 @@
 #  user_id         :integer
 #  resource        :string(255)
 #  url             :string(255)
-#  method          :string(255)
 #  response_string :string(255)
-#  response_code   :integer
+#  http_code       :integer
 #  headers         :string(255)
 #  bytes           :integer
 #  tts             :integer
@@ -17,4 +16,5 @@
 #
 
 class Request < ActiveRecord::Base
+  belongs_to :user
 end
