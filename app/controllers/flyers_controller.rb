@@ -83,11 +83,13 @@ class FlyersController < ApplicationController
   end
 
   def create
-    @place = Place.find_by(source_id:place_params["source_id"]) 
-    if not @place 
-      @place = Place.new(place_params)
-      @place.save
-      Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+    if place_params["source_id"]
+      @place = Place.find_by(source_id:place_params["source_id"]) 
+      if not @place 
+        @place = Place.new(place_params)
+        @place.save
+        Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+      end
     end
 
     @flyer = Flyer.new( flyer_params )
@@ -131,7 +133,8 @@ class FlyersController < ApplicationController
   end
 
   def flyer_params
-    params.require(:flyer).permit([:user_id,:image,:title,:buzz,:body,:category,:lat,:lng, :start_date,:end_date,:score,:date_type])
+    params.require(:flyer).permit([:user_id,:image,:title,:buzz,:body,
+      :category,:lat,:lng, :start_date,:end_date,:score,:date_type])
   end
 
   def place_params
