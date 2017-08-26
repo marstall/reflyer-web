@@ -16,7 +16,7 @@ json.flyers @flyers do |flyer|
     :title,:id,:buzz,:body, :original_url, :medium_url,
     :thumb_url,:place,:category, :age, :date_type, :iso8601_start_date,
     :iso8601_end_date, :place_id, :score, :num_user_actions)
-    json.(flyer.place,
+    json.(flyer.place||Place.new,
       :name, :city, :state, :formatted_address, :source_id, :latlng, :lat, :lng )
 end
   
