@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :flyers, concerns: :actionable do 
     member do
       get 'blob'
+      get 'delete'
     end
   end
 end

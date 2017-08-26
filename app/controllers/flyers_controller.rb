@@ -93,7 +93,7 @@ class FlyersController < ApplicationController
     @flyer = Flyer.new( flyer_params )
     @flyer.place = @place
     @flyer.save!
-    Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+    Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')") if @lng and @lat
     render json: @flyer, include: ['place']
   end
 
@@ -131,10 +131,11 @@ class FlyersController < ApplicationController
   end
 
   def flyer_params
-    params.require(:flyer).permit([:image,:title,:buzz,:body,:category,:lat,:lng, :start_date,:end_date,:score])
+    params.require(:flyer).permit([:user_id,:image,:title,:buzz,:body,:category,:lat,:lng, :start_date,:end_date,:score,:date_type])
   end
 
   def place_params
+    return {} unless params[:flyer][:place]
     place_params = JSON.parse(params[:flyer][:place])
     location = place_params["location"]
     place_params = place_params.merge(location)
