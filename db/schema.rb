@@ -11,18 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824152628) do
-
-  create_table "cities", id: false, force: :cascade do |t|
-    t.string "country_code", limit: 10
-    t.string "region",       limit: 256
-    t.string "population",   limit: 10
-    t.string "latitude",     limit: 256
-    t.string "longitude",    limit: 256
-    t.string "combined",     limit: 256
-  end
-
-  add_index "cities", ["combined"], name: "combined", using: :btree
+ActiveRecord::Schema.define(version: 20170830161401) do
 
   create_table "flyers", force: :cascade do |t|
     t.datetime "created_at"
@@ -93,6 +82,21 @@ ActiveRecord::Schema.define(version: 20170824152628) do
     t.datetime "updated_at"
     t.float    "lat",               limit: 53
     t.float    "lng",               limit: 53
+  end
+
+  create_table "push_notifications", force: :cascade do |t|
+    t.string   "title",          limit: 255
+    t.text     "body",           limit: 65535
+    t.datetime "pushed_at"
+    t.string   "recipient_type", limit: 255
+    t.integer  "place_id",       limit: 4
+    t.string   "category",       limit: 255
+    t.integer  "user_id",        limit: 4
+    t.string   "response_code",  limit: 255
+    t.text     "response_json",  limit: 65535
+    t.integer  "error_count",    limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "requests", force: :cascade do |t|

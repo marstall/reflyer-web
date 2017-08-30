@@ -26,6 +26,7 @@
 #  title              :string(255)
 #  buzz               :text(65535)
 #  score              :integer          default(0), not null
+#  date_type          :string(255)
 #
 
 class FlyerSerializer < ActiveModel::Serializer

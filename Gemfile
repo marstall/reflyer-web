@@ -7,6 +7,7 @@ gem 'aws-sdk'
 gem 'awesome_print'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'unicorn', '4.6.0'
+gem 'exponent-server-sdk'
 
 group :development do
   gem 'spring-commands-rspec'

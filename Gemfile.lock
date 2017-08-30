@@ -64,6 +64,8 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     erubis (2.7.0)
+    exponent-server-sdk (0.0.2)
+      httparty
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.8.0)
@@ -71,6 +73,8 @@ GEM
       railties (>= 3.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -98,6 +102,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     mysql2 (0.4.5)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -197,6 +202,7 @@ DEPENDENCIES
   awesome_print
   aws-sdk
   byebug
+  exponent-server-sdk
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
