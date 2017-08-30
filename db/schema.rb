@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830161401) do
+ActiveRecord::Schema.define(version: 20170830201637) do
 
   create_table "flyers", force: :cascade do |t|
     t.datetime "created_at"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20170830161401) do
     t.integer  "error_count",    limit: 4
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "success_count",  limit: 4
   end
 
   create_table "requests", force: :cascade do |t|
