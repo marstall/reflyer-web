@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @push_notification.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @push_notification.body %>
+</p>
+
+<p>
+  <strong>Pushed at:</strong>
+  <%= @push_notification.pushed_at %>
+</p>
+
+<p>
+  <strong>Recipient type:</strong>
+  <%= @push_notification.recipient_type %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @push_notification.place_id %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @push_notification.category %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @push_notification.user_id %>
+</p>
+
+<p>
+  <strong>Response code:</strong>
+  <%= @push_notification.response_code %>
+</p>
+
+<p>
+  <strong>Response json:</strong>
+  <%= @push_notification.response_json %>
+</p>
+
+<p>
+  <strong>Error count:</strong>
+  <%= @push_notification.error_count %>
+</p>
+
+<%= link_to 'Edit', edit_push_notification_path(@push_notification) %> |
+<%= link_to 'Back', push_notifications_path %>

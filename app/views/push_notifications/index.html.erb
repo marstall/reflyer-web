@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Push Notifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Pushed at</th>
+      <th>Recipient type</th>
+      <th>Place</th>
+      <th>Category</th>
+      <th>User</th>
+      <th>Response code</th>
+      <th>Response json</th>
+      <th>Error count</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @push_notifications.each do |push_notification| %>
+      <tr>
+        <td><%= push_notification.title %></td>
+        <td><%= push_notification.body %></td>
+        <td><%= push_notification.pushed_at %></td>
+        <td><%= push_notification.recipient_type %></td>
+        <td><%= push_notification.place_id %></td>
+        <td><%= push_notification.category %></td>
+        <td><%= push_notification.user_id %></td>
+        <td><%= push_notification.response_code %></td>
+        <td><%= push_notification.response_json %></td>
+        <td><%= push_notification.error_count %></td>
+        <td><%= link_to 'Show', push_notification %></td>
+        <td><%= link_to 'Edit', edit_push_notification_path(push_notification) %></td>
+        <td><%= link_to 'Destroy', push_notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Push notification', new_push_notification_path %>

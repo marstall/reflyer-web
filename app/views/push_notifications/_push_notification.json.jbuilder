@@ -1,0 +1,2 @@
+json.extract! push_notification, :id, :title, :body, :pushed_at, :recipient_type, :place_id, :category, :user_id, :response_code, :response_json, :error_count, :created_at, :updated_at
+json.url push_notification_url(push_notification, format: :json)
