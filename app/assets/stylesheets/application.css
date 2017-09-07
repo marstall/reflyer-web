@@ -3857,7 +3857,7 @@ h1x {
 .above_header
 {
 	font-family:monospace;
-	background-color:#ddd;
+	background-color:#fff;
 	color:#d3100a;
 	padding-bottom:2em;
 	text-align:right;
@@ -3865,16 +3865,14 @@ h1x {
  	color:black;
 	padding-top:8px;
 	width:100%;
-    display:none;
-    opacity: .1;
-    filter: alpha(opacity=10);
+  opacity: 0;
+  filter: alpha(opacity=10);
 }
 
 .above_header:hover
 {
-	background-color:#95c3d6;
-    opacity: 1;
-    filter: alpha(opacity=100);
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 
 .above_header_item

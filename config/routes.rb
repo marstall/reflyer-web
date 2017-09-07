@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   resources :push_notifications
   root to: 'home#home'
   get 'blob', to: 'flyers#blob'

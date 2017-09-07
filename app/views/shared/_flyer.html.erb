@@ -40,7 +40,7 @@ end
 %>
 <div id="flyer_<%=flyer.id%>" flyer_id="<%=flyer.id%>" class='flyer <%=status_class%>' 
 	>
-	<%if is_admin?%>
+	<%if current_user.try("admin?")%>
 		<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:flyer=>flyer})%>
 	<%end%>
     
@@ -52,13 +52,6 @@ end
 					<span class='<%=highlight_class%>'>
 					<a href='<#%=url("/flyers?tags=#{flyer.category}")%>'><%=flyer.category%></a> 
 					</span>
-					<%flyer.tags.each_with_index{|tag,i|%>
-						<%next if i>2%>
-						<%highlight_class= "#{@query}"=="##{tag.text}" ? "search_highlight" : ""%>
-						<span class='<%=highlight_class%>'>
-						<a href='/flyers?tags=#{tag.text}'>#<%=tag.text%></a> 
-						</span>
-					<%}%>
 				</span>
 			</div>
 	 		<a href='<%=flyer_path(flyer)%>'><img style='display:none' onload='jQuery(this).show()' border=0  width='100%'  src='<%=flyer.image.url(:medium)%>' ></a>

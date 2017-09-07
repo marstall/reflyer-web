@@ -9,6 +9,8 @@
 #  updated_at                     :datetime         not null
 #  device_id                      :string(255)
 #  notifications_permission_state :string(255)
+#  email                          :string(255)      default(""), not null
+#  encrypted_password             :string(255)      default(""), not null
 #
 
 class UserSerializer < ActiveModel::Serializer

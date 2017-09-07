@@ -15,6 +15,7 @@
 #  error_count    :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  success_count  :integer
 #
 
 class PushNotificationSerializer < ActiveModel::Serializer

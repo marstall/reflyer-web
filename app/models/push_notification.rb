@@ -15,7 +15,9 @@
 #  error_count    :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  success_count  :integer
 #
+
 class PushNotification < ActiveRecord::Base
 
   RECIPIENT_TYPE_ALL='all'

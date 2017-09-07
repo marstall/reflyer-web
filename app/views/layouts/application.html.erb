@@ -10,50 +10,29 @@
   </head>
 	<body >
 		<%if !@fragment%>
-	    <%unless @hide_login or @not_in_a_city%>
-		<form method='get' action='/<%=@metro_code%>/flyers'>
 	  	  <div class='above_header'  style=''>
-	          <div id="left-header" >
-			  culture & community. in flyer form.
-			 </div>
-	          <div id="right-header" >
-					<%= text_field :tag, :text%>
-						</form>
-	  			<span style='display:none' class='header_menu_item '>
-	  				<a href="/calendar">calendar</a> &bull;
-	  			</span>
-	  			<%if true #is_admin?%>
-		  			<span class='header_menu_item ' >
-		  				<input onclick='window.hud=!window.hud'  type='checkbox' />hud&nbsp;
-		  			</span>
-	  			<%end%>
-	  			<span >
-		    		<%unless @hide_login%>
-		              <%if !@youser_logged_in-%>
-		       			<span class='dheader_menu_item'>
-		       				<a href="<%#=url('/edit/homepage_signup_link')%>">signup</a>
-		       			</span>
-		                <span class='dheader_menu_item '>
-		                	<a href="<%#=url('/login')%>">login</a>
-		                </span>
-		              <%else-%>
-		                <span class='dheader_menu_item '>
-		                	<a href="<%=url('/post')%>">post</a>
-		                </span>
-		       			<!--span class='header_menu_item'>
-		       				<a href="<%#=url('/submit_show')%>">submit a show</a>
-		       			</span-->
-		                <span class='header_menu_item '>
-		                <%= link_to 'logout', :action => :logout%>
-	       				(<a href='<%#=url("/users/#{@youser.name}")%>'><%=@youser.name%></a>)
-		                <%="<span style='color:#e77'>a</span>" if is_admin?%>
-		                </span>
-		            <%end%>
-	            	<%end%>
-            </span>
+            <%if false #current_user and current_user.admin?%>
+              <span class='header_menu_item ' >
+		  				  <input onclick='window.hud=!window.hud'  type='checkbox' />hud&nbsp;
+		  			  </span>
+            <%end%>
+		        <%if current_user-%>
+                <span class='dheader_menu_item'>
+                  logged in as <%=current_user.email%>
+                  <%if current_user.admin?-%>
+                    (admin)
+                    <%= link_to('logout', destroy_user_session_path, method: :delete) %>        
+                    
+                  <%end%>
+		           </span>
+	           <%else%>
+             <div>
+                <span class='dheader_menu_item'>
+                  <%=link_to "not logged in", new_user_session_path%>
+		           </span>
+             </div>
+               <%end%>
     		</div>
-			<br>
-	  	  </div>
 		<%end%>
     <div id='inner_body'>
 			<%unless @hide_header%>
@@ -91,7 +70,6 @@
         </div>
         <div style='clear:both'></div>
         </div>
-<%end%>
 <div id="tf_header">
 	<div id="left-header">
 		<span id='logo'><a href='/<%=@metro_code%>'>reflyer</a></span>
@@ -106,6 +84,9 @@
 <%end%>
 <%if flash[:error]%>
 	<div class="error"><%= flash[:notice] %><%= flash[:error] %></div>
+<%end%>
+<%if flash[:alert]%>
+	<div class="notice"><%= flash[alert]%></div>
 <%end%>
 <%end%> <!-- if ! fragment -->
     <%= yield %>

@@ -1,5 +1,11 @@
 class FlyersController < ApplicationController
 
+  before_action :authenticate_admin!, only: [:update,:delete]
+  
+  def authenticate_admin!
+    head :unauthorized unless current_user.admin?
+  end
+  
   def load_or_create_user
     user_id = params[:user_id]
     device_id = params[:user_device_id]
@@ -100,6 +106,7 @@ class FlyersController < ApplicationController
   end
 
   def update
+    logger.info(current_user.inspect)
     id = params[:flyer_id]
     flyer = Flyer.find(params[:id])
     flyer.update_attributes(flyer_params)
@@ -117,12 +124,10 @@ class FlyersController < ApplicationController
       render(:inline=>'unkown id')
       return
     end
-    if (@youser.is_admin or @flyer.is_owner(@youser))
-      Flyer.find(id).destroy
-      FlyerMailer::deliver_flyer_edited(@flyer, metro_code, @youser, "deleted flyer" ) if ENV['RAILS_ENV']!='development'
-      flash[:notice]="flyer successfully deleted."
-      redirect_to("/")
-    end
+    Flyer.find(id).destroy
+    FlyerMailer::deliver_flyer_edited(@flyer, metro_code, @youser, "deleted flyer" ) if ENV['RAILS_ENV']!='development'
+    flash[:notice]="flyer successfully deleted."
+    redirect_to root_path
   end
   
   
