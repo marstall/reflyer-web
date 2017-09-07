@@ -31,7 +31,7 @@ score (currently <%=f.score%>): <br>
 </div>
 <div style='padding:0px'>
 <input type='submit' id='commit' name='commit' value="save" onclick="jQuery('#button_value_<%=f.id%>').attr('value','superpick');return true;">
-    <a onclick="return confirm('permanently delete this flyer?')" href='/flyers/<%=f.id%>/delete'>delete</a>
+    <a href='/flyers/<%=f.id%>/delete'>delete</a>
 </div>
 <span id='status_<%=f.id%>' style='color:#777'><span>
 </div>

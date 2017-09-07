@@ -125,7 +125,7 @@ class FlyersController < ApplicationController
       return
     end
     Flyer.find(id).destroy
-    FlyerMailer::deliver_flyer_edited(@flyer, metro_code, @youser, "deleted flyer" ) if ENV['RAILS_ENV']!='development'
+    #FlyerMailer::deliver_flyer_edited(@flyer, metro_code, @youser, "deleted flyer" ) if ENV['RAILS_ENV']!='development'
     flash[:notice]="flyer successfully deleted."
     redirect_to root_path
   end
