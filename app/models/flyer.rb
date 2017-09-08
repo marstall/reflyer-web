@@ -30,7 +30,6 @@
 #
 
 class Flyer < ApplicationRecord
-
   IMAGE_QUALITY=50  # max 100
   DEFAULT_RADIUS=10 # miles
 

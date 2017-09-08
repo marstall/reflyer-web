@@ -1,60 +1,22 @@
-<%f=flyer%>
-<%return unless f%>
+<%flyer=flyer%>
+<%return unless flyer%>
 <%width||=300%>
-<div class='flyer_admin' id="flyer_admin_<%=f.id%>" style='width:<%=width%>px '>
-<%=form_tag(flyer_path(f.id),remote:true, method: :put)%>
+<div class='flyer_admin' id="flyer_admin_<%=flyer.id%>" style='width:<%=width%>px '>
+<%= simple_form_for flyer, remote: true do |f|%>
 						
-<input type='hidden' id='button_value_<%=f.id%>' name='button_value_<%=f.id%>' value=''/>
-<input type='hidden' id='score_<%=f.id%>' name='flyer[score]' value='<%=f.score%>'/>
-<input type='hidden' name='id' value='<%=f.id%>'/>
-<%if false%>
-<%f.artist_terms.each{|at|%>
-	<div class="artist_term" onMouseDown="jQuery('#radio_<%=at.id%>').trigger('click');console.log('click');jQuery(this).css('background-color','#dfd');return true;">
-		<%checked_string=""# at.status=='valid' ? "checked" : ""%>
-		<input type='checkbox' id='radio_<%=at.id%>' name='artist_term_<%=at.id%>' value='1' <%=checked_string%>><%=at.term_text%><br>
-	</div>
-<%}%>
-<%end%>
-<div style='padding:3px'>
-	<%=f.id%><br>
-title<br><textarea name='flyer[title]' id='title_<%=f.id%>' cols=38 rows=1><%=f.title%></textarea>
-description<br><textarea name='flyer[buzz]' id='buzz_<%=f.id%>' cols=38 rows=15><%=f.buzz%></textarea>
-<br>
-note to user<br><textarea name= 'flyer[flagged]' id='note_<%=f.id%>' cols=38 rows=2><%=f.flagged%></textarea>
-<br>
-<div style='padding:0px;margin-bottom:4px'>
-score (currently <%=f.score%>): <br>
-<input type='submit'  id='commit' name='commit' value="not (0)" onclick="jQuery('#score_<%=f.id%>').attr('value','0');return true;">
-<input type='submit'  id='commit' name='commit' value="section (1)" onclick="jQuery('#score_<%=f.id%>').attr('value','1');return true;">
-<input type='submit'  id='commit' name='commit' value="ed (2)" onclick="jQuery('#score_<%=f.id%>').attr('value','2');return true;">
-<input type='submit' id='commit' name='commit' value="super (3)" onclick="jQuery('#score_<%=f.id%>').attr('value','3');return true;"><br>
+<%=f.input :score, as: :hidden%>
+<%=f.input :id, as: :hidden%>
+	<div class='flyer_id'><%=flyer.id%></div>
+  <%= f.input :title, {as: :text, placeholder:'title', label:false,input_html:{cols:38,rows:1}}%>
+  <%= f.input :buzz, {placeholder:'buzz',label:false,input_html:{cols:38,rows:1}}%>
+  <%= f.input :score, {collection:0..3}%>
+  <%= f.input :date_type, {collection:['singleDate','multipleDates','ongoing']}%>
+  <%= f.input :start_date, {as: :date, discard_time:true}%>
+  <%if flyer.date_type=='multipleDates'%>
+    <%= f.input :end_date, {as: :date, discard_time:true}%>
+  <%end%>
+  
+  <%= f.button :submit %>
+  <a href='/flyers/<%=flyer.id%>/delete'>delete</a>
+  <%end%>
 </div>
-<div style='padding:0px'>
-<input type='submit' id='commit' name='commit' value="save" onclick="jQuery('#button_value_<%=f.id%>').attr('value','superpick');return true;">
-    <a href='/flyers/<%=f.id%>/delete'>delete</a>
-</div>
-<span id='status_<%=f.id%>' style='color:#777'><span>
-</div>
-<span id='result_<%=f.id%>' style='padding:4px;'><span>
-</form>
-</div>
-<script>
-
-	jQuery("#flyer_<%=f.id%>").hover(
-	  function () {
-		if (console) console.log("toggle #flyer_admin_<%=f.id%> window.hud:"+window.hud)
-		if (window.hud==true)
-		{
-			jQuery("#flyer_admin_<%=f.id%>").css("visibility","visible")
-		}
-	  },
-	  function () {
-		if (console) console.log("toggle")
-		if (window.hud==true)
-		{
-			jQuery("#flyer_admin_<%=f.id%>").css("visibility","hidden")
-		}
-	  }
-	
-	)
-</script>

@@ -40,9 +40,6 @@ end
 %>
 <div id="flyer_<%=flyer.id%>" flyer_id="<%=flyer.id%>" class='flyer <%=status_class%>' 
 	>
-	<%if current_user.try("admin?")%>
-		<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:flyer=>flyer})%>
-	<%end%>
     
 	<div class='rounded_image_container_container'>
 		<div class='rounded_image_container'>
@@ -101,6 +98,9 @@ end
 				<%end%>
 			<%end%>
 		</div>
+	<%if current_user.try("admin?")%>
+		<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:flyer=>flyer})%>
+	<%end%>
 	</div>
 	
 	<%unless @youser and @youser.id==flyer.user_id%>

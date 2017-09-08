@@ -912,13 +912,8 @@ font-size:20px;
 {
 	-webkit-border-radius: 3px 0px 0px 0px;
 	-moz-border-radius: 3px;
-	margin-top:44px;
-  margin-left:10px;
-  visibility: hidden;
-  position:absolute;
-	padding:6px;
-	border-bottom:2px solid #ddd;
-	background-color:white;
+	padding:3px;
+	background-color:#eee;
 	opacity:0.95;
 	font-size:14px;
 	z-index: 1;		
