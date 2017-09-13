@@ -59,7 +59,7 @@ class FlyersController < ApplicationController
               :start=>@start,
               :num=>@num
              }
-             @flyers = Flyer.all_flyers(params,options)
+    @flyers = Flyer.all_flyers(params,options).select{|flyer| flyer.image.url(:medium)}
   end
 
   def blob 
@@ -86,6 +86,43 @@ class FlyersController < ApplicationController
     @page_title = @flyer.body
     @hide_login=true
     render(:layout=>'minimal_layout')
+  end
+  
+  # route: /flyer/:id/image/:size
+  def image
+    id = params[:id]
+    size = params[:size]
+    flyer = Flyer.find(id)
+    head :not_found and return unless flyer && flyer.image
+    url = flyer.image.url(size)
+    logger.info("flyer url requested: #{url}")
+    response.headers['Cache-Control'] ='public, max-age=31536001'
+    begin
+      data = open(url)
+    rescue
+      head :not_found
+      return
+    end
+    send_data data.read, type: 'image/jpg', disposition: 'inline'
+  end
+  
+  def jpg_passthrough
+    url = params[:url]
+    if url
+      data = open(url) 
+      send_data data, type: 'image/jpg', disposition: 'inline'
+      return
+    end
+    file = params[:file]
+    if file
+      path = "#{Rails.root}/public/images/#{file}"
+      File.open(path, "r") do |f|
+        Rails.logger.info("cache yes")
+        response.headers['Cache-Control'] ='max-age=31536000'
+        response.headers['Content-Length'] =f.size.to_s
+        send_data f.read, type:  'image/jpg'
+      end
+    end
   end
 
   def create

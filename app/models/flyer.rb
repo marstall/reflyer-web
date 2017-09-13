@@ -39,7 +39,6 @@ class Flyer < ApplicationRecord
     -sampling-factor 4:2:0 
     -define jpeg:dct-method=float 
     -quality #{IMAGE_QUALITY}% 
-    -auto-orient 
   _
   
   belongs_to :user
@@ -51,9 +50,13 @@ class Flyer < ApplicationRecord
 
   has_attached_file :image, styles: {
                                       original: {convert_options: "-strip"},
-                                      medium: "750x750> #{CONVERT_OPTIONS}", 
-                                      thumb:"250x250>  #{CONVERT_OPTIONS}"
-                                    }
+                                      medium: "750x750> ", 
+                                      thumb:"250x250>"
+                            }, 
+                            convert_options: {
+                              medium: CONVERT_OPTIONS,
+                              thumb: CONVERT_OPTIONS
+                            }
 
 
   validates_attachment_content_type :image, :content_type => /\Aimage/
