@@ -126,20 +126,25 @@ class FlyersController < ApplicationController
   end
 
   def create
-    if place_params["source_id"]
-      @place = Place.find_by(source_id:place_params["source_id"]) 
-      if not @place 
-        @place = Place.new(place_params)
-        @place.save
-        Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+    begin
+      if place_params["source_id"]
+        @place = Place.find_by(source_id:place_params["source_id"]) 
+        if not @place 
+          @place = Place.new(place_params)
+          @place.save
+          Place.where(id:@place.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')")
+        end
       end
-    end
 
-    @flyer = Flyer.new( flyer_params )
-    @flyer.place = @place
-    @flyer.save!
-    Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')") if @lng and @lat
-    render json: @flyer, include: ['place']
+      @flyer = Flyer.new( flyer_params )
+      @flyer.place = @place
+      @flyer.save!
+      Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')") if @lng and @lat
+      render json: @flyer, include: ['place']
+    rescue => e
+      Rails.logger.info("Could not upload flyer, sending 500")
+      render plain: "fatal", status: :internal_server_error
+    end
   end
 
   def update
