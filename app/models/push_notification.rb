@@ -116,6 +116,7 @@ class PushNotification < ActiveRecord::Base
     puts "Expo server responded with a #{response_code}."
     self.success_count=0
     self.error_count=0
+    puts response_json
     JSON.parse(response_json)['data'].each_with_index{|item,i|
       if item['status']=='ok'
         self.success_count+=1

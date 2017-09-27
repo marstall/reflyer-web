@@ -142,7 +142,7 @@ class FlyersController < ApplicationController
       Flyer.where(id:@flyer.id).update_all("latlng=st_geomfromtext('point(#{@lng} #{@lat})')") if @lng and @lat
       render json: @flyer, include: ['place']
     rescue => e
-      Rails.logger.info("Could not upload flyer, sending 500")
+      Rails.logger.info("Could not upload flyer, sending 500: #{e}")
       render plain: "fatal", status: :internal_server_error
     end
   end
