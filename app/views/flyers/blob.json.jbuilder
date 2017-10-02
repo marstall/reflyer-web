@@ -1,3 +1,4 @@
+json.max_updated_at @max_updated_at
 json.user do
   json.id @user.id
   json.expo_push_token @user.expo_push_token if @user.expo_push_token

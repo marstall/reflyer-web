@@ -1,3 +1,5 @@
+require "base64"
+
 class FlyersController < ApplicationController
 
   before_action :authenticate_admin!, only: [:update,:delete]
@@ -65,7 +67,9 @@ class FlyersController < ApplicationController
   def blob 
     load_or_create_user
     save_request
-    load_flyers
+    flyers = load_flyers
+    updated_ats = flyers.map{|flyer|flyer.updated_at}
+    @max_updated_at = updated_ats.sort{|x,y|y<=>x}[0].to_i if !updated_ats.empty?
   end
 
   def save_request
@@ -96,15 +100,16 @@ class FlyersController < ApplicationController
     head :not_found and return unless flyer && flyer.image
     url = flyer.image.url(size)
     logger.info("flyer url requested: #{url}")
-    response.headers['Cache-Control'] ='public, max-age=31536001'
+    #response.headers['Cache-Control'] ='public, max-age=31536001'
     begin
       data = open(url)
     rescue
       head :not_found
       return
     end
-    send_data data.read, type: 'image/jpg', disposition: 'inline'
+    send_data Base64.encode64(data.read), type: 'text/plain;base64', disposition: 'inline'
   end
+
   
   def jpg_passthrough
     url = params[:url]
