@@ -47,7 +47,7 @@ end
 		    	<span class='flyer_category'>
 					<%highlight_class= @query.sub("#","")==flyer.category ? "search_highlight" : "" if @query%>
 					<span class='<%=highlight_class%>'>
-					<a href='<#%=url("/flyers?tags=#{flyer.category}")%>'><%=flyer.category%></a> 
+					<a href='/flyers?tags=<%=flyer.category%>'><%=flyer.category%></a> 
 					</span>
 				</span>
 			</div>

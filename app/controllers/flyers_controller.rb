@@ -31,7 +31,7 @@ class FlyersController < ApplicationController
     @query = params["tag"]["text"] if params["tag"]
     @query= nil if @query and @query.strip.size==0
     @tags=nil if @tags=='all'
-    @header_title=@tags
+    @header_title="boston #{@tags}"
     @header_title="##@header_title" unless Tag.is_supertag(@tags) or @tags.nil? or @tags.empty?
 
   	@page_title="#{@metro_code} ##@tags events"
@@ -81,13 +81,17 @@ class FlyersController < ApplicationController
 
   def index
     load_flyers
-    render json: @flyers, include: ['place']
+    respond_to do |format|
+        format.html # render index.html.erb
+        format.json { render json: @flyers, include: ['place'] } 
+      end
+    
   end
   
   def show
     @flyer = Flyer.find(params[:id])
     render(:inline=>"unrecognized id") and return unless @flyer
-    @page_title = @flyer.body
+    @page_title = @flyer.title
     @hide_login=true
     render(:layout=>'minimal_layout')
   end
@@ -176,7 +180,6 @@ class FlyersController < ApplicationController
     flash[:notice]="flyer successfully deleted."
     redirect_to root_path
   end
-  
   
   private 
 

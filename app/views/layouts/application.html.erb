@@ -1,8 +1,13 @@
+<meta name="apple-itunes-app" content="app-id=1275345342, affiliate-data=myAffiliateData, app-argument=myURL">
 <script>window.hud=true</script>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Web</title>
+    <%if @page_title%>
+      <title><%=@page_title%></title>
+    <%else%>
+      <title>Reflyer, Boston Community + Culure - In Flyer Form</title>
+    <%end%>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application'%>
@@ -10,12 +15,7 @@
   </head>
 	<body >
 		<%if !@fragment%>
-	  	  <div class='above_header'  style=''>
-            <%if false #current_user and current_user.admin?%>
-              <span class='header_menu_item ' >
-		  				  <input onclick='window.hud=!window.hud'  type='checkbox' />hud&nbsp;
-		  			  </span>
-            <%end%>
+	  	  <div class='above_header'>
 		        <%if current_user-%>
                 <span class='dheader_menu_item'>
                   logged in as <%=current_user.email%>
@@ -37,10 +37,7 @@
     <div id='inner_body'>
 			<%unless @hide_header%>
       <div id='new_logo' >
-        <div style='float:right;padding:12px'>
-          <%#=render(:partial=>'shared/instant_search')%>
-        </div>
-        <div style='float:center'>
+        <div>
 			<div class='rounded_image_container_container'>
 		<div class='rounded_image_container' >
           <a href='/'><img style='width:400px' src='/images/reflyer.png'></span></a><!--img style='height:46px' src='/images/tourfilter_logo_4.png'/-->
@@ -53,7 +50,9 @@
 		<%end%>
 		
           <!--div class='logo_metro'><a href='<%#=url("/")%>'><%=@metro%></a></div-->
-          <div class='logo_title'><%=@header_title.sub("#","<span style='font-family:monospace;font-size:30px;'>#</span>") if @header_title%></div>
+          <%if @header_title%>
+          <h2 style='width:95%'><%=@header_title.sub("#","<span style='font-family:monospace;font-size:30px;'>#</span>") if @header_title%></h2>
+          <%end%>
         </div>
 				<div style='float:right;margin-top:12px'>
 				<%unless @hide_post_flyer_button%>
@@ -66,17 +65,10 @@
       <div class='signup ' style='display:none'>
         <div class='gray_links underline' style='float:right'><a href='/login'>login</a></div>
         <div style='float:left' class='underline'>
-          spam-free concert alerts: <a href="<%#=url('/edit')%>">sign up</a>
+          <a href="<%#=url('/edit')%>">sign up</a>
         </div>
         <div style='clear:both'></div>
         </div>
-<div id="tf_header">
-	<div id="left-header">
-		<span id='logo'><a href='/<%=@metro_code%>'>reflyer</a></span>
-<br>
-	</div>
-    <br>
-</div>
 	<div style="clear:both;"></div>
 	<div style="padding:2px"></div>
 <%if flash[:notice]%>
@@ -119,25 +111,7 @@
   </div>
 
   </body>
-  <script type="text/javascript">
-  var _sf_async_config={uid:21126,domain:"reflyer.com"};
-  (function(){
-    function loadChartbeat() {
-      window._sf_endpt=(new Date()).getTime();
-      var e = document.createElement('script');
-      e.setAttribute('language', 'javascript');
-      e.setAttribute('type', 'text/javascript');
-      e.setAttribute('src',
-         (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
-         "js/chartbeat.js");
-      document.body.appendChild(e);
-    }
-    var oldonload = window.onload;
-    window.onload = (typeof window.onload != 'function') ?
-       loadChartbeat : function() { oldonload(); loadChartbeat(); };
-  })();
-
-  </script>
+ 
   	</html>
   <%end%> <!-- if ! fragment -->
   <script>
