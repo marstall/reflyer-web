@@ -8,7 +8,7 @@ line-height:1.5em	;
 	}
 
 body {
-	background-color: #fff;
+	background-color: #faa;
 	margin:2px;
 	margin-right:4px;
  	color: #333;
@@ -26,7 +26,6 @@ a:active { text-decoration: underline; }
 {
 	font-family:helvetica,Times, Sans-Serif;
 	font-weight: normal;
-	background-color: #fff;
 	margin:4px;
 }
 
@@ -934,6 +933,23 @@ font-size:20px;
 	-moz-border-radius: 10px 10px 10px 10px;
 	-webkit-box-shadow: 10px 10px 10px #bbb;
 	-moz-box-shadow: 5px 5px 5px #bbb; 
+}
+.straight_flyer
+{
+	margin-right: 0px;
+	width:400px;
+	text-transform:none;
+	padding:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+	background-color:white;
+	border:0px solid #eee;
+	padding:0px;
+	float: left;
+	-webkit-border-radius: 0px 0px 0px 0px;
+	-moz-border-radius: 0px 0px 0px 0px;
+	-webkit-box-shadow: 0px 0px 0px #bbb;
+	-moz-box-shadow: 0px 0px 0px #bbb; 
 }
 
 
