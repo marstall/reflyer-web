@@ -83,7 +83,7 @@ class PushNotification < ActiveRecord::Base
   end
   
   def send_to_all_users
-    users = User.where.not(expo_push_token:nil).where.not(expo_push_token:"null")
+    users = User.where.not(expo_push_token:nil).where.not(expo_push_token:"null").where(notifications_permission_state:"accepted")
     puts "sending push to all #{users.length} users ..."
     @expo_push_tokens = users.map{|user|user.expo_push_token}
     actually_send_push_notifications
