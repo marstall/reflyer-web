@@ -38,7 +38,7 @@
 	@page_size=@controller.page_size
 	@num = (params[:num]||@page_size).to_i
     
-	@order = "created" if not @order
+	@order = "score" if not @order
 	@controller.set_cookie(:order,@order)
 	order_hash=
 	{
