@@ -9,8 +9,7 @@ line-height:1.5em	;
 
 body {
 	background-color: #faa;
-	margin:2px;
-	margin-right:4px;
+	margin:1em;
  	color: #333;
 }
 
@@ -2958,7 +2957,7 @@ th
 #new_logo
 {
 	margin-left:0px;
-	margin-top:20px;
+	margin-top:0px;
 	margin-right:4px;
 	margin-bottom:10px;
 	padding-bottom:7px;
@@ -3256,7 +3255,7 @@ th
 
 
 
-h1, #left-header { 
+#left-header { 
 	background-color: inherit;
 	float:left;
 	padding-left:24px;
@@ -3849,26 +3848,34 @@ h1x {
 	font-family:helvetica;
 	text-align:left;
 	font-size:14px;
- 	color:#369;
+ 	color:#d31e09;
 	padding:4px;
 	margin-bottom:16px;
 	width:100%;
 }
 
-.above_header
+
+h1,.above_header
 {
+  margin:0;
+  border:0;
 	font-family:monospace;
-	background-color:#fff;
-	color:#d3100a;
-	padding-bottom:2em;
-	text-align:right;
-	font-size:14px;
- 	color:black;
-	padding-top:8px;
-	width:100%;
-  opacity: 0;
+	color: #d31e09;
+	font-size:16px;
+  margin-top:0px;
+  margin-bottom:0px;
+  width:100%;
+  padding:1px;
   filter: alpha(opacity=10);
+  opacity:0;
+  height:0;
 }
+
+.above_header a:link { text-decoration: none; color: #d31e09; font-weight:normal}
+.above_header a:visited { text-decoration: none; color: #d31e09; font-weight:normal}
+.above_header a:hover { text-decoration: underline; }
+.above_header a:active { text-decoration: underline; }
+
 
 .above_header:hover
 {

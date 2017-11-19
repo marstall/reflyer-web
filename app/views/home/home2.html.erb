@@ -1,36 +1,6 @@
-<%@full_width_footer=true%>
-<%if @youser and @youser.errors and not @youser.errors.empty?%>
-	<div class="error">
-	<ul>
-	<%
-		@youser.errors.each{|error|
-			%>
-		    <li><%=error-%></li>
-			<%
-		} if @youser
-	%>
-	</ul>
-	</div>
-<%end-%>
-<%if false and @youser and not @youser.normal?%>
-<div class='nag'>Next: to make it easier to log in, you should <a href='<%=url("/settings")%>'>choose a username and password</a>.</div>
-<%end%>
 <div >
-<div >
-<%#=render(:partial=>'shared/search')%>
-	<%= simple_form_for Flyer.new, url: "/flyers" do |form| %>
-	  <%#= form.input :image, as: :file %>
-	  <%#= form.button :submit %>
-	  
-	<% end %>
-        	<div id='calndar_view'>  
-				<%if cookies['calndar_view']=='popular'&&@view!=:calendar%>
-	           		<%=render("popular_partial",
-							:params=>params+{:metro_code=>@metro_code,:offset=>@offset,:days_to_show=>@days_to_show})%>
-          <%else%>
-            <%cookies['calndar_view']=='flyers'%>
 <%
-#	@tags=params[:tags] 
+	@tags=params[:tags] 
 	@tags=nil if @tags=='all'
 
 	@order=params[:order] || @controller.get_cookie(:order)
@@ -42,7 +12,7 @@
 	@controller.set_cookie(:order,@order)
 	order_hash=
 	{
-  	  "score"=>"score desc,created_at desc",
+  	"score"=>"score desc,created_at desc",
 	  "created"=>"created_at desc",
 	  "popular"=>"created_at desc",
 	  "date"=>"start_date desc"
@@ -60,42 +30,7 @@
 
 	@flyers = Flyer.all_flyers(params,options)
 %>
-<%total_flyers = Flyer.count_future_flyers(@metro_code)%>
-<%if total_flyers==0%>
-	<%#=render(:partial=>'shared/flyers_scarcity')%>
-	<%@hide_footer=true%>
-<%end%>
-	<%#=render(:partial=>'shared/flyer_control')%>
 	<%@flyers.each{|flyer|%>  		        
 <%=render(:partial=>'shared/straight_flyer',:locals=>{:flyer=>flyer})%>
 	<%}%>
-
-		  <%end%>
-    		</div>
-       
-          <%if not params[:bare]%>
-            <%if @youser%>
-            <%#=render(:partial=>'shared/floating_account_column')%>
-            <%else%>
-            <%#=render(:partial=>'shared/floating_column_logged_out')%>
-            <%end%>
-          <%end%>
-          <div style='clear:left'></div>
-	<%#=render(:partial =>"shared/calendar")%>
-	<%#=render(:partial =>"shared/recently_added_shows")%>
 </div>
-	<div style='clear:right'></div>
-</div>
-
-<%#=form_remote_tag (:update =>"result",
-					:html=>{
-					  :id=>'hidden_form',
-					  :name=>'hidden_form'
-				  },
-					:url =>{:action => "add_remote"})
-					-%>
-          <input type="hidden" name="hidden_term_text" value=""/>
-          <input type="hidden" name="note" value=""/>
-          <input type="hidden" name="note_entity" value=""/>
-  <%#=render(:partial=>mac"shared/authenticate_client")%>
-</form>

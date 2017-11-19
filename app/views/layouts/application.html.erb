@@ -14,8 +14,18 @@
     <%= javascript_include_tag 'application'%>
   </head>
 	<body >
+    <div>
 		<%if !@fragment%>
 	  	  <div class='above_header'>
+             <h1>
+                <span class='dheader_menu_item'>
+                  upcoming in boston: music, art, film, performance, community
+		           </span>
+                <!--
+                <span class='dheader_menu_item'>
+                  <%=link_to "not logged in", new_user_session_path%>
+		           </span>-->
+             </h1>
 		        <%if current_user-%>
                 <span class='dheader_menu_item'>
                   logged in as <%=current_user.email%>
@@ -26,19 +36,13 @@
                   <%end%>
 		           </span>
 	           <%else%>
-             <div>
-                <span class='dheader_menu_item'>
-                  <%=link_to "not logged in", new_user_session_path%>
-		           </span>
-             </div>
                <%end%>
     		</div>
 		<%end%>
-    <div id='inner_body'>
 			<%unless @hide_header%>
-      <div id='new_logo' >
+      <div>
         <div style='float:left'>
-          <a href='/'><img style='width:300px' src='/images/reflyer.png'></span></a><!--img style='height:46px' src='/images/tourfilter_logo_4.png'/-->
+          <a href='/'><img style='width:325px' src='/images/reflyer.png'></span></a><!--img style='height:46px' src='/images/tourfilter_logo_4.png'/-->
 		<%if @show_logo_subhead%>
 		<div id='logo_subhead'>
 		  a free community flyer-board for <%=@metro%> events
