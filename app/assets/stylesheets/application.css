@@ -3871,8 +3871,8 @@ h1,.above_header
   height:0;
 }
 
-.above_header a:link { text-decoration: none; color: #d31e09; font-weight:normal}
-.above_header a:visited { text-decoration: none; color: #d31e09; font-weight:normal}
+.above_header a:link { text-decoration: underline; color: #d31e09; font-weight:normal}
+.above_header a:visited { text-decoration: underline; color: #d31e09; font-weight:normal}
 .above_header a:hover { text-decoration: underline; }
 .above_header a:active { text-decoration: underline; }
 
