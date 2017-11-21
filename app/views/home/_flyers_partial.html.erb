@@ -1,3 +1,16 @@
+		        <%if current_user-%>
+                <span class='dheader_menu_item'>
+                  logged in as <%=current_user.email%>
+                  <%if current_user.admin?-%>
+                    (admin)
+                    <%= link_to('logout', destroy_user_session_path, method: :delete) %>        
+                    
+                  <%end%>
+		           </span>
+	           <%else%>
+<%=link_to "not logged in", new_user_session_path%>
+               <%end%>
+
 <%
 #	@tags=params[:tags] 
 	@tags=nil if @tags=='all'

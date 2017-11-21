@@ -3854,6 +3854,26 @@ h1x {
 	width:100%;
 }
 
+.header_right {
+  font-weight:bold;
+  color:#d31e09;
+  font-family:monospace;
+  font-size:16px;
+  float:right;
+  margin-top:75px;
+  margin-right:130px;
+}
+
+.line1 {
+  text-transform:uppercase;
+}
+
+.header_right a:link { text-decoration: underline; color: #d31e09; font-weight:bold}
+.header_right a:visited { text-decoration: underline; color: #d31e09; font-weight:bold}
+.header_right a:hover { text-decoration: underline; }
+.header_right a:active { text-decoration: underline; }
+
+
 
 h1,.above_header
 {
