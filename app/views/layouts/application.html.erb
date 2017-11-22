@@ -44,11 +44,6 @@
         <div style='float:left;margin-top:40px;margin-bottom:40px'>
           <a href='/'><img style='width:325px' src='/images/reflyer.png'></span></a>
         </div>
-        <div class='header_right'>
-          <div class='line1'>boston culture + community</div>
-          <div class='line1'>music, film, art, performance</div>
-          <a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'>iPhone app</a>
-        </div>
 		
           <!--div class='logo_metro'><a href='<%#=url("/")%>'><%=@metro%></a></div-->
           <%if @header_title%>
@@ -84,15 +79,14 @@
 <%end%> <!-- if ! fragment -->
     <%= yield %>
 
-  <%if !@fragment and not @hide_footer%>
-  	<%
-  #		footer_style="footer"
-  		footer_style="footer-full-width" #if @full_width_footer
-  #		footer_style="footer-doublenarrow" if @double_wide_right_column
-  	%>
   	<br><br>
-  	<div class='footer' id="<%=footer_style%>">
-  		<span class='footer_menu_item'>
+  	<div style='clear:left'></div>
+        <div class='footer'>
+          <div class='line1'>REFLYER</div>
+          <div class=''>boston culture + community</div>
+          <div class=''>music, film, art, performance</div>
+          <div class=''>download: <a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'>iPhone app</a></div>
+        </div>
   	</div>
   </div>
 
@@ -107,8 +101,6 @@
   	pageTracker._trackPageview();
   </script>
 
-
-  <%end%>
   </div>
 
   </body>
