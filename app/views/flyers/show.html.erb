@@ -10,7 +10,7 @@
 
 <%return unless flyer and flyer.image%>	
 <div class='fullpage_flyer' >
-  <a href='<%=flyer.image.url%>'><img border=0  width=100% src='<%=flyer.image.url%>' ></a>
+  <a href='<%=flyer.image.url%>'><img border=0  width=100% src='<%=flyer.image.url(:original)%>' ></a>
   <div class='fullpage_flyer_footer'>
     <div class='fullpage_flyer_footer_header'>
       <span class='flyer_category'>
@@ -33,7 +33,7 @@
     </div>
     <div class='flyer_social'>
 			<div class="fb-like" data-send="false" data-layout="button_count" data-width="125" data-show-faces="true"></div>
-			<a href="https://twitter.com/share" class="twitter-share-button" data-via="tourfilter">Tweet</a>
+			<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
   </div>
