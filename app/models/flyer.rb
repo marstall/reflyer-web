@@ -69,8 +69,8 @@ class Flyer < ApplicationRecord
 #  has_many :taggings,:dependent=>:destroy
 #  has_many :tags, :as=>:hashtags, :through=>:taggings
   
-  def formatted_body
-    body
+  def formatted_buzz
+    buzz.gsub("\r","<br>")
   end
 
   def medium_url
@@ -101,6 +101,91 @@ class Flyer < ApplicationRecord
     return user_actions.count
   end
 
+  def pretty_date(date)
+    today = DateTime.now.midnight
+    diff = date-today
+    s=""
+    case diff
+    when 0
+      s="Today"
+    when 1
+      s="Tomorrow"
+    when 2..6
+      s= date.strftime("%a, %b %e")
+    else
+      s= date.strftime("%b %e")
+    end
+  end
+  
+  def date_string 
+    today = DateTime.now.midnight
+    start_diff = start_date-today
+    end_diff = end_date-today
+    pretty_start = pretty_date(start_date)
+    pretty_end = pretty_date(end_date)
+    if start_date==end_date 
+      return pretty_start
+    else 
+      s=""
+      if start_diff<0
+        case start_diff
+        when 0
+          s="today through #{pretty_end}"
+        else
+          case end_diff
+          when 0..1
+            s = "ends today!"
+          when 2..5
+            s = "ends #{pretty_end}"
+          else
+            s = "through #{pretty_end}"
+          end
+        end
+      else
+        return "#{pretty_start} - #{pretty_end}"
+      end
+    end
+  end
+=begin      
+    let startDiff = moment(this.iso8601_start_date).diff(today)
+    let endDiff = moment(this.iso8601_end_date).diff(today)
+    let startDate = this.prettyDate(this.iso8601_start_date)
+    let endDate = this.prettyDate(this.iso8601_end_date)
+    if (startDate == endDate) {
+      return startDate
+    } else {
+      if (startDiff < 0) {
+        let s
+        switch (startDiff) {
+          case 0:
+            s = `today through ${endDate}`
+          default:
+            switch (endDiff) {
+              case 0:
+                s = `ends today!`
+                break
+              case 1:
+              case 2:
+              case 3:
+              case 4:
+              case 5:
+                s = `ends ${endDate}`
+                break
+              default:
+                s = `through ${endDate}`
+                break
+            }
+            break
+        }
+        return s
+      } else {
+        return `${startDate} - ${endDate}`
+      }
+    }
+  }
+    
+
+=end
 
   def Flyer.count_future_flyers(metro_code)
     sql = <<-SQL

@@ -660,13 +660,12 @@ h3
 	-moz-border-radius:12px;
 }
 
-.fullpage_flyer_footer_header
+.small_form_header
 {
 	width:590px;
 	padding:4px;
 	margin:0px;
 	border:1px solid #ccc;
-	background-color:#fff;
 }
 
 .small_form_header
@@ -739,11 +738,16 @@ h3
   	color:#335;
 
 }
-
 .fullpage_flyer_footer
 {
+  padding:4px;
+	background-color:white;
+  opacity:0.8;
+}
+
+.fullpage_flyer_text
+{
 	padding:8px;
-	width:400px;
 	font-size:16px;
 	line-height:20px;
 }
@@ -840,10 +844,34 @@ font-size:20px;
     font-size:16px;
 }
 
+.fullpage_flyer_when
+{
+}
 
+.fullpage_flyer_title
+{
+  font-weight:bold;
+}
+
+.flyer_buzz 
+{
+  color:black;
+  font-size:16px;
+  margin-top:5px;
+  padding-bottom:10px;
+}
+
+.fullpage_flyer_footer_header 
+{
+  padding-bottom:4px;
+  border-bottom:1px solid #777;
+  margin-bottom:10px;
+}
 .flyer_category
 {
-	color:#369;
+	color:#333;
+  font-weight:bold;
+  text-transform:uppercase;
 }
 
 .flyer_category a:link { text-decoration: none; color: #369; }
@@ -862,7 +890,6 @@ font-size:20px;
 	margin:1px;
 	background-color:#eee;
 }
-
 
 .flyer_hud a:link { text-decoration: underline; ; color: #333; }
 .flyer_hud a:visited { text-decoration: underline; color: #333; }
@@ -1051,7 +1078,6 @@ breakpoint<400: everything is 100%
 	text-transform:none;
 	padding:0px;
 	margin-bottom:20px;
-	background-color:white;
 }
 
 @media only screen and (max-width: 400px) {

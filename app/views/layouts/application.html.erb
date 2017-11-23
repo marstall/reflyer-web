@@ -1,126 +1,40 @@
 <meta name="apple-itunes-app" content="app-id=1275345342, affiliate-data=myAffiliateData, app-argument=myURL">
-<script>window.hud=true</script>
 <!DOCTYPE html>
 <html>
   <head>
+    <%if ENV['RAILS_ENV']!='development'%>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104147614-2"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-104147614-2');
+      </script>
+    <%end%>
     <%if @page_title%>
       <title><%=@page_title%></title>
     <%else%>
       <title>Reflyer, Boston Community + Culure - In Flyer Form</title>
     <%end%>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application'%>
-    <%= javascript_include_tag 'application'%>
+    <%#= javascript_include_tag 'application'%>
   </head>
 	<body >
-    <div>
-		<%if !@fragment%>
-	  	  <div class='above_header'>
-             <h1>
-                <span class='dheader_menu_item'>
-                  upcoming in boston: music, art, film, performance, community
-		           </span>
-                <!--
-                <span class='dheader_menu_item'>
-                  <%=link_to "not logged in", new_user_session_path%>
-		           </span>-->
-             </h1>
-		        <%if current_user-%>
-                <span class='dheader_menu_item'>
-                  logged in as <%=current_user.email%>
-                  <%if current_user.admin?-%>
-                    (admin)
-                    <%= link_to('logout', destroy_user_session_path, method: :delete) %>        
-                    
-                  <%end%>
-		           </span>
-	           <%else%>
-               <%end%>
-    		</div>
-		<%end%>
-			<%unless @hide_header%>
-      <div >
-        <div style='float:left;margin-top:40px;margin-bottom:40px'>
-          <a href='/'><img style='width:325px' src='/images/reflyer.png'></span></a>
-        </div>
-		
-          <!--div class='logo_metro'><a href='<%#=url("/")%>'><%=@metro%></a></div-->
-          <%if @header_title%>
-          <h2 style='width:95%'><%=@header_title.sub("#","<span style='font-family:monospace;font-size:30px;'>#</span>") if @header_title%></h2>
-          <%end%>
-        </div>
-				<div style='float:right;margin-top:12px'>
-				<%unless @hide_post_flyer_button%>
-					<%#=render(:partial=>'shared/post_button')%>
-				<%end%>
-				</div>
-
-        <div style='clear:both'></div>
+    <div style='margin-top:40px;margin-bottom:40px'>
+      <a href='/'><img style='width:325px' src='/images/reflyer.png'/></a>
+    </div>
+      <%= yield %>
+  <div style='clear:left'></div>
+      <div class='footer'>
+        <div class='line1'>REFLYER</div>
+        <div class=''>boston culture + community</div>
+        <div class=''>music, film, art, performance</div>
+        <div class=''>download: <a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'>iPhone app</a></div>
       </div>
-      <div class='signup ' style='display:none'>
-        <div class='gray_links underline' style='float:right'><a href='/login'>login</a></div>
-        <div style='float:left' class='underline'>
-          <a href="<%#=url('/edit')%>">sign up</a>
-        </div>
-        <div style='clear:both'></div>
-        </div>
-	<div style="clear:both;"></div>
-	<div style="padding:2px"></div>
-<%if flash[:notice]%>
-	<div class="notice"><%= flash[:notice] %><%= flash[:error] %></div>
-<%end%>
-<%if flash[:error]%>
-	<div class="error"><%= flash[:notice] %><%= flash[:error] %></div>
-<%end%>
-<%if flash[:alert]%>
-	<div class="notice"><%= flash[alert]%></div>
-<%end%>
-<%end%> <!-- if ! fragment -->
-    <%= yield %>
-
-  	<br><br>
-  	<div style='clear:left'></div>
-        <div class='footer'>
-          <div class='line1'>REFLYER</div>
-          <div class=''>boston culture + community</div>
-          <div class=''>music, film, art, performance</div>
-          <div class=''>download: <a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'>iPhone app</a></div>
-        </div>
-  	</div>
   </div>
-
-  <%if ENV['RAILS_ENV']!='development'%>
-  <script type="text/javascript">
-  	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-  	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-  </script>
-  <script type="text/javascript">
-  	var pageTracker = _gat._getTracker("UA-529349-1");
-  	pageTracker._initData();
-  	pageTracker._trackPageview();
-  </script>
-
   </div>
-
-  </body>
- 
-  	</html>
-  <%end%> <!-- if ! fragment -->
-  <script>
-  // test
-
-  //pageTracker._trackEvent('1test3', '21test', '1tes2t', 3);
-  </script>
-
-  <%if false #ENV['RAILS_ENV']!='development'%>
-  <script>
-  track_page_view()
-  </script>
-  <%end%>
-  </script>
-  <script>
-  jQuery(document).ready(function() {
-  	if (console) console.log("loaded "+document.location.href)
-  })
-  </script>
+</body>
+</html>
