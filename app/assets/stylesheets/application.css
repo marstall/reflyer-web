@@ -848,6 +848,15 @@ font-size:20px;
 {
 }
 
+.flash 
+{
+  padding:1em;
+  font-weight:bold;
+  color:black;
+  font-family:monospace;
+  font-size:16px;
+}
+
 .fullpage_flyer_title
 {
   font-weight:bold;
@@ -960,6 +969,7 @@ font-size:20px;
 	-webkit-box-shadow: 10px 10px 10px #bbb;
 	-moz-box-shadow: 5px 5px 5px #bbb; 
 }
+
 .straight_flyer
 {
 	margin-right: 0px;
@@ -976,6 +986,11 @@ font-size:20px;
 	-moz-border-radius: 0px 0px 0px 0px;
 	-webkit-box-shadow: 0px 0px 0px #bbb;
 	-moz-box-shadow: 0px 0px 0px #bbb; 
+}
+
+.highlighted_flyer 
+{
+  opacity:0;
 }
 
 

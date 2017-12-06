@@ -44,6 +44,7 @@ class FlyersController < ApplicationController
       "created"=>"created_at desc",
       "popular"=>"created_at desc",
       "date"=>"date desc",
+      "top"=>"last_sent_to_top_at desc",
       "random"=>"rand()"
     }
     _order = order_hash[@order]
@@ -55,7 +56,7 @@ class FlyersController < ApplicationController
               :lat=>@lat,
               :lng=>@lng,
               :radius=>@radius,
-              :order=>_order,
+              :radius=>_order,
               :tags=>@tags,
               :query=>@query,
               :start=>@start,

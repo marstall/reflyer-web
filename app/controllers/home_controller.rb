@@ -518,6 +518,9 @@ c = GeoIP.new("/Users/chris/maxmind/GeoLiteCity.dat").city("76.24.220.14")
 
   def home2
     puts "+++ RENDERING EDIT#HOMEPAGE"
+    @highlighted_flyer_id = flash[:highlighted_flyer_id]
+    Rails.logger.info("@highlighted_flyer_id: #{ @highlighted_flyer_id}")
+    Rails.logger.info("flash[;notice]:#{flash[:notice]}")
     @query=nil
     @days_to_show = params[:id]||60
     @offset = params[:offset].to_i 

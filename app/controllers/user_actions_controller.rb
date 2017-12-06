@@ -62,6 +62,31 @@ class UserActionsController < ApplicationController
     end
   end
 
+  def valid_request?(params) 
+    return true
+  end
+  
+  def send_to_top
+    id = params[:id]
+    raise Exception unless valid_request?(params)
+
+    flyer = Flyer.find(id)
+    flyer.last_sent_to_top_at = DateTime.now
+    flyer.save
+
+    user_action = UserAction.new
+    user_action.action_type='flyer'
+    user_action.action_subtype='send_to_top'
+    user_action.flyer_id=id
+    user_action.description = flyer.title
+    user_action.user_id=nil
+    user_action.data = request.user_agent
+    user_action.save
+    flash[:highlighted_flyer_id]=id
+    flash[:notice]="You sent '#{flyer.title}' to the top!"
+    redirect_to :root
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_action

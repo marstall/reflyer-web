@@ -15,6 +15,7 @@
 
 class UserAction < ActiveRecord::Base
   belongs_to :user
+  has_one :flyer
   
   def data_as_dates
     JSON.parse(data).map{|timestamp|

@@ -8,14 +8,15 @@
 	@page_size=@controller.page_size
 	@num = (params[:num]||@page_size).to_i
     
-	@order = "score" if not @order
+	@order = "top" if not @order
 	@controller.set_cookie(:order,@order)
 	order_hash=
 	{
   	"score"=>"score desc,created_at desc",
 	  "created"=>"created_at desc",
 	  "popular"=>"created_at desc",
-	  "date"=>"start_date desc"
+	  "date"=>"start_date desc",
+	  "top"=>"last_sent_to_top_at desc, score desc,created_at desc"
 	}
 	_order = order_hash[@order]
 
@@ -31,6 +32,15 @@
 	@flyers = Flyer.all_flyers(params,options)
 %>
 	<%@flyers.each{|flyer|%>  		        
-<%=render(:partial=>'shared/straight_flyer',:locals=>{:flyer=>flyer})%>
+    <%highlighted = "#{flyer.id}"==@highlighted_flyer_id%>
+    <%=render(:partial=>'shared/straight_flyer',:locals=>{:flyer=>flyer,:highlighted=>highlighted})%>
 	<%}%>
 </div>
+
+<script>
+  $( document ).ready(function() {
+    $( ".highlighted_flyer" ).animate({
+      opacity: 1,
+    }, 1000)
+  });
+</script>

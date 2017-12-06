@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <%if ENV['RAILS_ENV']!='development'%>
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104147614-2"></script>
@@ -23,6 +24,7 @@
     <%#= javascript_include_tag 'application'%>
   </head>
 	<body >
+    <div class='flash'><%=flash[:notice]%></div>
     <div style='margin-top:40px;margin-bottom:40px'>
       <a href='/'><img style='width:325px' src='/images/reflyer.png'/></a>
     </div>
