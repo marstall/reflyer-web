@@ -36,9 +36,9 @@ class FlyersController < ApplicationController
 
   	@page_title="#{@metro_code} ##@tags events"
 
-    @order=params[:order] || get_cookie(:order) || 'score'
+    @order=params[:order] || 'top'
 #    @order = "random" #if not @order
-    set_cookie(:order,@order)
+    #set_cookie(:order,@order)
     order_hash=
     {
       "created"=>"created_at desc",

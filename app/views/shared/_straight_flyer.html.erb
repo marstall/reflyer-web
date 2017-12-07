@@ -1,5 +1,7 @@
-<%highlighted_class = highlighted ? 'highlighted_flyer !important' : ''%>
-<div class='flyer straight_flyer <%=highlighted_class%> ' id="flyer_<%=flyer.id%>" >
-	 		<!--<a href='<%=flyer_path(flyer)%>'><img border=0 src='<%=flyer.image.url(:medium)%>'  width='100%' ></a>-->
-	 		<a href='/send_to_top/<%=flyer.id%>'><img border=0 src='<%=flyer.image.url(:medium)%>'  width='100%' ></a>
+<%highlighted_class = highlighted ? 'highlighted_flyer' : ''%>
+<div data-id="hud_<%=flyer.id%>" class='flyer straight_flyer <%=highlighted_class%> ' id="flyer_<%=flyer.id%>" >
+	 		<a href='<%=flyer_path(flyer)%>'><img border=0 src='<%=flyer.image.url(:medium)%>'  width='100%' ></a>
+      <div onclick="window.location='/send_to_top/<%=flyer.id%>'" id='hud_<%=flyer.id%>' class='flyer_hud'>
+        <a href='/send_to_top/<%=flyer.id%>'>send to top</a>
+      </div>
 </div>

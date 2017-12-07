@@ -38,9 +38,26 @@
 </div>
 
 <script>
-  $( document ).ready(function() {
+  function animateNewFlyerIn() {
     $( ".highlighted_flyer" ).animate({
       opacity: 1,
     }, 1000)
+  }
+  
+  function setupHuds() {
+    $('.flyer').on({
+        'mouseenter':function(){
+            console.log("mouseenter"+$(this).data('id'))
+            $('#'+$(this).data('id')).show();
+        },'mouseleave':function(){
+            console.log("mouseleave")
+            $('#'+$(this).data('id')).hide();
+        }
+    });  
+  }
+
+  $( document ).ready(function() {
+    animateNewFlyerIn();
+    setupHuds();
   });
 </script>

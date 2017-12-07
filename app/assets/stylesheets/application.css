@@ -745,6 +745,15 @@ h3
   opacity:0.8;
 }
 
+.fullpage_send_to_top
+{
+  margin-top:5px;
+  background-color:#ffa;
+  width:97%;
+  text-align:center;
+  padding:5px;
+}
+
 .fullpage_flyer_text
 {
 	padding:8px;
@@ -900,29 +909,6 @@ font-size:20px;
 	background-color:#eee;
 }
 
-.flyer_hud a:link { text-decoration: underline; ; color: #333; }
-.flyer_hud a:visited { text-decoration: underline; color: #333; }
-.flyer_hud a:hover { text-decoration: underline; }
-.flyer_hud a:active { text-decoration: underline; }
-
-.flyer_hud
-{
-	-webkit-border-radius: 3px 0px 0px 0px;
-	-moz-border-radius: 3px;
-	text-align:right;
-	padding:6px;
-	border-bottom:2px solid #ddd;
-	visibility:hidden;
-	background-color:white;
-	opacity:0.8;
-	font-size:28px;
-	width: 97%;
-	position: absolute;
-	top: 38px;
-	right:0;
-	z-index: 1000;	
-}
-
 .fullpage_flyer_hud
 {
 	-webkit-border-radius: 3px 0px 0px 0px;
@@ -972,6 +958,7 @@ font-size:20px;
 
 .straight_flyer
 {
+  position:relative;
 	margin-right: 0px;
 	width:400px;
 	text-transform:none;
@@ -988,9 +975,32 @@ font-size:20px;
 	-moz-box-shadow: 0px 0px 0px #bbb; 
 }
 
-.highlighted_flyer 
+.highlighted_flyer
 {
   opacity:0;
+}
+
+.flyer_hud a:link { text-decoration: none; ; color: #333; }
+.flyer_hud a:visited { text-decoration: none; color: #333; }
+.flyer_hud a:hover { text-decoration: underline; }
+.flyer_hud a:active { text-decoration: underline; }
+
+.flyer_hud
+{
+	text-align:center;
+  text-transform:uppercase;
+  font-family:monospace;
+  font-weight:bold;
+	padding:6px;
+	background-color:#faa;
+	opacity:1;
+	font-size:14px;
+  display:none;
+  position:absolute;
+	bottom: 0px;
+  left:0;
+  width:97%;
+	z-index: 1000;	
 }
 
 
@@ -1016,7 +1026,7 @@ font-size:20px;
 @media screen and (min-width:800px) and (max-width:1400px) {
 	.flyer
 	{
-		width:28%;
+		width:30.3%;
 	}
 }
 
