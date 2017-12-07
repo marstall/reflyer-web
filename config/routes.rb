@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'blob', to: 'flyers#blob'
   get 'flyer/:id/image/:size', to: 'flyers#image'
   get 'jpg_passthrough', to: 'flyers#jpg_passthrough'
-  get 'send_to_top/:id', to: 'user_actions#send_to_top'
+  get 'send2top/:id', to: 'user_actions#send_to_top'
   
   concern :actionable do 
     resources :user_actions
