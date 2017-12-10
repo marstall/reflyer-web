@@ -1,4 +1,12 @@
 <div id="fb-root"></div>
+<script>
+  function sendToTop(flyer_id) {
+    segments = ["send","2","topp"]
+    s = segments[0]+segments[1]+segments[2]
+    window.location='/'+s+'/'+flyer_id
+    return false
+  }
+</script>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -37,7 +45,7 @@
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
     <div class='fullpage_send_to_top'>
-      <a rel="nofollow" href='/send2top/<%=flyer.id%>'>send to top of homepage</a>
+        <a rel="nofollow" href='#' onclick='return sendToTop(<%=flyer.id%>)'>send to top of homepage</a>
     </div>
   </div>
 

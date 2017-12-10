@@ -1,7 +1,15 @@
+<script>
+  function sendToTop(flyer_id) {
+    segments = ["send","2","topp"]
+    s = segments[0]+segments[1]+segments[2]
+    window.location='/'+s+'/'+flyer_id
+    return false
+  }
+</script>
 <%highlighted_class = highlighted ? 'highlighted_flyer' : ''%>
 <div data-id="hud_<%=flyer.id%>" class='flyer straight_flyer <%=highlighted_class%> ' id="flyer_<%=flyer.id%>" >
 	 		<a href='<%=flyer_path(flyer)%>'><img border=0 src='<%=flyer.image.url(:medium)%>'  width='100%' ></a>
-      <div onclick="window.location='/send_to_top/<%=flyer.id%>'" id='hud_<%=flyer.id%>' class='flyer_hud'>
-        <a rel="nofollow" href='/send2top/<%=flyer.id%>'>send to top</a>
+      <div onclick='return sendToTop(<%=flyer.id%>)' id='hud_<%=flyer.id%>' class='flyer_hud'>
+        <a rel="nofollow" href='#' onclick='return sendToTop(<%=flyer.id%>)' >send to top</a>
       </div>
 </div>
