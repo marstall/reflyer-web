@@ -3375,6 +3375,10 @@ th
 .metro_odd {}
 .metro_even {}
 
+  .nodeco a:link { text-decoration: none; color: #369; }
+  .nodeco a:visited { text-decoration: none; color: #369; }
+  .nodeco a:hover { text-decoration: underline; }
+  .nodeco a:active { text-decoration: underline; }
 
 .metro_odd a:link { text-decoration: none; color: #369; }
 .metro_odd a:visited { text-decoration: none; color: #369; }
@@ -3948,6 +3952,21 @@ h1x {
   margin-left:10px;
 }
 
+.superheader_right {
+  float:right;
+  margin-right:110;
+  background-color:#f2d4b8;
+  padding:4;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+}
+
+.superheader_right a:link { text-decoration: none; color: #d31e09; font-weight:bold}
+.superheader_right a:visited { text-decoration: none; color: #d31e09; font-weight:bold}
+.superheader_right a:hover { text-decoration: underline; }
+.superheader_right a:active { text-decoration: underline; }
+
+
 .footer {
   font-weight:bold;
   color:#d31e09;
@@ -3963,10 +3982,6 @@ h1x {
 .line2 {
 }
 
-.header_right a:link { text-decoration: underline; color: #d31e09; font-weight:bold}
-.header_right a:visited { text-decoration: underline; color: #d31e09; font-weight:bold}
-.header_right a:hover { text-decoration: underline; }
-.header_right a:active { text-decoration: underline; }
 
 
 
