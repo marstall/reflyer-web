@@ -28,7 +28,7 @@ a:active { text-decoration: underline; }
 	margin:4px;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 400px) {
 	body {
 		margin:0px;
 		margin-right:0px;
@@ -997,8 +997,6 @@ font-size:20px;
 	background-color:#faa;
 	opacity:1;
 	font-size:12px;
-  display:none;
-  position:absolute;
 	bottom: 0px;
   left:0;
   width:97%;
@@ -1007,7 +1005,6 @@ font-size:20px;
 .flyer_hud_category {
 	color:#333;
   text-transform:uppercase;
-  background-color:"#faa";
 }
 .flyer_hud_header 
 {
@@ -1041,9 +1038,18 @@ font-size:20px;
 
 @media only screen and (max-width: 414px) {
     /* phones */
+    .flyer_hud
+    {
+      display:block;
+      position:relative;
+      padding-bottom:20px;
+    	bottom: auto;
+      left:auto;
+      
+    }
 		.flyer 
 		{
-			width:96%;
+			width:100%;
 		}
 		
 		.post_instructions
@@ -1056,6 +1062,10 @@ font-size:20px;
 	{
 		width:44%;
 	}
+  .flyer_hud {
+    display:none;
+    position:absolute;
+  }
 }
 
 @media screen and (min-width:800px) and (max-width:1400px) {
@@ -1063,6 +1073,10 @@ font-size:20px;
 	{
 		width:30.3%;
 	}
+  .flyer_hud {
+    display:none;
+    position:absolute;
+  }
 }
 
 @media screen only 
@@ -3953,6 +3967,7 @@ h1x {
   margin-top:35px;
   margin-left:10px;
 }
+
 .superheader_left {
   float:left;
   padding:4;
