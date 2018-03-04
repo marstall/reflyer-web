@@ -10,6 +10,34 @@
 <div data-id="hud_<%=flyer.id%>" class='flyer straight_flyer <%=highlighted_class%> ' id="flyer_<%=flyer.id%>" >
 	 		<a href='<%=flyer_path(flyer)%>'><img border=0 src='<%=flyer.image.url(:medium)%>'  width='100%' ></a>
       <div onclick='return sendToTop(<%=flyer.id%>)' id='hud_<%=flyer.id%>' class='flyer_hud'>
-        <a rel="nofollow" href='#' onclick='return sendToTop(<%=flyer.id%>)' >send to top</a>
+    <div class=''>
+      <div class='flyer_hud_header'>
+      <div class='flyer_hud_category'>
+        <a href='<%="/flyers?tags=#{flyer.category}"%>'><%=flyer.category%></a> 
+      </div>
+      <%if flyer.title and not flyer.title.empty? %>  
+        <span class='flyer_hud_title'>
+          <%=flyer.title%>
+        </span>
+        <%end%>
+        <div style='float:right'>
+         <%unless flyer.place%>
+          <span class='flyer_hud_date'><%=flyer.date_string%></span>
+          <%end%>
+        </div>
+      </div>
+    </div>
+    <div style='clear:both'></div>
+    <div class='flyer_hud_place'>
+      <%if flyer.place%>
+      at <%=flyer.place.name%> <%=flyer.date_string%>
+      <%end%>
+    </div>
+		<div class='flyer_hud_buzz' >
+			<%if flyer.buzz and not flyer.buzz.empty? %>  
+    		<%=raw flyer.formatted_buzz%>
+        <%end%>
+    </div>
+    <div class='flyer_hud_posted'>posted <%=time_ago_in_words(flyer.created_at)%> ago</div>
       </div>
 </div>

@@ -24,19 +24,21 @@
     <%#= javascript_include_tag 'application'%>
   </head>
 	<body >
-    <div class='flash'><%=flash[:notice]%></div>
+    <%if flash[:notice]%><div class='flash'><%=flash[:notice]%></div><%end%>
+  <div style='clear:left'></div>
+      <div class='superheader'>
+        <div class=''>boston community & culture ... in flyer form. </div>
+      </div>
+  </div>
     <div style='margin-top:40px;margin-bottom:40px'>
       <a href='/'><img style='width:325px' src='/images/reflyer.png'/></a>
     </div>
       <%= yield %>
+  </div>
   <div style='clear:left'></div>
       <div class='footer'>
-        <div class='line1'>REFLYER</div>
-        <div class=''>boston culture + community</div>
-        <div class=''>music, film, art, performance</div>
-        <div class=''>download: <a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'>iPhone app</a></div>
+        <div style='margin-top:10px'><a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'><img width=200 src='/images/availableOnTheAppStore.png'></a></div>
       </div>
-  </div>
   </div>
 </body>
 </html>

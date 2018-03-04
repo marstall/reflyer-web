@@ -879,7 +879,7 @@ font-size:20px;
   padding-bottom:10px;
 }
 
-.fullpage_flyer_footer_header 
+.flyer_header 
 {
   padding-bottom:4px;
   border-bottom:1px solid #777;
@@ -890,6 +890,8 @@ font-size:20px;
 	color:#333;
   font-weight:bold;
   text-transform:uppercase;
+  padding:3;
+  background-color:"#faa";
 }
 
 .flyer_category a:link { text-decoration: none; color: #369; }
@@ -987,20 +989,51 @@ font-size:20px;
 
 .flyer_hud
 {
-	text-align:center;
-  text-transform:uppercase;
   font-family:monospace;
-  font-weight:bold;
 	padding:6px;
+  padding-top:0px;
 	background-color:#faa;
 	opacity:1;
-	font-size:14px;
+	font-size:12px;
   display:none;
   position:absolute;
 	bottom: 0px;
   left:0;
   width:97%;
 	z-index: 1000;	
+}
+.flyer_hud_category {
+	color:#333;
+  text-transform:uppercase;
+  background-color:"#faa";
+}
+.flyer_hud_header 
+{
+  
+}
+.flyer_hud_date 
+{
+  font-weight:bold;
+  text-transform:capitalize;
+}
+.flyer_hud_title
+{
+  font-weight:bold;
+}
+.flyer_hud_place
+{
+  font-style:italic;
+}
+
+.flyer_hud_buzz 
+{
+}
+
+.flyer_hud_posted
+{
+  font-style:italic;
+  font-size:10px;
+  font-color:'#777';
 }
 
 
@@ -3311,6 +3344,7 @@ th
 	float:left;
 	padding-left:24px;
 	padding-top:6px;
+  
 	text-transform:lowercase;
 	font-size:18px;
 }
@@ -3905,13 +3939,22 @@ h1x {
 	width:100%;
 }
 
+.superheader {
+  font-weight:bold;
+  color:#d31e09;
+  font-family:monospace;
+  font-size:16px;
+  margin-top:35px;
+  margin-left:10px;
+}
+
 .footer {
   font-weight:bold;
   color:#d31e09;
   font-family:monospace;
   font-size:16px;
-  margin-top:75px;
-  margin-left:20px;
+  margin-top:25px;
+  margin-left:0px;
 }
 
 .line1 {
