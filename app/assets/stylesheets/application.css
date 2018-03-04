@@ -3971,6 +3971,7 @@ h1x {
 .superheader_right {
   float:right;
   margin-right:110;
+  margin-top:-4;
   background-color:#f2d4b8;
   padding:4;
 	-webkit-border-radius:5px;
