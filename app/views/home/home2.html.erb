@@ -3,7 +3,7 @@
 	@tags=params[:tags] 
 	@tags=nil if @tags=='all'
 
-	@order=params[:order] || @controller.get_cookie(:order)
+	@order=params[:order]
 	@start = (params[:start]||0).to_i
 	@page_size=@controller.page_size
 	@num = (params[:num]||@page_size).to_i
