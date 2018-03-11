@@ -991,12 +991,13 @@ font-size:20px;
 
 .flyer_hud
 {
+  position:absolute;
   font-family:monospace;
 	padding:6px;
   padding-top:0px;
 	background-color:#faa;
-	opacity:1;
 	font-size:12px;
+  display:none;
 	bottom: 0px;
   left:0;
   width:97%;
