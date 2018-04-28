@@ -313,7 +313,7 @@ class Flyer < ApplicationRecord
      sql = <<-SQL
         #{select_sql}
         where image_file_name is not null
-        and flyers.end_date>=now()
+        and flyers.end_date>=adddate(now(),interval -1 day)
         #{flagged_sql}
         #{tags_sql}
         #{query_sql}
