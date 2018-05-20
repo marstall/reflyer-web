@@ -528,6 +528,18 @@ c = GeoIP.new("/Users/chris/maxmind/GeoLiteCity.dat").city("76.24.220.14")
     @controller = self
   end  
 
+  def home3
+    @highlighted_flyer_id = flash[:highlighted_flyer_id]
+    @query=nil
+    @days_to_show = params[:id]||60
+    @offset = params[:offset].to_i 
+    @days_to_show=180 if @days_to_show=='all'
+    @days_to_show=@days_to_show.to_i
+    @full_width_footer=true
+    @tags = params[:tags]
+    @controller = self
+  end  
+
 
   def just_calendar
     @full_width_footer=true

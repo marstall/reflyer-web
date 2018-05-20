@@ -20,14 +20,14 @@ end
     
 	<div class='rounded_image_container_container'>
 		<div class='rounded_image_container'>
-			<div class='flyer_header'>
+			<!--  <div class='flyer_header'>
 		    	<span class='flyer_category'>
 					<%highlight_class= @query.sub("#","")==flyer.category ? "search_highlight" : "" if @query%>
 					<span class='<%=highlight_class%>'>
 					<a href='/flyers?tags=<%=flyer.category%>'><%=flyer.category%></a> 
 					</span>
 				</span>
-			</div>
+			</div>-->
 	 		<a href='<%=flyer_path(flyer)%>'><img style='display:none' onload='jQuery(this).show()' border=0  width='100%'  src='<%=flyer.image.url(:medium)%>' ></a>
 		</div>
 	</div>
@@ -37,11 +37,15 @@ end
 				<%#=flyer.formatted_body(@metro_code,@query)%>
 			<%#end%>
 		</div>
+  	<div class='flyer_category'>
+		<%highlight_class= @query.sub("#","")==flyer.category ? "search_highlight" : "" if @query%>
+		<span class='<%=highlight_class%>'>
+		<a href='/flyers?tags=<%=flyer.category%>'><%=flyer.category%></a> 
+  </div >
 		<div class='flyer_title'>
-            <%=flyer.title%> 
         <%if flyer.score>0%>
 		<span class='flyer_editors_pick'>
-            @
+            
         </span>
         <%end%>
             
@@ -52,9 +56,9 @@ end
   		<div class='flyer_when'>
             <%=flyer_time%></div>
         
-<!--		<div class='flyer_posted_on'>
+<div class='flyer_posted_on'>
 			posted <%=time_ago_in_words flyer.created_at%> ago
-        </div>-->
+        </div>
 			<%if false # flyer.is_owner(@youser)%>
 				<a href='/flyers/post_flyer?id=<%=flyer.id%>'>edit</a>
 				<a onclick="return confirm('permanently delete this flyer?')" href='flyers/delete?id=<%=flyer.id%>'>delete</a>

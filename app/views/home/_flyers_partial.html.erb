@@ -1,16 +1,3 @@
-		        <%if current_user-%>
-                <span class='dheader_menu_item'>
-                  logged in as <%=current_user.email%>
-                  <%if current_user.admin?-%>
-                    (admin)
-                    <%= link_to('logout', destroy_user_session_path, method: :delete) %>        
-                    
-                  <%end%>
-		           </span>
-	           <%else%>
-<%=link_to "not logged in", new_user_session_path%>
-               <%end%>
-
 <%
 #	@tags=params[:tags] 
 	@tags=nil if @tags=='all'
@@ -20,11 +7,11 @@
 	@page_size=@controller.page_size
 	@num = (params[:num]||@page_size).to_i
     
-	@order = "created" if not @order
+	@order = "created" #if not @order
 	@controller.set_cookie(:order,@order)
 	order_hash=
 	{
-  	  "score"=>"score desc,created_at desc",
+  	 "score"=>"score desc,created_at desc",
 	  "created"=>"created_at desc",
 	  "popular"=>"created_at desc",
 	  "date"=>"start_date desc"
@@ -49,4 +36,3 @@
 <%end%>
 	<%#=render(:partial=>'shared/flyer_control')%>
 	<%=render(:partial=>"shared/flyers",:locals=>{:total_flyers=>total_flyers})%>
-
