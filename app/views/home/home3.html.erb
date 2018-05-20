@@ -1,0 +1,79 @@
+<%= javascript_include_tag 'application'%>
+<%@full_width_footer=true%>
+<%if @youser and @youser.errors and not @youser.errors.empty?%>
+	<div class="error">
+	<ul>
+	<%
+		@youser.errors.each{|error|
+			%>
+		    <li><%=error-%></li>
+			<%
+		} if @youser
+	%>
+	</ul>
+	</div>
+<%end-%>
+<%if false and @youser and not @youser.normal?%>
+<div class='nag'>Next: to make it easier to log in, you should <a href='<%=url("/settings")%>'>choose a username and password</a>.</div>
+<%end%>
+<div >
+<div >
+<%#=render(:partial=>'shared/search')%>
+	<%= simple_form_for Flyer.new, url: "/flyers" do |form| %>
+	  <%#= form.input :image, as: :file %>
+	  <%#= form.button :submit %>
+	  
+	<% end %>
+        	<div id='calndar_view'>  
+				<%if cookies['calndar_view']=='popular'&&@view!=:calendar%>
+	           		<%=render("popular_partial",
+							:params=>params+{:metro_code=>@metro_code,:offset=>@offset,:days_to_show=>@days_to_show})%>
+          <%else%>
+            <%cookies['calndar_view']=='flyers'%>
+	           <%=render("flyers_partial",
+							:params=>params.merge({:offset=>@offset,:days_to_show=>@days_to_show,:tags=>@tags}))%>
+		  <%end%>
+    		</div>
+       
+          <%if not params[:bare]%>
+            <%if @youser%>
+            <%#=render(:partial=>'shared/floating_account_column')%>
+            <%else%>
+            <%#=render(:partial=>'shared/floating_column_logged_out')%>
+            <%end%>
+          <%end%>
+          <div style='clear:left'></div>
+	<%#=render(:partial =>"shared/calendar")%>
+	<%#=render(:partial =>"shared/recently_added_shows")%>
+</div>
+	<div style='clear:right'></div>
+</div>
+
+<%#=form_remote_tag (:update =>"result",
+					:html=>{
+					  :id=>'hidden_form',
+					  :name=>'hidden_form'
+				  },
+					:url =>{:action => "add_remote"})
+					-%>
+          <input type="hidden" name="hidden_term_text" value=""/>
+          <input type="hidden" name="note" value=""/>
+          <input type="hidden" name="note_entity" value=""/>
+  <%#=render(:partial=>mac"shared/authenticate_client")%>
+</form>
+<div style='clear:left'/>
+<div style='padding-left:10px;margin-top:10px;font-family:helvetica'>
+		        <%if current_user-%>
+                <span class='dheader_menu_item'>
+                  logged in as <%=current_user.email%>
+                  <%if current_user.admin?-%>
+                    (admin)
+                    <%= link_to('logout', destroy_user_session_path, method: :delete) %>        
+                    
+                  <%end%>
+		           </span>
+	           <%else%>
+<%=link_to "reflyer", new_user_session_path%>
+               <%end%>
+
+</div>
