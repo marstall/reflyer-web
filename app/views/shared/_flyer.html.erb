@@ -6,12 +6,14 @@
 words_to_end = distance_of_time_in_words(DateTime.now.midnight,flyer.end_date)
 words_to_start = distance_of_time_in_words(DateTime.now.midnight,flyer.start_date)
 flyer_time=""
-if (flyer.start_date==flyer.end_date)
+if (flyer.start_date>DateTime.now.midnight && flyer.start_date<DateTime.now.midnight+24 )
     flyer_time = "in #{words_to_start}"
+elsif (flyer.start_date==flyer.end_date)
+  flyer_time = 'today'
 elsif (flyer.start_date>DateTime.now.midnight+1 )
     flyer_time = "in #{words_to_start}"
 else
-    flyer_time = "ends in #{words_to_start}"
+    flyer_time = "now"
 end
     
 %>
@@ -33,7 +35,7 @@ end
 	</div>
 		<div class='flyer_footer' >
   		<div class='flyer_when'>
-            <%=flyer_time%>
+             <b><%=flyer.category%></b> &mdash; <%=flyer_time%>
           </div>
       <div class='flyer_posted_on'>
       			posted <%=time_ago_in_words flyer.created_at%> ago
