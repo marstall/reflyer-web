@@ -9,7 +9,7 @@ flyer_time=""
 if (flyer.start_date==flyer.end_date)
     flyer_time = "in #{words_to_start}"
 elsif (flyer.start_date>DateTime.now.midnight+1 )
-    flyer_time = "starts in #{words_to_start}"
+    flyer_time = "in #{words_to_start}"
 else
     flyer_time = "ends in #{words_to_start}"
 end
@@ -32,6 +32,12 @@ end
 		</div>
 	</div>
 		<div class='flyer_footer' >
+  		<div class='flyer_when'>
+            <%=flyer_time%>
+          </div>
+      <div class='flyer_posted_on'>
+      			posted <%=time_ago_in_words flyer.created_at%> ago
+              </div>
 		<div class='flyer_text'>
 			<%#if flyer.body and not flyer.body.empty? %>  
 				<%#=flyer.formatted_body(@metro_code,@query)%>
@@ -42,23 +48,20 @@ end
 		<span class='<%=highlight_class%>'>
 		<a href='/flyers?tags=<%=flyer.category%>'><%=flyer.category%></a> 
   </div >
-		<div class='flyer_title'>
+	<!--	<div class='flyer_title'>
+            <%=flyer.title||flyer.category%> 
         <%if flyer.score>0%>
-		<span class='flyer_editors_pick'>
-            
-        </span>
+		
         <%end%>
             
-        </div>
-		<div class='flyer_place'>
+        </div>-->
+		<!--<div class='flyer_place'>
             <%=flyer.place.name if flyer.place%>
         </div>
   		<div class='flyer_when'>
-            <%=flyer_time%></div>
+            <%=flyer_time%></div>-->
         
-<div class='flyer_posted_on'>
-			posted <%=time_ago_in_words flyer.created_at%> ago
-        </div>
+
 			<%if false # flyer.is_owner(@youser)%>
 				<a href='/flyers/post_flyer?id=<%=flyer.id%>'>edit</a>
 				<a onclick="return confirm('permanently delete this flyer?')" href='flyers/delete?id=<%=flyer.id%>'>delete</a>
