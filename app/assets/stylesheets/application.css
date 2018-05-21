@@ -8,7 +8,7 @@ line-height:1.5em	;
 	}
 
 body {
-	background-color: white;
+	background-color: #fff;
 	margin:1em;
  	color: #333;
 }
@@ -962,14 +962,14 @@ text-overflow: ellipsis;
 	margin-top:0px;
 	margin-bottom:20px;
 	background-color:transparent;
-	border:6px solid #eee;
+	/*border:6px solid #eee;*/
 	padding:4px;
 	float: left;
-	-webkit-border-radius: 10px 10px 10px 10px;
-	-moz-border-radius: 10px 10px 10px 10px;
-	-webkit-box-shadow: 10px 10px 10px #bbb;
-	-moz-box-shadow: 5px 5px 5px #bbb; 
-}
+/*  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-box-shadow: 10px 10px 10px #bbb;
+  -moz-box-shadow: 5px 5px 5px #bbb;
+*/}
 
 .straight_flyer
 {
@@ -1073,7 +1073,7 @@ text-overflow: ellipsis;
 @media screen and (min-width:415px) and (max-width:799px) {
 	.flyer
 	{
-		width:44%;
+		width:40  %;
 	}
   .flyer_hud {
     display:none;
@@ -3997,14 +3997,44 @@ h1x {
 	-moz-border-radius:5px;
 }
 
+.superheader_right_compact {
+  display:none;
+}
+
 .superheader_right {
+  display:none;
   float:right;
   margin-right:110;
-  margin-top:-4;
   padding:4;
+  margin-top:-4;
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
 }
+
+@media screen and (max-width:799px) {
+	.superheader_right
+	{
+		display:none;
+	}
+	.superheader_right_compact
+	{
+		display:none;
+	}
+}
+
+
+@media screen and (min-width:800px) {
+	.superheader_right
+	{
+		display:block;
+	}
+	.superheader_right_compact
+	{
+		display:none;
+	}
+}
+
+
 .footer_right a:link { text-decoration: none; color: #d31e09; font-weight:bold}
 .footer_right a:visited { text-decoration: none; color: #d31e09; font-weight:bold}
 .footer_right a:hover { text-decoration: underline; }
@@ -4014,6 +4044,12 @@ h1x {
 .superheader_right a:visited { text-decoration: none; color: #d31e09; font-weight:bold}
 .superheader_right a:hover { text-decoration: underline; }
 .superheader_right a:active { text-decoration: underline; }
+
+.superheader_right_compact a:link { text-decoration: none; color: #d31e09; font-weight:bold}
+.superheader_right_compact a:visited { text-decoration: none; color: #d31e09; font-weight:bold}
+.superheader_right_compact a:hover { text-decoration: underline; }
+.superheader_right_compact a:active { text-decoration: underline; }
+
 
 
 .footer {

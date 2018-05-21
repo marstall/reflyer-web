@@ -15,7 +15,6 @@ elsif (flyer.start_date>DateTime.now.midnight+1 )
 else
     flyer_time = "now"
 end
-    
 %>
 <div id="flyer_<%=flyer.id%>" flyer_id="<%=flyer.id%>" class='flyer <%=status_class%>' 
 	>

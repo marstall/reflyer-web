@@ -261,7 +261,7 @@ class Flyer < ApplicationRecord
      start=params[:start]||0
 
      select_sql = "select flyers.* from flyers"
-     order_sql= params[:order] || 'flyers.score desc,flyers.created_at desc'
+     order_sql= params[:order] || 'flyers.created_at desc'
      group_by_sql = "group by flyers.id"
      
      if tags
