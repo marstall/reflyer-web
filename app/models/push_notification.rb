@@ -83,10 +83,17 @@ class PushNotification < ActiveRecord::Base
   end
   
   def send_to_all_users
-    users = User.where.not(expo_push_token:nil).where.not(expo_push_token:"null").where(notifications_permission_state:"accepted").limit(100)
-    puts "sending push to all #{users.length} users ..."
-    @expo_push_tokens = users.map{|user|user.expo_push_token}
-    actually_send_push_notifications
+    num_users = User.where.not(expo_push_token:nil).where.not(expo_push_token:"null").where(notifications_permission_state:"accepted").count
+    puts "sending push to all #{num_users} users ..."
+    page_size=100
+    offset = 0
+    loop do 
+      users = User.where.not(expo_push_token:nil).where.not(expo_push_token:"null").where(notifications_permission_state:"accepted").limit(page_size).offset(offset)
+      puts "sending push to #{offset}-#{page_size+offset} / #{users.length} users ..."
+      @expo_push_tokens = users.map{|user|user.expo_push_token}
+      actually_send_push_notifications
+      break if offset>num_users
+    end
   end
   
   def actually_send_push_notifications
