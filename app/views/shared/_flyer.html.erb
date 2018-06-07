@@ -37,7 +37,7 @@ end
              <b><%=flyer.category%></b> &mdash; <%=flyer_time%>
           </div>
       <div class='flyer_posted_on'>
-      			posted <%=time_ago_in_words flyer.created_at-5.hours%> ago
+      			posted <%=time_ago_in_words flyer.created_at+5.hours%> ago
               </div>
 		<div class='flyer_text'>
 			<%#if flyer.body and not flyer.body.empty? %>  
