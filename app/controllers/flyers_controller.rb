@@ -195,7 +195,7 @@ class FlyersController < ApplicationController
   end
 
   def place_params
-    return {} unless params[:flyer][:place]
+    return {} #unless params[:flyer][:place]
     place_params = JSON.parse(params[:flyer][:place])
     location = place_params["location"]
     place_params = place_params.merge(location)
