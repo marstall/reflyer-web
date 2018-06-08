@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'home#home3'
   get 'home', to: 'home#home'
+  get 'email', to: 'flyers#email'
   get 'blob', to: 'flyers#blob'
   get 'flyer/:id/image/:size', to: 'flyers#image'
   get 'jpg_passthrough', to: 'flyers#jpg_passthrough'

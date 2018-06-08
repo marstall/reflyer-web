@@ -1,0 +1,21 @@
+<%
+#	@tags=params[:tags] 
+
+	@start = (params[:start]||0).to_i
+	@num = (params[:num]||@page_size).to_i
+	options = {
+	          :show_flagged=>params[:show_flagged]
+	          }
+	params = {
+	          :order=>"created_at desc",
+	          :tags=>@tags,
+			  :num=>@num
+	         }
+
+	@flyers = Flyer.all_flyers(params,options)
+%>
+	<%@flyers.each{|flyer|%>
+      <div class='flyer'>
+		  <%=render(:partial=>'shared/email_flyer',:locals=>{:flyer=>flyer})%>
+    </div>
+	<%}%>

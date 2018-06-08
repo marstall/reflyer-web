@@ -90,6 +90,11 @@ class FlyersController < ApplicationController
     
   end
   
+  def email
+    load_flyers
+    render(:layout=>'email')
+  end
+  
   def show
     @flyer = Flyer.find(params[:id])
     render(:inline=>"unrecognized id") and return unless @flyer

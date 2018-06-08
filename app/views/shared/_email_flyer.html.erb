@@ -1,0 +1,9 @@
+<div style='margin-bottom:20px' id="flyer_<%=flyer.id%>" >
+	 		<a href="http://www.reflyer.com<%=flyer_path(flyer)%>"><img border=0 src='<%=flyer.image.url(:medium)%>'  width='100%' ></a>
+    <div style='font-size:13px;font-weight:bold'>
+      <%=flyer.category%>
+      <span style='font-weight:normal;text-transform:lowercase'><%=flyer.date_string%> </span>
+    </div>
+
+    <div style='font-size:12px;color:#777'>posted by anon <%=time_ago_in_words(flyer.created_at)%> ago</div>
+</div>
