@@ -124,16 +124,16 @@ class PushNotification < ActiveRecord::Base
     self.success_count=0
     self.error_count=0
     puts response_json
-    JSON.parse(response_json)['data'].each_with_index{|item,i|
-      if item['status']=='ok'
-        self.success_count+=1
-      else
-        self.error_count+=1
-        puts "failed: #{@expo_push_tokens[i]}"
-      end
-    }
-    puts "successes: #{self.success_count}"
-    puts "failures: #{self.error_count}"
+#    JSON.parse(response_json)['data'].each_with_index{|item,i|
+#      if item['status']=='ok'
+#        self.success_count+=1
+#      else
+#        self.error_count+=1
+#        puts "failed: #{@expo_push_tokens[i]}"
+#      end
+#    }
+#    puts "successes: #{self.success_count}"
+#    puts "failures: #{self.error_count}"
     self.save
   end
 
