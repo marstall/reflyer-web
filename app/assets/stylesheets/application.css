@@ -36,6 +36,9 @@ a:active { text-decoration: underline; }
   .superheader_right {
     display:none;
   }
+  #mobile_subscribe_form {
+    opacity:1;
+  }
 	#inner_body
 	{
 		margin:0px;
@@ -1060,6 +1063,9 @@ text-overflow: ellipsis;
 
     }
 */
+    #mobile_subscribe_form {
+      opacity:1;
+    }
     .flyer 
 		{
 			width:90%;
@@ -1075,6 +1081,9 @@ text-overflow: ellipsis;
 	{
 		width:40  %;
 	}
+  #mobile_subscribe_form {
+    opacity:1;
+  }
   .flyer_hud {
     display:none;
     position:absolute;
@@ -1086,6 +1095,10 @@ text-overflow: ellipsis;
 	{
 		width:15.3%;
 	}
+  #mobile_subscribe_form {
+    opacity:0;
+  }
+  
   .flyer_hud {
     display:none;
     position:absolute;
@@ -4001,6 +4014,10 @@ h1x {
   display:none;
 }
 
+#subscribe_form {
+  float:right;
+  margin-right:110;
+}
 .superheader_right {
   display:none;
   float:right;
@@ -4028,6 +4045,9 @@ h1x {
 	{
 		display:block;
 	}
+  #mobile_subscribe_form {
+    opacity:0;
+  }
 	.superheader_right_compact
 	{
 		display:none;
