@@ -98,9 +98,9 @@ class FlyersController < ApplicationController
   def show
     @flyer = Flyer.find(params[:id])
     render(:inline=>"unrecognized id") and return unless @flyer
-    @page_title = @flyer.title
+    @page_title = @flyer.web_title
     @hide_login=true
-    render(:layout=>'minimal_layout')
+    render(:layout=>'nice_layout')
   end
   
   # route: /flyer/:id/image/:size
@@ -195,7 +195,7 @@ class FlyersController < ApplicationController
   end
 
   def flyer_params
-    params.require(:flyer).permit([:user_id,:image,:title,:buzz,:body,
+    params.require(:flyer).permit([:user_id,:featured,:image,:title,:super_title,:web_title,:email_title,:buzz,:body,
       :category,:lat,:lng, :start_date,:end_date,:score,:date_type])
   end
 

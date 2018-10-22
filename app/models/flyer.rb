@@ -73,6 +73,10 @@ class Flyer < ApplicationRecord
     buzz.gsub("\r","<br>")
   end
 
+  def formatted_body
+    body.gsub("\r","<br>")
+  end
+
   def medium_url
     image.url(:medium)
   end
@@ -256,7 +260,7 @@ class Flyer < ApplicationRecord
      user_id=params[:user_id]
      user = params[:user]
      #puts "!!! possible sql injection" and return nil if tags!=/^[a-z]$/ #sql injection
-     order=params[:order]||'flyers.created_at desc'
+     order='flyers.featured desc'
      num=params[:num]||50
      start=params[:start]||0
 

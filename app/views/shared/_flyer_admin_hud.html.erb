@@ -1,22 +1,26 @@
 <%flyer=flyer%>
 <%return unless flyer%>
-<%width||=300%>
-<div class='flyer_admin' id="flyer_admin_<%=flyer.id%>" style='width:<%=width%>px '>
+<%width=400%>
+<div class='flyer_admin' id="flyer_admin_<%=flyer.id%>" style='margin-top:10px;width:<%=width%>px '>
 <%= simple_form_for flyer, remote: true do |f|%>
 						
-<%=f.input :score, as: :hidden%>
+<!-- <%=f.input :score, as: :hidden%> -->
 <%=f.input :id, as: :hidden%>
-	<div class='flyer_id'><%=flyer.id%></div>
-  <%= f.input :title, {as: :text, placeholder:'title', label:false,input_html:{cols:38,rows:1}}%>
-  <%= f.input :buzz, {placeholder:'buzz',label:false,input_html:{cols:38,rows:1}}%>
-  <%= f.input :score, {collection:0..3}%>
-  <%= f.input :date_type, {collection:['singleDate','multipleDates','ongoing']}%>
-  <%= f.input :start_date, {as: :date, discard_time:true}%>
-  <%if flyer.date_type=='multipleDates'%>
-    <%= f.input :end_date, {as: :date, discard_time:true}%>
-  <%end%>
   
-  <%= f.button :submit %>
+<%=f.input :super_title, {placeholder:'super title',  label:false,input_html:{size:30}}%>
+<%=f.input :web_title, {placeholder:'web title',  label:false,input_html:{size:60}}%>
+<%=f.input :email_title, {placeholder:'email title',  label:false,input_html:{size:60}}%>
+<%= f.input :buzz,  {placeholder:'pre-break',  label:false,input_html:{cols:58,rows:5}}%>
+<%=f.input :body, {placeholder:'post-break',  label:false,input_html:{cols:58,rows:50}}%>
+<!-- <%= f.input :score, {collection:0..3}%> -->
+<%= f.input :date_type, {collection:['singleDate','multipleDates','ongoing']}%>
+<%= f.input :start_date, {as: :date, discard_time:true}%>
+<%if flyer.date_type=='multipleDates'%>
+  <%= f.input :end_date, {as: :date, discard_time:true}%>
+<%end%>
+  <%= f.input :featured, inline_label: 'Featured' %>
+  
+<%= f.button :submit %>
   <a href='/flyers/<%=flyer.id%>/delete'>delete</a>
-  <%end%>
+<%end%>
 </div>

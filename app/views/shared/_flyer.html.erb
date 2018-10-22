@@ -36,9 +36,13 @@ end
   		<div class='flyer_when'>
              <b><%=flyer.category%></b> &mdash; <%=flyer_time%>
           </div>
+      <%if flyer.featured?%>
+      <div style='font-weight:bold;font-family:helvetica;color:red;font-size:12'>EDITORS' PICK</div>
+      <%else%>
       <div class='flyer_posted_on'>
       			posted <%=time_ago_in_words flyer.created_at%> ago
               </div>
+      <%end%>
 		<div class='flyer_text'>
 			<%#if flyer.body and not flyer.body.empty? %>  
 				<%#=flyer.formatted_body(@metro_code,@query)%>
@@ -50,7 +54,7 @@ end
 		<a href='/flyers?tags=<%=flyer.category%>'><%=flyer.category%></a> 
   </div >
 	<!--	<div class='flyer_title'>
-            <%=flyer.title||flyer.category%> 
+            <%=flyer.web_title||flyer.category%> 
         <%if flyer.score>0%>
 		
         <%end%>
@@ -63,9 +67,11 @@ end
             <%=flyer_time%></div>-->
         
 
-			<%if false # flyer.is_owner(@youser)%>
-				<a href='/flyers/post_flyer?id=<%=flyer.id%>'>edit</a>
+	<%if current_user.try("admin?")%>
+  <div class='editDelete'>
+				<a href='/flyers/<%=flyer.id%>'>edit</a>
 				<a onclick="return confirm('permanently delete this flyer?')" href='flyers/delete?id=<%=flyer.id%>'>delete</a>
+      </div>
 			<%end%>
 
 			<%if users.size>0%>
@@ -83,9 +89,6 @@ end
 				<%end%>
 			<%end%>
 		</div>
-	<%if current_user.try("admin?")%>
-		<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:flyer=>flyer})%>
-	<%end%>
 	</div>
 	
 	<%unless @youser and @youser.id==flyer.user_id%>
