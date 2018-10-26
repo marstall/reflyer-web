@@ -30,6 +30,6 @@
 #
 
 class FlyerSerializer < ActiveModel::Serializer
-  attributes :id, :title,:buzz,:body, :original_url, :medium_url, :thumb_url,:place,:category, :age, :iso8601_start_date,:iso8601_end_date,:score
+  attributes :id, :web_title,:buzz,:body, :original_url, :medium_url, :thumb_url,:place,:category, :age, :iso8601_start_date,:iso8601_end_date,:score
   has_one :place
 end
