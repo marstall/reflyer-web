@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181022130405) do
+ActiveRecord::Schema.define(version: 20181026021242) do
 
   create_table "flyers", force: :cascade do |t|
     t.datetime "created_at"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20181022130405) do
     t.string   "web_title",           limit: 255
     t.boolean  "featured",                          default: false
     t.string   "super_title",         limit: 255
+    t.string   "title",               limit: 255
   end
 
   add_index "flyers", ["user_id"], name: "user_id", using: :btree
