@@ -11,6 +11,7 @@
 #  notifications_permission_state :string(255)
 #  email                          :string(255)      default(""), not null
 #  encrypted_password             :string(255)      default(""), not null
+#  admin                          :boolean
 #
 
 class User < ActiveRecord::Base

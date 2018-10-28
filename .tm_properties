@@ -1,0 +1,2 @@
+exclude= '{*.{log*,csv,sql,text,lock},production_logs,log,im,backups,reflyer.html}'
+

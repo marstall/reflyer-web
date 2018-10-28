@@ -68,10 +68,10 @@ end
         
 
 	<%if current_user.try("admin?")%>
-  <div class='editDelete'>
-				<a href='/flyers/<%=flyer.id%>'>edit</a>
-				<a onclick="return confirm('permanently delete this flyer?')" href='flyers/delete?id=<%=flyer.id%>'>delete</a>
-      </div>
+  <!-- <div class='editDelete'>
+        <a href='/flyers/<%=flyer.id%>'>edit</a>
+        <a onclick="return confirm('permanently delete this flyer?')" href='flyers/delete?id=<%=flyer.id%>'>delete</a>
+      </div> -->
 			<%end%>
 
 			<%if users.size>0%>

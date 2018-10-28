@@ -10,7 +10,10 @@
 <%=f.input :super_title, {placeholder:'super title',  label:false,input_html:{size:30}}%>
 <%=f.input :web_title, {placeholder:'web title',  label:false,input_html:{size:60}}%>
 <%=f.input :email_title, {placeholder:'email title',  label:false,input_html:{size:60}}%>
-<%= f.input :buzz,  {placeholder:'pre-break',  label:false,input_html:{cols:58,rows:5}}%>
+<%= f.input :url,  {placeholder:'url',  label:false,input_html:{size:60}}%>
+<%= f.input :buzz,  {placeholder:'blurb /pre-break',  label:false,input_html:{cols:58,rows:5}}%>
+<%= f.input :webSummary,  {placeholder:'summary from website',  label:false,input_html:{cols:58,rows:5}}%>
+<%= f.input :webHighlight,  {placeholder:'website highlight',  label:false,input_html:{cols:58,rows:5}}%>
 <%=f.input :body, {placeholder:'post-break',  label:false,input_html:{cols:58,rows:50}}%>
 <!-- <%= f.input :score, {collection:0..3}%> -->
 <%= f.input :date_type, {collection:['singleDate','multipleDates','ongoing']}%>

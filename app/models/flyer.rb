@@ -2,31 +2,39 @@
 #
 # Table name: flyers
 #
-#  id                 :integer          not null, primary key
-#  created_at         :datetime
-#  updated_at         :datetime
-#  user_id            :integer
-#  image_url          :string(255)
-#  flagged            :string(255)
-#  status             :string(8)
-#  image_file_name    :string(255)
-#  image_content_type :string(255)
-#  image_file_size    :integer
-#  image_updated_at   :datetime
-#  image_fingerprint  :string(64)
-#  body               :text(65535)
-#  venue_name         :string(255)
-#  category           :string(255)
-#  latlng             :integer
-#  place_id           :integer
-#  lat                :float(53)
-#  lng                :float(53)
-#  start_date         :datetime
-#  end_date           :datetime
-#  title              :string(255)
-#  buzz               :text(65535)
-#  score              :integer          default(0), not null
-#  date_type          :string(255)
+#  id                  :integer          not null, primary key
+#  created_at          :datetime
+#  updated_at          :datetime
+#  user_id             :integer
+#  image_url           :string(255)
+#  flagged             :string(255)
+#  status              :string(8)
+#  image_file_name     :string(255)
+#  image_content_type  :string(255)
+#  image_file_size     :integer
+#  image_updated_at    :datetime
+#  image_fingerprint   :string(64)
+#  body                :text(65535)
+#  venue_name          :string(255)
+#  category            :string(255)
+#  latlng              :integer
+#  place_id            :integer
+#  lat                 :float(53)
+#  lng                 :float(53)
+#  start_date          :datetime
+#  end_date            :datetime
+#  buzz                :text(65535)
+#  score               :integer          default(0), not null
+#  date_type           :string(255)
+#  last_sent_to_top_at :datetime
+#  email_title         :string(255)
+#  web_title           :string(255)
+#  featured            :boolean          default(FALSE)
+#  super_title         :string(255)
+#  title               :string(255)
+#  url                 :string(255)
+#  webSummary          :string(255)
+#  webHighlight        :string(255)
 #
 
 class Flyer < ApplicationRecord
@@ -89,6 +97,18 @@ class Flyer < ApplicationRecord
     image.url
   end
 
+  def get_host_without_www(url)
+    uri = URI.parse(url)
+    uri = URI.parse("http://#{url}") if uri.scheme.nil?
+    host = uri.host.downcase
+    host.start_with?('www.') ? host[4..-1] : host
+  end
+
+  def domain
+    return nil unless self.url
+      return self.get_host_without_www(self.url)
+  end
+  
   def age
     (Time.now.to_date - created_at.to_date).to_int
   end
@@ -260,7 +280,7 @@ class Flyer < ApplicationRecord
      user_id=params[:user_id]
      user = params[:user]
      #puts "!!! possible sql injection" and return nil if tags!=/^[a-z]$/ #sql injection
-     order='flyers.featured desc'
+     order='flyers.featured desc,flyers.created_at desc'
      num=params[:num]||50
      start=params[:start]||0
 
