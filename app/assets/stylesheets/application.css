@@ -13,7 +13,6 @@ body {
  	color: #333;
 }
 
-
 a img { border: 0; }
 a:link { text-decoration: none; color: #333; }
 a:visited { text-decoration: none; color: #333; }
@@ -26,23 +25,7 @@ a:active { text-decoration: underline; }
 	font-family:helvetica,Times, Sans-Serif;
 	font-weight: normal;
 	margin:4px;
-}
-
-@media only screen and (max-width: 400px) {
-	body {
-		margin:0px;
-		margin-right:0px;
-	}
-  .superheader_right {
-    display:none;
-  }
-  #mobile_subscribe_form {
-    opacity:1;
-  }
-	#inner_body
-	{
-		margin:0px;
-	}
+  opacity:0;
 }
 
 
@@ -1125,7 +1108,7 @@ text-overflow: ellipsis;
     }
     .flyer 
 		{
-			width:90%;
+			width:50%;
 		}
 		
 		.post_instructions
@@ -1133,11 +1116,12 @@ text-overflow: ellipsis;
 			display:none;
 		}
 }
-@media screen and (min-width:415px) and (max-width:799px) {
-	.flyer
-	{
-		width:40  %;
-	}
+
+/*@media screen and (min-width:415px) and (max-width:799px) {
+  .flyer
+  {
+    width:40  %;
+  }
   #mobile_subscribe_form {
     opacity:1;
   }
@@ -1145,7 +1129,7 @@ text-overflow: ellipsis;
     display:none;
     position:absolute;
   }
-}
+}*/
 
 @media screen and (min-width:800px) {
 	.flyer
@@ -4068,7 +4052,7 @@ h1x {
 }
 
 
-@media screen and (min-width:800px) {
+@media screen and (min-width:800) {
 	.superheader_right
 	{
 		display:block;
