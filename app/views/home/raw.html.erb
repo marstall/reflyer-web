@@ -1,0 +1,53 @@
+<div >
+<%
+	@tags=params[:tags] 
+	@tags=nil if @tags=='all'
+
+	@order=params[:order]
+	@start = (params[:start]||0).to_i
+	@page_size=@controller.page_size
+	@num = (params[:num]||@page_size).to_i
+    
+	@order = "top" if not @order
+	@controller.set_cookie(:order,@order)
+	order_hash=
+	{
+  	"score"=>"score desc,created_at desc",
+	  "created"=>"created_at desc",
+	  "popular"=>"created_at desc",
+	  "date"=>"start_date desc",
+	  "top"=>"score desc,created_at desc"
+	}
+	_order = order_hash[@order]
+
+	options = {
+	          :show_flagged=>params[:show_flagged]
+	          }
+	params = {
+	          :order=>_order,
+	          :tags=>@tags,
+			  :num=>@num
+	         }
+
+	@flyers = Flyer.all_flyers(params,options)
+%>
+	<%@flyers.each{|flyer|%>  		        
+    <%highlighted = "#{flyer.id}"==@highlighted_flyer_id%>
+    <%=render(:partial=>'shared/straight_flyer',:locals=>{:flyer=>flyer,:highlighted=>highlighted})%>
+	<%}%>
+
+<div style='clear:left'/>
+<div style='padding-left:10px;margin-top:10px;font-family:helvetica'>
+		        <%if current_user-%>
+                <span class='dheader_menu_item'>
+                  logged in as <%=current_user.email%>
+                  <%if current_user.admin?-%>
+                    (admin)
+                    <%= link_to('logout', destroy_user_session_path, method: :delete) %>        
+                    
+                  <%end%>
+		           </span>
+	           <%else%>
+<%=link_to "...", new_user_session_path%>
+               <%end%>
+</div>

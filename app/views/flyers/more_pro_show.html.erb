@@ -1,0 +1,137 @@
+<style>
+  .nodeco a:link { text-decoration: none; color: #369; }
+  .nodeco a:visited { text-decoration: none; color: #369; }
+  .nodeco a:hover { text-decoration: underline; }
+  .nodeco a:active { text-decoration: underline; }
+
+  .fullpage_flyer_super_title {
+    margin-bottom:8;
+  }
+  .fullpage_flyer_super_title_left {
+    float:left;
+    font-weight:bold;
+    text-transform:uppercase;
+  }
+
+  .fullpage_flyer_super_title_right {
+    float:right;
+    font-weight:bold;
+    color:#777;
+  }
+  .fullpage_flyer_title {
+    font-size:28px;
+    font-weight:bold;
+  }
+  .fullpage_flyer_image {
+    margin-bottom:10;
+  }
+
+  .fullpage_flyer_text
+  {
+  	font-size:16px;
+  	line-height:24px;
+    padding-top:10;
+  }
+  .fullpage_flyer_posted_on {
+    font-style:italic;
+  }
+
+
+  .fullpage_flyer_buzz
+  {
+    margin-top:5px;
+  	font-size:48px;
+  	line-height:24px;
+    margin-bottom:10px;
+  }
+
+  .fullpage_flyer_web_summary
+  {
+    margin-top:5px;
+  	font-size:24px;
+  	line-height:28px;
+    margin-bottom:10px;
+    background-color:'red';
+  }
+  .fullpage_flyer_buzz
+  {
+    margin-top:5px;
+  	font-size:18px;
+  	line-height:24px;
+    margin-bottom:10px;
+  }
+  </style>
+
+<%flyer||=@flyer%>
+<%return unless flyer and flyer.image%>	
+<%
+words_to_end = distance_of_time_in_words(DateTime.now.midnight,flyer.end_date)
+words_to_start = distance_of_time_in_words(DateTime.now.midnight,flyer.start_date)
+flyer_time=""
+if (flyer.start_date>DateTime.now.midnight && flyer.start_date<DateTime.now.midnight+24 )
+    flyer_time = "in #{words_to_start}"
+elsif (flyer.start_date==flyer.end_date)
+  flyer_time = 'today'
+elsif (flyer.start_date>DateTime.now.midnight+1 )
+    flyer_time = "in #{words_to_start}"
+else
+    flyer_time = "now"
+end
+%>
+
+		<div class='fullpage_flyer_super_title'>
+      <div class ='fullpage_flyer_super_title_left'>
+				<%=flyer.featured ? flyer.super_title: flyer.category%>
+      </div>
+      <div class='fullpage_flyer_super_title_right'>
+        Nov 9+10
+      </div>
+      <div style='clear:both'/>
+		</div>
+		<div class='fullpage_flyer_title'>
+				<%=flyer.web_title%>
+		</div>
+		<div class='fullpage_flyer_buzz'>
+			<%if flyer.buzz and not flyer.buzz.empty? %>  
+				<%=simple_format(flyer.buzz)%>
+			<%end%>
+		</div>
+		<div class='fullpage_flyer_web_buzz'>
+			<%if flyer.webSummary||flyer.webHighlight %>  
+          <span style='font-style:italic'>&ldquo;<%=flyer.webSummary%> ... <%=flyer.webHighlight%>&rdquo;</span> 
+          <div class='nodeco' style='color:#369;font-weight:bold;float:right;margin-right:20px'>
+          &mdash;&nbsp;<a href='<%=flyer.url%>'><%=flyer.domain%></a>
+        </div>
+        
+        </div>
+        </div>
+        
+			<%end%>
+		</div>
+    <div style='clear:right'>
+    <br>
+    <div class='fullpage_flyer_image'>
+      <%if flyer.url%>
+  <a href='<%=flyer.url%>'><img border=0  width=100% src='<%=flyer.image.url(:medium)%>' ></a>
+      <%else%>
+  <a href='<%=flyer.image.url%>'><img border=0  width=100% src='<%=flyer.image.url(:medium)%>' ></a>
+  <%end%>
+</div>
+<br>
+		<div class='fullpage_flyer_text'>
+			<%if flyer.body and not flyer.body.empty? %>  
+				<%=simple_format(flyer.body)%>
+			<%end%>
+		</div>
+      <div class='fullpage_flyer_posted_on'>
+      			posted <%=time_ago_in_words flyer.created_at%> ago
+              </div>
+  </div>
+    <div>website link: 
+    <span class='nodeco' style='color:#369;font-weight:bold;margin-right:20px'>
+    <a href='<%=flyer.url%>'><%=flyer.domain%></a></span>
+  </div>
+  
+	<%if current_user.try("admin?")%>
+		<%=render(:partial=>'shared/flyer_admin_hud',:locals=>{:flyer=>flyer})%>
+	<%end%>

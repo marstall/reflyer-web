@@ -1,0 +1,48 @@
+<meta name="apple-itunes-app" content="app-id=1275345342, affiliate-data=myAffiliateData, app-argument=myURL">
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <%if ENV['RAILS_ENV']!='development'%>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104147614-2"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-104147614-2');
+      </script>
+    <%end%>
+    <%if @page_title%>
+      <title><%=@page_title%></title>
+    <%else%>
+      <title>Reflyer, Boston Community + Culture - In Flyer Form</title>
+    <%end%>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application'%>
+    <%#= javascript_include_tag 'application'%>
+  </head>
+	<body >
+    <%if flash[:notice]%><div class='flash'><%=flash[:notice]%></div><%end%>
+  <div style='clear:left'></div>
+      <div class='superheader'>
+        <div class='superheader_right_compact'><a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'>iphone</a>/<a href='https://play.google.com/store/apps/details?id=com.reflyer'>android</a></div> 
+        <div class='superheader_right'>post instantly w/   <a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'>iphone</a>, <a href='https://play.google.com/store/apps/details?id=com.reflyer'>android</a> apps
+        
+        </div> 
+        <div style='superheader_left'>boston community & culture ... in flyer form. </div>
+        
+      </div>
+      <div style='clear:both'/>
+      <div id='subscribe_form' ><%=render(:partial=>'shared/subscribe_form')%></div>
+      <div style='clear:both'/>
+  </div>
+    <div style='margin-top:40px;margin-bottom:40px'>
+      <a href='/'><img style='width:325px' src='/images/reflyer.png'/></a>
+    </div>
+      <%= yield %>
+  </div>
+  
+</body>
+</html>
