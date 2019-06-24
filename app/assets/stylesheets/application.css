@@ -734,14 +734,11 @@ h3
 	text-transform:lowercase;
 	margin-top:0px;
 	font-size:24px;
-	border-bottom:0px;
-  	color:#335;
 
 }
 .fullpage_flyer_footer
 {
-  padding:4px;
-	background-color:white;
+  padding-top:4px;
   opacity:0.8;
 }
 

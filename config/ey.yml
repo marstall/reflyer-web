@@ -47,7 +47,7 @@ defaults:
   # Override the assets:precompile rake task. This option will be used instead
   # of assets:precompile in the `rake assets:precompile` command.
   #
-  precompile_assets_task: assets:precompile
+  #precompile_assets_task: assets:precompile
 
   # Asset strategies affect the way assets are stored on the server.
   #
@@ -88,13 +88,7 @@ defaults:
   # defaults if you need them.
   #
   asset_dependencies:
-  - app/assets            # default
-  #- lib/assets            # default
-  #- vendor/assets         # default
-  #- Gemfile.lock          # default
-  #- config/application.rb # default
-  #- config/routes.rb      # default
-  #- config/requirejs.yml  # example of a custom asset dependency
+  - app/assets
 
   # When true, precompiles assets even if no changes would be detected by
   # running git diff with the asset_dependencies above.

@@ -1,23 +1,16 @@
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=335294264092";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 <%flyer=@flyer%>
 
 <%return unless flyer and flyer.image%>	
 <div class='fullpage_flyer' >
   <a href='<%=flyer.image.url%>'><img border=0  width=100% src='<%=flyer.image.url(:original)%>' ></a>
   <div class='fullpage_flyer_footer'>
-    <div class='fullpage_flyer_footer_header'>
+    <div class=''>
       <span class='flyer_category'>
-        <a href='<%="/flyers?tags=#{flyer.category}"%>'><%=flyer.category%></a> 
+        <%=flyer.category%>
       </span>
       <%if flyer.title and not flyer.title.empty? %>  
-      <span class='fullpage_flyer_title'>
+      <span class=''>
         <%=flyer.title%>
       </span>
       <%end%>
@@ -26,19 +19,6 @@
       </div>
     </div>
     <div style='clear:both'></div>
-		<div class='flyer_buzz' >
-			<%if flyer.buzz and not flyer.buzz.empty? %>  
-    		<%=raw flyer.formatted_buzz%>
-        <%end%>
-    </div>
-    <div class='flyer_social'>
-			<div class="fb-like" data-send="false" data-layout="button_count" data-width="125" data-show-faces="true"></div>
-			<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    </div>
-    <div class='fullpage_send_to_top'>
-      <a rel="nofollow" href='/send2top/<%=flyer.id%>'>send to top of homepage</a>
-    </div>
   </div>
 
 
