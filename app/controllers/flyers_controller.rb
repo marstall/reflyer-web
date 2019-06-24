@@ -100,7 +100,7 @@ class FlyersController < ApplicationController
     render(:inline=>"unrecognized id") and return unless @flyer
     @page_title = @flyer.web_title
     @hide_login=true
-    render(:show,:layout=>'nice_layout')
+    render(:show,:layout=>'raw_nice_layout')
   end
   
   # route: /flyer/:id/image/:size

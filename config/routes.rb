@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  root to: 'home#home'
+  root to: 'home#raw'
   get 'email', to: 'flyers#email'
   get 'blob', to: 'flyers#blob'
   get 'flyer/:id/image/:size', to: 'flyers#image'

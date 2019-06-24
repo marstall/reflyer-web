@@ -1,0 +1,4 @@
+<%highlighted_class = highlighted ? 'highlighted_flyer' : ''%>
+<div data-id="hud_<%=flyer.id%>" class='flyer straight_flyer <%=highlighted_class%> ' id="flyer_<%=flyer.id%>" >
+	 		<a href='<%=flyer_path(flyer)%>'><img border=0 src='<%=flyer.image.url(:medium)%>'  width='100%' ></a>
+</div>
