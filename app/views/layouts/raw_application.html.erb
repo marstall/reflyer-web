@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <%if ENV['RAILS_ENV']!='development'%>
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -26,7 +27,7 @@
 	<body >
     <div class='flash'><%=flash[:notice]%></div>
     <div style='margin-top:40px;margin-bottom:40px'>
-      <a href='/'><img style='width:325px' src='/images/reflyer.png'/></a>
+      <a href='/'><img src='/images/reflyer.png'/></a>
     </div>
       <%= yield %>
   <div style='clear:left'></div>
@@ -35,6 +36,7 @@
         <div class=''>boston culture + community</div>
         <div class=''>music, film, art, performance</div>
         <div class=''>apps: <a href='https://itunes.apple.com/us/app/reflyer/id1275345342?mt=8'>iphone</a> & <a href='https://play.google.com/store/apps/details?id=com.reflyer'>android</a></div>
+      <div id='subscribe_form' ><%=render(:partial=>'shared/subscribe_form')%></div>
       </div>
   </div>
   </div>

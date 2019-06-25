@@ -1,3 +1,38 @@
+body {
+	background-color: #faa;
+	margin:1em;
+ 	color: #333;
+}
+
+@media only screen and (width: 414px) {
+    /* phones */
+		.straight_flyer
+		{
+			width:20px;
+		}
+		body: {
+			background-color: '#fff';
+		}
+}
+
+@media screen and (min-width:415px) and (max-width:799px) {
+	.straight_flyer
+	{
+		width:20%;
+
+	}
+	body: {
+		background-color: '#fff';
+	}
+}
+
+@media screen and (min-width:800px) and (max-width:1400px) {
+	.straight_flyer
+	{
+		width:30.3%;
+	}
+}
+
 img {
     image-orientation: from-image;
 }
@@ -6,12 +41,6 @@ UL
 { 
 line-height:1.5em	;	
 	}
-
-body {
-	background-color: #faa;
-	margin:1em;
- 	color: #333;
-}
 
 
 a img { border: 0; }
@@ -28,17 +57,6 @@ a:active { text-decoration: underline; }
 	margin:4px;
 }
 
-@media only screen and (max-width: 400px) {
-	body {
-		margin:0px;
-		margin-right:0px;
-	}
-
-	#inner_body
-	{
-		margin:0px;
-	}
-}
 
 
 abbr {
@@ -1001,97 +1019,7 @@ font-size:20px;
 }
 
 
-@media only screen and (max-width: 414px) {
-    /* phones */
-		.flyer 
-		{
-			width:96%;
-		}
-		
-		.post_instructions
-		{
-			display:none;
-		}
-}
-@media screen and (min-width:415px) and (max-width:799px) {
-	.flyer
-	{
-		width:44%;
-	}
-}
 
-@media screen and (min-width:800px) and (max-width:1400px) {
-	.flyer
-	{
-		width:30.3%;
-	}
-}
-
-@media screen only 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) {
-      .flyer {
-          width:97%;
-      }
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) { 
-      .flyer {
-          width:29%;
-      }
-}
-
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) { 
-      .flyer {
-          width:97%;
-      }
-}
-
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: portrait) { 
-      .flyer {
-          width:97%;
-      }
-}
-
-/*
-responsive design for flyer view
-
-breakpoint >1200: everything is 400 wide
-breakpoint 800-1200: everything is 33%
-breakpoint 400-800: everything is 50%
-breakpoint<400: everything is 100%
-*/
-
-/*
-@media screen and (min-width:1100px) and (max-width:1400px) {
-	.flyer
-	{
-		width:29%;
-	}
-}
-
-@media screen and (min-width:0px) and (max-width:740px) {
-	.flyer
-	{
-		width:400px;
-	}
-}
-*/
 
 .fullpage_flyer
 {
@@ -1100,14 +1028,6 @@ breakpoint<400: everything is 100%
 	text-transform:none;
 	padding:0px;
 	margin-bottom:20px;
-}
-
-@media only screen and (max-width: 400px) {
-    /* phones */
-		.fullpage_flyer 
-		{
-			width:100%;
-		}
 }
 
 
@@ -1249,19 +1169,6 @@ breakpoint<400: everything is 100%
 .more_info_link a:visited { text-decoration: none; color: black; }
 .more_info_link a:hover { text-decoration: underline; }
 .more_info_link a:active { text-decoration: underline; }
-
-#calndar_view
-{
-	margin-top:0px;
-	padding-top:0px;
-	margin-left:6px;
-}
-@media only screen and (max-width: 400px) {
-	#calndar_view
-	{
-		margin-left:0px;
-	}
-}
 
 #list_view
 {
@@ -3039,12 +2946,6 @@ th
 	padding:6px;
 }
 
-@media all and (max-height: 600px) {
-  .signup_footer {
-    
-    display: none;
-  }
-}
 
 .co_signup_slogan
 {
