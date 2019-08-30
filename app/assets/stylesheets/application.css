@@ -976,7 +976,7 @@ font-size:20px;
 }
 .straight_flyers {
   display: grid;
-  grid-gap: 0px;
+  grid-gap: 15px;
   grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
 }
 
@@ -1009,6 +1009,7 @@ font-size:20px;
 	}
 	.straight_flyer: {
 		width:100%;
+		margin-bottom:15px;
 	}
 }
 .highlighted_flyer
