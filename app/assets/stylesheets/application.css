@@ -1002,7 +1002,7 @@ font-size:20px;
 @media (hover: none) {
   /* behaviour for touch browsers */
 	.raw_logo: {
-		width:95%
+		width:85%
 	}
 	.straight_flyers: {
 		display:flex;
