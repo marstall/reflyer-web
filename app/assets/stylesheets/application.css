@@ -974,6 +974,9 @@ font-size:20px;
 .raw_logo {
 	width:400px;
 }
+.raw_logo img {
+	width:100%;
+}
 .straight_flyers {
   display: grid;
   grid-gap: 15px;
@@ -1002,7 +1005,7 @@ font-size:20px;
 @media (hover: none) {
   /* behaviour for touch browsers */
 	.raw_logo: {
-		width:85%
+		width:300px
 	}
 	.straight_flyers: {
 		display:flex;
