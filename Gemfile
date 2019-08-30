@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem "paperclip", "~> 5.0.0"
-gem 'mysql2'
+gem 'mysql2', "~> 0.4.10"
 gem 'simple_form'
 gem 'aws-sdk'
 gem 'awesome_print'

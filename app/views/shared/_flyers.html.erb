@@ -29,14 +29,6 @@ end
 
 <div id='result' class='error'></div>
 <div id='flyer_board'>
-<%if @flyers and not @flyers.empty?%>
-	<%@flyers.each{|flyer|%>
-		  <%already_reflyered = @reflyered_ids_hash[flyer.id] ? true : false%>
-		  <%=render(:partial=>'shared/flyer',:locals=>{:highlight_reflyer_by=>highlight_reflyer_by,:query=>@query,:flyer=>flyer,:already_reflyered=>already_reflyered})%>
-	<%}%>
-<%else%>
-	<!--no flyers found in this category.-->
-<%end%>
 </div>
 <!--
 <div id='navigation' class='show_on_load'>

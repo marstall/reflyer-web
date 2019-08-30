@@ -33,9 +33,6 @@
 							:params=>params+{:metro_code=>@metro_code,:offset=>@offset,:days_to_show=>@days_to_show})%>
           <%else%>
             <%cookies['calndar_view']=='flyers'%>
-	           <%=render("flyers_partial",
-							:params=>params.merge({:offset=>@offset,:days_to_show=>@days_to_show,:tags=>@tags}))%>
-		  <%end%>
     		</div>
        
           <%if not params[:bare]%>

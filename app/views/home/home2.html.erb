@@ -1,4 +1,5 @@
-<div >
+
+<div class='straight_flyers'>
 <%
 	@tags=params[:tags] 
 	@tags=nil if @tags=='all'
@@ -31,10 +32,6 @@
 
 	@flyers = Flyer.all_flyers(params,options)
 %>
-	<%@flyers.each{|flyer|%>  		        
-    <%highlighted = "#{flyer.id}"==@highlighted_flyer_id%>
-    <%=render(:partial=>'shared/straight_flyer',:locals=>{:flyer=>flyer,:highlighted=>highlighted})%>
-	<%}%>
 </div>
 
 <script>
